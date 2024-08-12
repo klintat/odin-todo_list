@@ -6,15 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <header>
-      <nav>
-       
-      </nav>
-    </header>
-    <div id="content">
+    <div id="layout__container">
+      <div id="sidebar__container">
+        <h1 id="app__logo">GoalApp</h1>
+        <aside id="sidebar">
+          <button class="btn">All tasks</button>
+          <button class="btn">Today</button>
+          <button class="btn">This week</button>
+          <button class="btn">Overdue</button>
+          <h2 id="my__projects">My projects</h2>
+          <button class="btn">Trip</button>
+          <button class="btn">Running</button>
+        </aside>
+      </div>
+      <div id="main__container">
+        <h1 id="display__tasks">Tasks</h1>
+      </div>
+      <div id="notes__container">
+        <h2 id="notes__heading">Notes</h2>
+        <button id="btn__new__note">+ New note</button>
+        <div id="new__note__container">
+          <div class="new__note"></div>
+          <div class="new__note"></div>
+          <div class="new__note"></div>
+        </div>
+      </div>
     </div>
-    <footer>
-      
-    </footer>
   </body>
 </html>

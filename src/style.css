@@ -1,0 +1,132 @@
+:root {
+    --bg-Color: #0c0e22;
+    --layout-Bg-Color: #2b2f42;
+    --logo-Color: rgb(221, 158, 22);
+    --text-color: white;
+}
+
+
+/* Layout style */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background-color: var(--bg-Color);
+}
+
+body {
+    color: var(--text-color);
+}
+
+#layout__container {
+    width: 120rem;
+    height: 67.5rem;
+    margin: 5rem auto;
+    display: grid;
+    grid-template-columns: 2.5fr 10fr 3fr;
+    padding: 1rem;
+    background-color: var(--bg-Color);
+    gap: 1rem;
+}
+
+/* Sidebar layout */
+
+#sidebar__container, #main__container, #notes__container {
+    border-radius: 1rem;
+    background-color: var(--layout-Bg-Color);
+    padding: 2.5rem;
+}
+
+/* #sidebar__container {
+    padding: 2.5rem;
+} */
+
+#app__logo {
+    color: var(--logo-Color);
+}
+
+#sidebar {
+    display: flex;
+    height: 12.5rem; 
+    flex-direction: column;
+    justify-content: space-between;
+    text-align-last: left;
+    margin-top: 2.5rem;
+    gap: 0.5rem;
+}
+
+.btn {
+    width: 6rem;
+    background: transparent;
+    cursor: pointer;
+    border: none;
+    color: var(--text-color);
+}
+
+#my__projects {
+    margin: 0.75rem 0 0 0;
+}
+
+/* Main content layout */
+
+/* Note content layout */
+
+#notes__container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#btn__new__note {
+    width: 50%;
+    background: transparent;
+    cursor: pointer;
+    border: none;
+    color: var(--text-color);
+    align-self: center;
+    margin: 0.5rem 0;
+    padding: 0.5rem 1rem;
+}
+
+#btn__new__note:hover {
+    background-color: var(--logo-Color);
+    transition: 0.5s;
+}
+
+#new__note__container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 0.5rem;
+}
+
+.new__note {
+    width: 100%;
+    height: 10rem;
+    background-color: var(--bg-Color);
+    border-radius: 0.5rem;
+}
+
+/* Modal */
+
+.modal {
+    top: 0%;
+    left: 0%;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal__content {
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    height: 500px;
+    background: white;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
