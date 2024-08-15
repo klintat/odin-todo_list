@@ -6,29 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <div id="layout__container">
-      <div id="sidebar__container">
-        <h1 id="app__logo">GoalApp</h1>
+    <div id="layout-container">
+      <div id="sidebar-container">
+        <h1 id="app-logo">GoalApp</h1>
         <aside id="sidebar">
           <button class="btn">All tasks</button>
           <button class="btn">Today</button>
           <button class="btn">This week</button>
           <button class="btn">Overdue</button>
-          <h2 id="my__projects">My projects</h2>
+          <h2 id="my-projects">My projects</h2>
           <button class="btn">Trip</button>
           <button class="btn">Running</button>
         </aside>
       </div>
-      <div id="main__container">
-        <h1 id="display__tasks">Tasks</h1>
+      <div id="main-container">
+        <h1 id="display-tasks">Tasks</h1>
       </div>
-      <div id="notes__container">
-        <h2 id="notes__heading">Notes</h2>
-        <button id="btn__new__note">+ New note</button>
-        <div id="new__note__container">
-          <div class="new__note"></div>
-          <div class="new__note"></div>
-          <div class="new__note"></div>
+      <div id="notes-container">
+        <h2 id="notes-heading">Notes</h2>
+        <button id="new-note-btn">+ New note</button>
+        <!-- Modal to create new note -->
+        <div id="note-modal-overlay" class="note-modal-hide">
+          <div class="note-modal-container">
+            <div class="close-btn-container">
+              <button class="close-modal-btn">X</button>
+            </div>
+            <form id="modal-content">
+                <h1 class="add-note-title">Add note</h1>
+                <textarea id="note-text" class="user-input" placeholder="Note text" required></textarea>
+                <div class="modal-action">
+                  <button id="save-note-btn" type="submit">Save Note</button>
+                </div>
+            </form>
+          </div>
+        </div>
+        <!--  -->
+        <div id="all-note-container">
+          <div class="new-note"></div>
+          <div class="new-note"></div>
+          <div class="new-note"></div>
         </div>
       </div>
     </div>
