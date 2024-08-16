@@ -108,6 +108,7 @@ body {
     height: 10rem;
     background-color: var(--bg-Color);
     border-radius: 0.5rem;
+    list-style: none;
 }
 
 /* Notes modal */
