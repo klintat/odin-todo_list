@@ -24,14 +24,14 @@
       </div>
       <div id="notes-container">
         <h2 id="notes-heading">Notes</h2>
-        <button id="new-note-btn">+ New note</button>
+        <button class="add-note-btn">+ New note</button>
         <!-- Modal to create new note -->
-        <div id="note-modal-overlay" class="note-modal-hide">
+        <dialog id="note-dialog">
           <div class="note-modal-container">
             <div class="close-btn-container">
-              <button class="close-modal-btn">X</button>
+              <button class="close-note-modal-btn" formmethod="dialog">X</button>
             </div>
-            <form id="modal-content">
+            <form method="dialog">
                 <h1 class="add-note-title">Add note</h1>
                 <textarea id="note-text" class="user-input" placeholder="Note text" required></textarea>
                 <div class="modal-action">
@@ -39,7 +39,7 @@
                 </div>
             </form>
           </div>
-        </div>
+        </dialog>          
         <!--  -->
         <div id="all-note-container">
         </div>

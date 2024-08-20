@@ -1,10 +1,9 @@
 :root {
-    --bg-Color: #0c0e22;
-    --layout-Bg-Color: #2b2f42;
+    --bg-Color: #0F2027;
+    --layout-Bg-Color: #2C5364;
     --logo-Color: rgb(221, 158, 22);
     --text-color: white;
 }
-
 
 /* Layout style */
 * {
@@ -80,7 +79,7 @@ body {
     height: 100%;
 }
 
-#new-note-btn {
+.add-note-btn {
     width: 50%;
     background: transparent;
     cursor: pointer;
@@ -91,9 +90,13 @@ body {
     padding: 0.5rem 1rem;
 }
 
-#new-note-btn:hover {
+.add-note-btn:hover {
     background-color: var(--logo-Color);
     transition: 0.5s;
+}
+
+.add-note-btn:active {
+   transform: scale(0.9); 
 }
 
 #all-note-container {
@@ -112,50 +115,46 @@ body {
 }
 
 /* Notes modal */
-
-#note-modal-overlay {
-    background: rgba(0, 0, 0, 0.7);
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
 }
 
 .note-modal-container {
     width: 600px;
     height: 300px;
-    background: rgb(40, 40, 117);
+    padding: 0.5rem;
+    background: #2c5364;
     position: fixed;
     border-radius: 16px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    box-shadow: 0 0 24px rgba(175, 255, 255, 0.881);
 }
 
 .close-btn-container {
     display: flex;
 }
 
-.close-modal-btn {
-    padding: 8px;
+.close-note-modal-btn {
+    padding: 0.5rem;
     background: var(--logo-Color);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 15px;
-    color: black;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.895);
     border-style: none;
     border-radius: 8px;
-    font-weight: 5px;
+    font-weight: bold;
     margin-left: auto;
     margin-top: 10px;
     margin-right: 10px;
     cursor: pointer;
 }
 
-.close-modal-btn:hover {
-    background-color: rgba(221, 158, 22, 0.775);
+.close-note-modal-btn:hover {
+    background-color: rgba(221, 158, 22, 0.8);
+    transition: 0.5ms;
 }
 
 #modal-content {
@@ -175,11 +174,16 @@ body {
 #note-text {
     width: 100%;
     height: 60px;
-    background-color: rgb(27, 21, 68);
-    color: white;
+    background-color: #a7cdde;
+    color: rgb(0, 0, 0);
     border-style: none;
     border-radius: 8px;
     padding: 10px;
+}
+
+#note-text:hover {
+    background-color: rgba(167, 205, 222, 0.8);
+    transition: 0.5ms;
 }
 
 .modal-action {
@@ -188,16 +192,14 @@ body {
 
 #save-note-btn {
     border-style: none;
+    font-weight: bold;
     padding: 8px 16px;
     border-radius: 8px;
     background-color: var(--logo-Color);
     cursor: pointer;
+    color: rgba(255, 255, 255, 0.895);
 }
 
 #save-note-btn:hover {
-    background-color: rgba(221, 158, 22, 0.775);
-}
-
-.note-modal-hide {
-    display: none;
+    background-color: rgba(221, 158, 22, 0.8);
 }
