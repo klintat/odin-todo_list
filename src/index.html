@@ -19,9 +19,50 @@
           <button class="btn">Running</button>
         </aside>
       </div>
-      <div id="main-container">
-        <h1 id="display-tasks">Tasks</h1>
+      <!-- Main container to display tasks -->
+      <div id="task-container">
+        <div id="task-title">
+          <h1>Tasks</h1>
+          <button id="add-task-btn">+ Add task</button>
+        </div>
+        <div class="task-header task-list">
+          <div class="task">
+            <span>Prio</span>
+            <span>Done</span>
+            <span class="task-name">Task Name</span>
+            <span>Due By</span>
+            <span>Edit</span>
+            <span>Delete</span>
+          </div>
+        </div>
+        <div class="task-list">
+          <div class="task">
+            <span class="dot dot-green"></span>
+            <span><input type="checkbox" id="task-done" name="task-done"/></span>
+            <span class="task-name">Work out, make bed, eat</span>
+            <span>20-Aug-2024</span>
+            <button class="edit-task">Edit</button>
+            <button class="delete-task">Delete</button>
+          </div>
+          <div class="task">
+            <span class="dot dot-yellow"></span>
+            <span><input type="checkbox" id="task-done" name="task-done"/></span>
+            <span class="task-name">Work out, make bed, eat</span>
+            <span>20-Aug-2024</span>
+            <button class="edit-task">Edit</button>
+            <button class="delete-task">Delete</button>
+          </div>
+          <div class="task">
+            <span class="dot dot-red"></span>
+            <span><input type="checkbox" id="task-done" name="task-done"/></span>
+            <span class="task-name">Work out, make bed, eat</span>
+            <span>20-Aug-2024</span>
+            <button class="edit-task">Edit</button>
+            <button class="delete-task">Delete</button>
+          </div>
+        </div>
       </div>
+      <!-- Notes content -->
       <div id="notes-container">
         <h2 id="notes-heading">Notes</h2>
         <button class="add-note-btn">+ New note</button>
@@ -44,6 +85,7 @@
         <div id="all-note-container">
         </div>
       </div>
+      <!-- End of notes content -->
     </div>
   </body>
 </html>

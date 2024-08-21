@@ -33,7 +33,7 @@ body {
 
 /* Sidebar layout */
 
-#sidebar-container, #main-container, #notes-container {
+#sidebar-container, #task-container, #notes-container {
     border-radius: 1rem;
     background-color: var(--layout-Bg-Color);
     padding: 2.5rem;
@@ -45,6 +45,7 @@ body {
 
 #app-logo {
     color: var(--logo-Color);
+    margin-bottom: 2.5rem;
 }
 
 #sidebar {
@@ -53,7 +54,6 @@ body {
     flex-direction: column;
     justify-content: space-between;
     text-align-last: left;
-    margin-top: 2.5rem;
     gap: 0.5rem;
 }
 
@@ -202,4 +202,109 @@ dialog::backdrop {
 
 #save-note-btn:hover {
     background-color: rgba(221, 158, 22, 0.8);
+}
+
+/* Task layout */
+#task-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#add-task-btn {
+    width: 16rem;
+    height: 2rem;
+    border-radius: 16px;
+    border-style: none;
+    cursor: pointer;
+}
+
+#add-task-btn:hover {
+    background-color: var(--logo-Color);
+    transition: 0.4s;
+    box-shadow: 0 0 16px white;
+    color: white;
+}
+
+#add-task-btn:active {
+   transform: scale(0.9); 
+}
+
+/* Task table */
+#task-title {
+    margin-bottom: 2.5rem;
+}
+
+.task-header {
+    background: var(--bg-Color);
+    font-size: 18px;
+    border-radius: 16px;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 7px;
+}
+
+.task {
+    height: 56px; 
+    display: grid;
+    grid-template-columns: 1fr 1fr 14fr 2.5fr 1.5fr 1.5fr;
+    gap: 8px;
+    align-content: center;
+    justify-items: center;
+    padding: 14px;
+}
+
+.task-name {
+    justify-self: left;
+}
+
+.dot {
+    height: 21px;
+    width: 21px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.dot-green {
+    background-color: #0cbf66;
+}
+
+.dot-yellow {
+    background-color: #df9920;
+}
+
+.dot-red {
+    background-color: #b31d1d;
+}
+
+#task-done {
+    height: 21px;
+    width: 21px;
+}
+
+.edit-task {
+    background-image: url('../src/assets/create-outline.svg');
+    background-color: transparent !important;
+    color: transparent;
+    width: 42px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-task {
+    background-image: url('../src/assets/trash-outline.svg');
+    background-color: transparent !important;
+    color: transparent;
+    width: 42px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    border: none;
+    cursor: pointer;
 }
