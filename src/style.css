@@ -3,6 +3,9 @@
     --layout-Bg-Color: #2C5364;
     --logo-Color: rgb(221, 158, 22);
     --text-color: white;
+    --prio-green: #0cbf66;
+    --prio-yellow: #df9920;
+    --prio-red: #b31d1d;
 }
 
 /* Layout style */
@@ -135,10 +138,12 @@ dialog::backdrop {
 
 .close-btn-container {
     display: flex;
+    justify-content: right;
+    margin: 8px;
 }
 
 .close-note-modal-btn {
-    padding: 0.5rem;
+    padding: 4px 8px;
     background: var(--logo-Color);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 1rem;
@@ -146,9 +151,6 @@ dialog::backdrop {
     border-style: none;
     border-radius: 8px;
     font-weight: bold;
-    margin-left: auto;
-    margin-top: 10px;
-    margin-right: 10px;
     cursor: pointer;
 }
 
@@ -157,7 +159,7 @@ dialog::backdrop {
     transition: 0.5ms;
 }
 
-#modal-content {
+#note-modal-content {
     display: flex;
     flex-direction: column;
     margin: 20px auto;
@@ -204,6 +206,127 @@ dialog::backdrop {
     background-color: rgba(221, 158, 22, 0.8);
 }
 
+/* Task modal */
+.task-modal-container {
+    width: 600px;
+    height: auto;
+    padding: 0.5rem;
+    background: #2c5364;
+    position: fixed;
+    border-radius: 16px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 24px rgba(175, 255, 255, 0.881);
+}
+
+#close-task-modal-btn {
+    padding: 4px 8px;
+    background: var(--logo-Color);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.895);
+    border-style: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-task-list-btn-container {
+    display: flex;
+    justify-content: right;
+    margin: 8px;
+}
+
+.close-task-modal-btn:hover {
+    background-color: rgba(221, 158, 22, 0.8);
+    transition: 0.5ms;
+}
+
+.add-task-title {
+    text-align: center;
+}
+
+#task-modal-content {
+    display: grid;
+    margin: 20px auto;
+    max-width: 510px;
+    width: 100%;
+    font-size: 18px;
+    gap: 24px;
+    color: white;
+}
+
+.task-input {
+
+}
+
+.task-date, .task-prio, .task-project {
+    justify-self: center;
+}
+
+.task-prio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.task-project {
+
+}
+
+.prio-radio-container {
+    display: flex;
+    gap: 12px;
+}
+
+.prio-span {
+    font-size: 16px;
+    color: white;
+    padding: 4px 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 2px solid;
+}
+
+.prio-radio > input {
+    display: none;
+}
+
+.prio-radio:hover  {
+    box-shadow: 0 0 4px transparent;
+    transition: 0.4s;
+    transform: scale(0.9); 
+}
+
+.prio-low:hover {
+    color: var(--prio-green);
+}
+
+.prio-medium:hover {
+    color: var(--prio-yellow);
+}
+
+.prio-high:hover {
+    color: var(--prio-red);
+}
+
+input:checked + .prio-low {
+    color: var(--prio-green);
+    border: 3px solid var(--prio-green);
+}
+
+input:checked + .prio-medium {
+    color: var(--prio-yellow);
+    border: 3px solid var(--prio-yellow);
+}
+
+input:checked + .prio-high {
+    color: var(--prio-red);
+    border: 3px solid var(--prio-red);
+}
+
 /* Task layout */
 #task-title {
     display: flex;
@@ -228,6 +351,40 @@ dialog::backdrop {
 
 #add-task-btn:active {
    transform: scale(0.9); 
+}
+
+.add-task-title {
+    color: var(--text-color);
+    font-size: 32px;
+}
+
+#task-text {
+    width: 100%;
+    height: 60px;
+    background-color: #a7cdde;
+    color: rgb(0, 0, 0);
+    border-style: none;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+#task-text:hover {
+    background-color: rgba(167, 205, 222, 0.8);
+    transition: 0.5ms;
+}
+
+#save-task-btn {
+    border-style: none;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background-color: var(--logo-Color);
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.895);
+}
+
+#save-task-btn:hover {
+    background-color: rgba(221, 158, 22, 0.8);
 }
 
 /* Task table */
@@ -256,6 +413,14 @@ dialog::backdrop {
     align-content: center;
     justify-items: center;
     padding: 14px;
+}
+
+.task-list > .task {
+    border-bottom: 1px solid rgba(221, 158, 22, 0.5);
+}
+
+.task-list > .task:last-child {
+    border-radius: 8px;
 }
 
 .task-name {

@@ -25,7 +25,7 @@
           <h1>Tasks</h1>
           <button id="add-task-btn">+ Add task</button>
         </div>
-        <div class="task-header task-list">
+        <div class="task-header">
           <div class="task">
             <span>Prio</span>
             <span>Done</span>
@@ -62,6 +62,42 @@
           </div>
         </div>
       </div>
+      <!-- Task modal -->
+      <dialog id="task-dialog">
+        <div class="task-modal-container">
+          <div class="close-task-list-btn-container">
+            <button id="close-task-modal-btn" formmethod="dialog">X</button>
+          </div>
+          <h1 class="add-task-title">Add task</h1>
+          <form method="dialog" id="task-modal-content">
+            <div class="task-content task-input">
+              <textarea id="task-text" class="user-input-task" placeholder="Enter your task..." required></textarea>
+            </div>
+            <div class="task-content task-date">
+              <label for="start">Task date:</label>
+              <input type="date" id="task-date" name="task-start" />
+            </div>
+            <div class="task-content task-prio">
+              <label for="prio">Task priority:</label>
+              <div class="prio-radio-container">
+                <label class="prio-radio"><input type="radio" id="prio-low" name="task-priority" value="low" checked><span class="prio-span prio-low">Low</span></label>
+                <label class="prio-radio"><input type="radio" id="prio-medium" name="task-priority" value="medium"><span class="prio-span prio-medium">Medium</span></label>
+                <label class="prio-radio"><input type="radio" id="prio-high" name="task-priority" value="high"><span class="prio-span prio-high">High</span></label>
+              </div>
+            </div>
+            <div class="task-content task-project">
+              <label for="project">Project:</label>
+              <select name="project" id="project">
+                <option value="task">Task</option>
+                <option value="task">Projects</option>
+              </select>
+            </div>
+            <div class="modal-action">
+              <button id="save-task-btn" type="submit">Save</button>
+            </div>
+        </form>
+        </div>
+      </dialog>
       <!-- Notes content -->
       <div id="notes-container">
         <h2 id="notes-heading">Notes</h2>
@@ -72,7 +108,7 @@
             <div class="close-btn-container">
               <button class="close-note-modal-btn" formmethod="dialog">X</button>
             </div>
-            <form method="dialog">
+            <form method="dialog" id="note-modal-content">
                 <h1 class="add-note-title">Add note</h1>
                 <textarea id="note-text" class="user-input" placeholder="Note text" required></textarea>
                 <div class="modal-action">

@@ -1,12 +1,12 @@
 function noteModal() {
     let noteDialog = document.getElementById("note-dialog");
-    let addNoteModal = document.querySelector(".add-note-btn");
+    let openNoteModal = document.querySelector(".add-note-btn");
     let closeNoteModal = document.querySelector(".close-note-modal-btn");
     const saveNoteBtn = document.getElementById("save-note-btn");
 
     document.addEventListener("DOMContentLoaded", loadNotes);
     document.addEventListener("DOMContentLoaded", () => {
-        addNoteModal.addEventListener("click", () => {
+        openNoteModal.addEventListener("click", () => {
             noteDialog.showModal();
         });
     })
@@ -21,7 +21,7 @@ function noteModal() {
         if(note) {
             addNote(note);
             saveNote(note);
-            document.getElementById("note-dialog").close();
+            noteDialog.close();
             noteText.value = "";
         }
     });
