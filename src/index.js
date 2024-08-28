@@ -91,10 +91,8 @@ function addToList(newTask) {
 }
 
 function saveTask(newTask) {
-    //const allTasks =  JSON.parse(localStorage.getItem("task")) || [];
     const allTasks = getTasks();
     allTasks.push(newTask);
-    //localStorage.setItem("task", JSON.stringify(allTasks));
     setTasks(allTasks);
 }
 
