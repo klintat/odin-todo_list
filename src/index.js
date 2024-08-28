@@ -12,6 +12,7 @@ function setDateValue() {
 noteModal();
 taskModal();
 setDateValue();
+addTask();
 
 class Task {
     constructor(text, date, prio, project) {
@@ -22,9 +23,8 @@ class Task {
     }
 
     getAsRow() {
-        //const taskList = document.querySelector("task-list");
         const task = document.createElement("div");
-        task.classList.add("task");
+        task.classList.add("task", "new-task");
 
         const dotClassMap = {
             low: "dot-green",
@@ -67,26 +67,41 @@ class Task {
     }
 };
 
-const saveBtn = document.getElementById("save-task-btn");
-saveBtn.addEventListener("click", () => {
-    const taskText = document.getElementById("task-text").value;
-    const taskDate = document.getElementById("task-date").value;
-    const taskPrio = ["prio-low", "prio-medium", "prio-high"].map((id) => {
-        return document.getElementById(id);
-    }).find((element) => {
-        return element.checked;
-    }).value;
+function addTask() {
+    const saveBtn = document.getElementById("save-task-btn");
+    saveBtn.addEventListener("click", () => {
+        const taskText = document.getElementById("task-text").value;
+        const taskDate = document.getElementById("task-date").value;
+        const taskPrio = ["prio-low", "prio-medium", "prio-high"].map((id) => {
+            return document.getElementById(id);
+        }).find((element) => {
+            return element.checked;
+        }).value;
+    
+        let newTask = new Task(taskText, taskDate, taskPrio, "task");
 
-    let task = new Task(taskText, taskDate, taskPrio, "task");
-    console.log(task);
-    addToList(task);
+        addToList(newTask);
+        saveTask(newTask);
+    })
+}
 
-})
-
-// let firstTask = new Task ('Work out', '23-08-2024', 'low', 'task');
-// console.log(firstTask);
-
-function addToList(task) {
+function addToList(newTask) {
     const taskList = document.querySelector(".task-list");
-    taskList.appendChild(task.getAsRow());
+    taskList.appendChild(newTask.getAsRow());
+}
+
+function saveTask(newTask) {
+    //const allTasks =  JSON.parse(localStorage.getItem("task")) || [];
+    const allTasks = getTasks();
+    allTasks.push(newTask);
+    //localStorage.setItem("task", JSON.stringify(allTasks));
+    setTasks(allTasks);
+}
+
+function getTasks() {
+    return JSON.parse(localStorage.getItem("task")) || [];
+}
+
+function setTasks(tasks) {
+    localStorage.setItem("task", JSON.stringify(tasks));
 }

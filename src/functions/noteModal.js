@@ -14,7 +14,7 @@ function noteModal() {
     closeNoteModal.addEventListener("click", () => {
         noteDialog.close();
     });
-33
+
     saveNoteBtn.addEventListener("click", function() {
         const noteText = document.getElementById("note-text");
         const note = noteText.value;
@@ -60,8 +60,8 @@ function noteModal() {
         notes.forEach(function (noteObj) {
             addNote(noteObj.note);
             if(noteObj.completed){
-                const noteItems = document.querySelectorAll('li');
-                noteItems[noteItems.lenght - 1].style.textDecoration = 
+                const noteItems = document.querySelectorAll(".new-note");
+                noteItems[noteItems.length - 1].style.textDecoration = 
                 'line-through'
             }
         }); 
