@@ -97,9 +97,21 @@ function saveTask(newTask) {
 }
 
 function getTasks() {
-    return JSON.parse(localStorage.getItem("task")) || [];
+    return (JSON.parse(localStorage.getItem("task")) || []).map(task => {
+        return new Task(task.text, task.date, task.prio, task.project);
+    });
 }
 
 function setTasks(tasks) {
     localStorage.setItem("task", JSON.stringify(tasks));
 }
+
+function loadTasks() {
+    getTasks().forEach(function(task) {
+        addToList(task)
+    })
+}
+
+
+
+document.addEventListener("DOMContentLoaded", loadTasks);
