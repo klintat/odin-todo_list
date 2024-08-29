@@ -14,8 +14,10 @@ taskModal();
 setDateValue();
 addTask();
 
+document.addEventListener("DOMContentLoaded", loadTasks);
 class Task {
-    constructor(text, date, prio, project) {
+    constructor(id, text, date, prio, project) {
+        this.id = id
         this.text = text;
         this.date = date;
         this.prio = prio;
@@ -54,6 +56,9 @@ class Task {
 
         const deleteBtn = document.createElement("button");
         deleteBtn.classList.add("delete-task");
+        deleteBtn.addEventListener("click", deleteTasks);
+        deleteBtn.dataset.id = this.id;
+
 
         task.appendChild(prioDot);
         task.appendChild(checkTask);
@@ -77,12 +82,24 @@ function addTask() {
         }).find((element) => {
             return element.checked;
         }).value;
+        let id;
     
-        let newTask = new Task(taskText, taskDate, taskPrio, "task");
+        do {
+            id = Math.floor(Math.random() * 10000);
+        } while(isIdNotUnique(id))
 
-        addToList(newTask);
+
+        let newTask = new Task(id, taskText, taskDate, taskPrio, "task");
+
         saveTask(newTask);
+        loadTasks();
     })
+}
+
+function isIdNotUnique(id) {
+    return getTasks().map(task => {
+        return task.id;
+    }).includes(id);
 }
 
 function addToList(newTask) {
@@ -98,7 +115,7 @@ function saveTask(newTask) {
 
 function getTasks() {
     return (JSON.parse(localStorage.getItem("task")) || []).map(task => {
-        return new Task(task.text, task.date, task.prio, task.project);
+        return new Task(task.id, task.text, task.date, task.prio, task.project);
     });
 }
 
@@ -107,11 +124,22 @@ function setTasks(tasks) {
 }
 
 function loadTasks() {
+    const taskList = document.querySelector(".task-list");
+    taskList.replaceChildren([]);
     getTasks().forEach(function(task) {
         addToList(task)
     })
 }
 
+function deleteTasks(e) {
+    const idToRemove = e.srcElement.dataset.id;
+    const allTasks = getTasks();
+    const indexToRemove = allTasks.findIndex(task => {
+        return task.id === idToRemove;
+    })
+    allTasks.splice(indexToRemove, 1);
+    setTasks(allTasks);
+    loadTasks();
+}
 
-
-document.addEventListener("DOMContentLoaded", loadTasks);
+console.log(getTasks())
