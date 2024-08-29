@@ -41,7 +41,7 @@ class Task {
         checkBoxInput.type = "checkbox";
         checkBoxInput.name = "name";
         checkBoxInput.value = "value";
-        checkBoxInput.id = "task-done";
+        checkBoxInput.className = "task-done";
 
         const taskText = document.createElement("span");
         taskText.innerHTML = this.text;
@@ -77,22 +77,32 @@ function addTask() {
     saveBtn.addEventListener("click", () => {
         const taskText = document.getElementById("task-text").value;
         const taskDate = document.getElementById("task-date").value;
-        const taskPrio = ["prio-low", "prio-medium", "prio-high"].map((id) => {
+        const taskPrio = ["prio", "prio-medium", "prio-high"].map((id) => {
             return document.getElementById(id);
         }).find((element) => {
             return element.checked;
         }).value;
+
         let id;
     
         do {
             id = Math.floor(Math.random() * 10000);
         } while(isIdNotUnique(id))
 
-
         let newTask = new Task(id, taskText, taskDate, taskPrio, "task");
 
         saveTask(newTask);
         loadTasks();
+        clearForm()
+    })
+}
+
+function clearForm() {
+    const resetForm = document.getElementById("task-modal-content");
+    resetForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        resetForm.reset();
+        document.getElementById("task-dialog").close();
     })
 }
 
@@ -141,5 +151,3 @@ function deleteTasks(e) {
     setTasks(allTasks);
     loadTasks();
 }
-
-console.log(getTasks())

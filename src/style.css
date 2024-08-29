@@ -445,7 +445,7 @@ input:checked + .prio-high {
     background-color: #b31d1d;
 }
 
-#task-done {
+.task-done {
     height: 21px;
     width: 21px;
 }
