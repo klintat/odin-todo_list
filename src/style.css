@@ -110,11 +110,42 @@ body {
 }
 
 .new-note {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    grid-template-rows: 2fr 2fr 1fr;
+    padding: 16px 5px 10px 16px;
     width: 100%;
     height: 10rem;
     background-color: var(--bg-Color);
     border-radius: 0.5rem;
     list-style: none;
+}
+.edit-note-btn {
+    background-image: url("../src/assets/edit-note.png");
+    background-color: transparent !important;
+    color: transparent;
+    width: 24px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-note-btn {
+    grid-column: 2/3;
+    background-image: url("../src/assets/delete-note.png");
+    background-color: transparent !important;
+    color: transparent;
+    width: 20px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+}
+
+.note-date {
+    grid-column: 1/3;
+    color: gray;
 }
 
 /* Notes modal */

@@ -36,19 +36,19 @@ function noteModal() {
 
         const editNoteBtn = document.createElement("button");
         editNoteBtn.textContent = "Edit";
-        editNoteBtn.className = "editNoteBtn";
+        editNoteBtn.className = "edit-note-btn";
         const deleteNoteBtn = document.createElement("button");
         deleteNoteBtn.textContent = "Delete";
-        deleteNoteBtn.className = "deleteNote";
+        deleteNoteBtn.className = "delete-note-btn";
         deleteNoteBtn.addEventListener("click", function(){
             noteList.removeChild(noteDiv);
             deleteNotes(note);
         });
 
         const noteDate = document.createElement("div");
-        noteDate.className = "noteDate";
+        noteDate.className = "note-date";
         const dateFormat = format(new Date(), "PPPP");
-        noteDate.textContent = `Note added: ` + dateFormat;
+        noteDate.textContent = `Date: ` + dateFormat;
 
         noteDiv.appendChild(editNoteBtn);
         noteDiv.appendChild(deleteNoteBtn);
