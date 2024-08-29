@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 function noteModal() {
     let noteDialog = document.getElementById("note-dialog");
     let openNoteModal = document.querySelector(".add-note-btn");
@@ -32,14 +34,25 @@ function noteModal() {
         noteDiv.classList.add("new-note");
         noteDiv.textContent = note;
 
+        const editNoteBtn = document.createElement("button");
+        editNoteBtn.textContent = "Edit";
+        editNoteBtn.className = "editNoteBtn";
         const deleteNoteBtn = document.createElement("button");
         deleteNoteBtn.textContent = "Delete";
+        deleteNoteBtn.className = "deleteNote";
         deleteNoteBtn.addEventListener("click", function(){
             noteList.removeChild(noteDiv);
             deleteNotes(note);
         });
 
+        const noteDate = document.createElement("div");
+        noteDate.className = "noteDate";
+        const dateFormat = format(new Date(), "PPPP");
+        noteDate.textContent = `Note added: ` + dateFormat;
+
+        noteDiv.appendChild(editNoteBtn);
         noteDiv.appendChild(deleteNoteBtn);
+        noteDiv.appendChild(noteDate);
         noteList.appendChild(noteDiv);
 
         noteDiv.addEventListener("click", function() {
