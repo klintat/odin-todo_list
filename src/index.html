@@ -102,25 +102,33 @@
       <div id="notes-container">
         <h2 id="notes-heading">Notes</h2>
         <button class="add-note-btn">+ New note</button>
-        <!-- Modal to create new note -->
-        <dialog id="note-dialog">
-          <div class="note-modal-container">
-            <div class="close-btn-container">
-              <button class="close-note-modal-btn" formmethod="dialog">X</button>
-            </div>
-            <form method="dialog" id="note-modal-content">
-                <h1 class="add-note-title">Add note</h1>
-                <textarea id="note-text" class="user-input" placeholder="Note text" required></textarea>
-                <div class="modal-action">
-                  <button id="save-note-btn" type="submit">Save Note</button>
-                </div>
-            </form>
-          </div>
-        </dialog>          
-        <!--  -->
         <div id="all-note-container">
+          <div id="default-note" class="new-note">
+            <div class="note-text-container">
+              This is a sample note. Notes are for storing information, like a recipe, a phone number, an address, etc.
+            </div>
+            <button class="edit-note-btn" >Edit</button>
+            <button class="delete-note-btn">Delete</button>
+            <div class="note-date">See date when note is created</div>
+          </div>
         </div>
       </div>
+      <!-- Modal to create new note -->
+      <dialog id="note-dialog">
+        <div class="note-modal-container">
+          <div class="close-btn-container">
+            <button class="close-note-modal-btn" formmethod="dialog">X</button>
+          </div>
+          <form method="dialog" id="note-modal-content">
+              <h1 class="add-note-title">Add note</h1>
+              <textarea id="note-text" class="user-input" placeholder="Note text" required></textarea>
+              <div class="modal-action">
+                <button id="save-note-btn" type="submit">Save Note</button>
+              </div>
+          </form>
+        </div>
+      </dialog>          
+      <!--  -->
       <!-- End of notes content -->
     </div>
   </body>

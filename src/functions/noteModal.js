@@ -30,9 +30,11 @@ function noteModal() {
 
     function addNote(note) {
         const noteList = document.getElementById("all-note-container");
+        const noteTextContainer = document.createElement("div");
         const noteDiv = document.createElement("div");
+        noteTextContainer.className = "note-text-container";
         noteDiv.classList.add("new-note");
-        noteDiv.textContent = note;
+        noteTextContainer.textContent = note;
 
         const editNoteBtn = document.createElement("button");
         editNoteBtn.textContent = "Edit";
@@ -50,6 +52,7 @@ function noteModal() {
         const dateFormat = format(new Date(), "PPPP");
         noteDate.textContent = `Date: ` + dateFormat;
 
+        noteDiv.appendChild(noteTextContainer);
         noteDiv.appendChild(editNoteBtn);
         noteDiv.appendChild(deleteNoteBtn);
         noteDiv.appendChild(noteDate);
