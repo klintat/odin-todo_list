@@ -5,6 +5,10 @@
     font-style: normal;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 :root {
     --bg-Color: #0F2027;
     --layout-Bg-Color: #2C5364;
@@ -92,6 +96,7 @@ button {
     display: flex;
     flex-direction: column;
     height: 100%;
+    overflow-y: scroll;
 }
 
 .add-note-btn {
@@ -121,7 +126,7 @@ button {
     gap: 0.5rem;
 }
 
-.new-note {
+.new-note, .default-note {
     display: grid;
     grid-template-columns: 90% 10%;
     grid-template-rows: 45px auto;;
@@ -452,7 +457,7 @@ input:checked + .prio-high {
 }
 
 .task {
-    height: 56px; 
+    height: auto; 
     display: grid;
     grid-template-columns: 1fr 1fr 14fr 2.5fr 1.5fr 1.5fr;
     gap: 8px;
@@ -500,7 +505,7 @@ input:checked + .prio-high {
     background-image: url('../src/assets/create-outline.svg');
     background-color: transparent !important;
     color: transparent;
-    width: 42px;
+    width: 26px;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -512,7 +517,7 @@ input:checked + .prio-high {
     background-image: url('../src/assets/trash-outline.svg');
     background-color: transparent !important;
     color: transparent;
-    width: 42px;
+    width: 26px;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;

@@ -103,7 +103,7 @@
         <h2 id="notes-heading">Notes</h2>
         <button class="add-note-btn">+ New note</button>
         <div id="all-note-container">
-          <div id="default-note" class="new-note">
+          <div id="default-note" class="default-note">
             <div class="note-text-container">
               This is a sample note. Notes are for storing information, like a recipe, a phone number, an address, etc.
             </div>
@@ -129,6 +129,11 @@
         </div>
       </dialog>          
       <!--  -->
+      <dialog id="delete-conf-modal">
+        <div class="delete-note-conf-text">Are you sure you want to delete this note?</div>
+        <button class="conf-delete-btn" type="button">Delete</button>
+        <button class="conf-cancel-btn" type="button">Cancel</button>
+      </dialog>
       <!-- End of notes content -->
     </div>
   </body>

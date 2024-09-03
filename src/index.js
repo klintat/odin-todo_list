@@ -87,7 +87,7 @@ function addTask() {
     
         do {
             id = Math.floor(Math.random() * 10000);
-        } while(isIdNotUnique(id))
+        } while(isIdNotUnique(id));
 
         let newTask = new Task(id, taskText, taskDate, taskPrio, "task");
 
@@ -118,7 +118,7 @@ function addToList(newTask) {
 }
 
 function saveTask(newTask) {
-    const allTasks = getTasks();
+    let allTasks = getTasks();
     allTasks.push(newTask);
     setTasks(allTasks);
 }

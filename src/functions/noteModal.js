@@ -28,6 +28,20 @@ function noteModal() {
         }
     });
 
+    function getId() {
+        let id;
+        do {
+            id = Math.floor(Math.random() * 10000);
+        } while(isIdNotUnique(id));
+        return id;
+    }
+
+    function isIdNotUnique(id) {
+        return getNotes().map(note => {
+            return note.id;
+        }).includes(id);
+    }
+
     function addNote(note) {
         const noteList = document.getElementById("all-note-container");
         const noteTextContainer = document.createElement("div");
@@ -42,10 +56,32 @@ function noteModal() {
         const deleteNoteBtn = document.createElement("button");
         deleteNoteBtn.textContent = "Delete";
         deleteNoteBtn.className = "delete-note-btn";
-        deleteNoteBtn.addEventListener("click", function(){
+    
+        deleteNoteBtn.addEventListener("click", () => {
             noteList.removeChild(noteDiv);
             deleteNotes(note);
         });
+
+        // const deleteConfModal = document.getElementById("delete-conf-modal");
+        // const confDeleteBtn = document.querySelector(".conf-delete-btn");
+        // const confCancelBtn = document.querySelector(".conf-cancel-btn");
+
+        // deleteNoteBtn.addEventListener("click", () => {
+        //     deleteConfModal.showModal();
+        // });
+        
+        // confDeleteBtn.addEventListener("click", () => {
+        //     noteList.removeChild(noteDiv);
+        //     deleteNotes(note);
+        //     deleteConfModal.close();
+        // });
+                
+        // function cancelConf() {
+        //     confCancelBtn.addEventListener("click", () => {
+        //     deleteConfModal.close();
+        // });
+
+        // }
 
         const noteDate = document.createElement("div");
         noteDate.className = "note-date";
@@ -65,15 +101,22 @@ function noteModal() {
         });
     }
 
+    function getNotes() {
+        return JSON.parse(localStorage.getItem("note")) || [];
+    };
+
     function saveNote(note) {
-        let notes = JSON.parse(localStorage.getItem("note")) || [];
-        notes.push({note, completed: false});
+        
+        let id = getId();
+        let notes = getNotes();
+        notes.push({note, id, date, completed: false});
         localStorage.setItem("note", JSON.stringify(notes));
     }
 
     function loadNotes() {
-        let notes = JSON.parse(localStorage.getItem("note")) || [];
-        notes.forEach(function (noteObj) {
+        const noteList = document.getElementById("all-note-container");
+        noteList.replaceChildren([]);
+        getNotes().forEach(function (noteObj) {
             addNote(noteObj.note);
             if(noteObj.completed){
                 const noteItems = document.querySelectorAll(".new-note");
@@ -84,13 +127,13 @@ function noteModal() {
     }
 
     function deleteNotes(note){
-        let notes = JSON.parse(localStorage.getItem('note')) || [];
+        let notes = getNotes();
         notes = notes.filter((noteObj) => noteObj.note !== note);
         localStorage.setItem('note', JSON.stringify(notes));
     }
 
     function updateNoteStatus(note) {
-        let notes = JSON.parse(localStorage.getItem('note')) || [];
+        let notes = getNotes();
         notes = notes.map(noteObj => {
             if(noteObj.note === note){
                 noteObj.completed = !noteObj.completed;
