@@ -1,12 +1,15 @@
 import { format } from "date-fns";
 
-function noteModal() {
-    let noteDialog = document.getElementById("note-dialog");
-    let openNoteModal = document.querySelector(".add-note-btn");
-    let closeNoteModal = document.querySelector(".close-note-modal-btn");
-    const saveNoteBtn = document.getElementById("save-note-btn");
+addNewNote();
+// Setting note date value
 
-    document.addEventListener("DOMContentLoaded", loadNotes);
+// 1. Note Modal - open and close
+
+function noteModal() {
+    const noteDialog = document.getElementById("note-dialog");
+    const openNoteModal = document.querySelector(".add-note-btn");
+    const closeNoteModal = document.querySelector(".close-note-modal-btn");
+
     document.addEventListener("DOMContentLoaded", () => {
         openNoteModal.addEventListener("click", () => {
             noteDialog.showModal();
@@ -16,132 +19,143 @@ function noteModal() {
     closeNoteModal.addEventListener("click", () => {
         noteDialog.close();
     });
+}
 
-    saveNoteBtn.addEventListener("click", function() {
-        const noteText = document.getElementById("note-text");
-        const note = noteText.value;
-        if(note) {
-            addNote(note);
-            saveNote(note);
-            noteDialog.close();
-            noteText.value = "";
-        }
-    });
+// 2. Class template to create note
+document.addEventListener("DOMContentLoaded", loadNotes);
 
-    function getId() {
-        let id;
-        do {
-            id = Math.floor(Math.random() * 10000);
-        } while(isIdNotUnique(id));
-        return id;
+class Note {
+    constructor(id, noteText, date) {
+        this.id = id;
+        this.noteText = noteText;
+        this.date = date;
+        // this.completed = false;
     }
 
-    function isIdNotUnique(id) {
-        return getNotes().map(note => {
-            return note.id;
-        }).includes(id);
-    }
-
-    function addNote(note) {
-        const noteList = document.getElementById("all-note-container");
+    createNote() {
+        const note = document.createElement("div");
         const noteTextContainer = document.createElement("div");
-        const noteDiv = document.createElement("div");
         noteTextContainer.className = "note-text-container";
-        noteDiv.classList.add("new-note");
-        noteTextContainer.textContent = note;
+        note.className = "new-note";
+        noteTextContainer.innerHTML = this.noteText;
+
+        const noteDate = document.createElement("div");
+        noteDate.className = "note-date";
+        noteDate.textContent = `Date: ` + this.date;
 
         const editNoteBtn = document.createElement("button");
         editNoteBtn.textContent = "Edit";
         editNoteBtn.className = "edit-note-btn";
+        
         const deleteNoteBtn = document.createElement("button");
         deleteNoteBtn.textContent = "Delete";
         deleteNoteBtn.className = "delete-note-btn";
-    
-        deleteNoteBtn.addEventListener("click", () => {
-            noteList.removeChild(noteDiv);
-            deleteNotes(note);
-        });
+        deleteNoteBtn.addEventListener("click", deleteNotes);
+        deleteNoteBtn.dataset.id = this.id;
 
-        // const deleteConfModal = document.getElementById("delete-conf-modal");
-        // const confDeleteBtn = document.querySelector(".conf-delete-btn");
-        // const confCancelBtn = document.querySelector(".conf-cancel-btn");
+        note.appendChild(noteTextContainer);
+        note.appendChild(editNoteBtn);
+        note.appendChild(deleteNoteBtn);
+        note.appendChild(noteDate);
 
-        // deleteNoteBtn.addEventListener("click", () => {
-        //     deleteConfModal.showModal();
-        // });
-        
-        // confDeleteBtn.addEventListener("click", () => {
-        //     noteList.removeChild(noteDiv);
-        //     deleteNotes(note);
-        //     deleteConfModal.close();
-        // });
-                
-        // function cancelConf() {
-        //     confCancelBtn.addEventListener("click", () => {
-        //     deleteConfModal.close();
-        // });
-
-        // }
-
-        const noteDate = document.createElement("div");
-        noteDate.className = "note-date";
-        const dateFormat = format(new Date(), "PPPP");
-        noteDate.textContent = `Date: ` + dateFormat;
-
-        noteDiv.appendChild(noteTextContainer);
-        noteDiv.appendChild(editNoteBtn);
-        noteDiv.appendChild(deleteNoteBtn);
-        noteDiv.appendChild(noteDate);
-        noteList.appendChild(noteDiv);
-
-        noteDiv.addEventListener("click", function() {
-            noteDiv.style.textDecoration = noteDiv.style.textDecoration === 
-            'line-through' ? 'none' : 'line-through'
-            updateNoteStatus(note);
-        });
-    }
-
-    function getNotes() {
-        return JSON.parse(localStorage.getItem("note")) || [];
-    };
-
-    function saveNote(note) {
-        
-        let id = getId();
-        let notes = getNotes();
-        notes.push({note, id, date, completed: false});
-        localStorage.setItem("note", JSON.stringify(notes));
-    }
-
-    function loadNotes() {
-        const noteList = document.getElementById("all-note-container");
-        noteList.replaceChildren([]);
-        getNotes().forEach(function (noteObj) {
-            addNote(noteObj.note);
-            if(noteObj.completed){
-                const noteItems = document.querySelectorAll(".new-note");
-                noteItems[noteItems.length - 1].style.textDecoration = 
-                'line-through'
-            }
-        }); 
-    }
-
-    function deleteNotes(note){
-        let notes = getNotes();
-        notes = notes.filter((noteObj) => noteObj.note !== note);
-        localStorage.setItem('note', JSON.stringify(notes));
-    }
-
-    function updateNoteStatus(note) {
-        let notes = getNotes();
-        notes = notes.map(noteObj => {
-            if(noteObj.note === note){
-                noteObj.completed = !noteObj.completed;
-            }
-            return noteObj;
-        });
-        localStorage.setItem("notes", JSON.stringify(notes));
+        return note;
     }
 }
+
+function addNewNote() {
+    const saveNoteBtn = document.getElementById("save-note-btn");
+    saveNoteBtn.addEventListener("click", () => {
+        const noteText = document.getElementById("note-text")
+        let note = noteText.value;
+        let date = format(new Date(), "PPPP");
+        
+        let id = getId();
+
+        let newNote = new Note(id, note, date);
+
+        saveNote(newNote);
+        loadNotes();
+        clearNoteForm();
+    });
+}
+
+function getId() {
+    let id;
+    do {
+       id = Math.floor(Math.random() * 10000);
+    } while(isIdNotUnique(id));
+    return id;
+}
+
+function isIdNotUnique(id) {
+    return getNotes().map(note => {
+        return note.id;
+    }).includes(id);
+}
+
+function clearNoteForm() {
+    const resetNoteForm = document.getElementById("note-modal-content");
+    resetNoteForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        resetNoteForm.reset();
+        document.getElementById("note-dialog").close();
+    })
+}
+
+function addToNoteList(newNote) {
+    const noteList = document.getElementById("all-note-container");
+    noteList.appendChild(newNote.createNote());
+}
+
+function saveNote(newNote) {
+    let allNotes = getNotes();
+    allNotes.push(newNote);
+    setNotes(allNotes);
+}
+
+function getNotes() {
+    return (JSON.parse(localStorage.getItem("note")) || []).map(note => {
+        return new Note(note.id, note.noteText, note.date);
+    });
+}
+
+function setNotes(notes) {
+    localStorage.setItem("note", JSON.stringify(notes));
+}
+
+function loadNotes() {
+    const noteList = document.getElementById("all-note-container");
+    noteList.replaceChildren([]);
+    getNotes().forEach(function(note) {
+        addToNoteList(note);
+        // if(note.completed){
+        //     const noteItems = document.querySelectorAll(".new-note");
+        //     noteItems[noteItems.length - 1].style.textDecoration = 
+        //     'line-through'
+        // }
+    })
+}
+
+function deleteNotes(e) {
+    const noteIdToRemove = e.srcElement.dataset.id;
+    const allNotes = getNotes();
+    const indexToRemove = allNotes.findIndex(note => {
+        return note.id === noteIdToRemove;
+    })
+    allNotes.splice(indexToRemove, 1);
+    setNotes(allNotes);
+    loadNotes();
+}
+
+// function updateNoteStatus(note) {
+//     let notes = getNotes();
+//     notes = notes.map(noteObj => {
+//         if(noteObj.note === note){
+//              noteObj.completed = !noteObj.completed;
+//         }
+//         return noteObj;
+//     });
+//     localStorage.setItem("notes", JSON.stringify(notes));
+// }
 
 export { noteModal }

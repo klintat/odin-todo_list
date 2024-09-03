@@ -48,7 +48,7 @@ class Task {
         taskText.classList.add("task-name");
 
         const taskDate = document.createElement("span");
-        taskDate.innerHTML = this.date;
+        taskDate.textContent = this.date;
         taskDate.classList.add("task-date");
 
         const editBtn = document.createElement("button");
@@ -58,7 +58,6 @@ class Task {
         deleteBtn.classList.add("delete-task");
         deleteBtn.addEventListener("click", deleteTasks);
         deleteBtn.dataset.id = this.id;
-
 
         task.appendChild(prioDot);
         task.appendChild(checkTask);
