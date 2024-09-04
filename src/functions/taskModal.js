@@ -143,21 +143,21 @@ function loadTasks() {
     })
 }
 
-const deleteConfModal = document.getElementById("delete-note-conf-modal");
-const deleteConfNoteText = document.querySelector(".delete-note-conf-text");
-const confDeleteNoteBtn = document.querySelector(".conf-note-delete-btn");
-const confCancelBtn = document.querySelector(".conf-note-cancel-btn");
+const deleteConfModal = document.getElementById("delete-conf-modal");
+const deleteConfText = document.querySelector(".delete-conf-text");
+const confDeleteTaskBtn = document.querySelector(".conf-delete-btn");
+const confCancelBtn = document.querySelector(".conf-cancel-btn");
 
 function showDeleteConfirm() {
     deleteConfModal.showModal();
-    deleteConfNoteText.textContent = "Are you sure you want to delete this task?";
+    deleteConfText.textContent = "Are you sure you want to delete this task?";
 }
 
 function hideDeleteModal() {
     deleteConfModal.close();
 }
 
-confDeleteNoteBtn.addEventListener("click", deleteTasks);
+confDeleteTaskBtn.addEventListener("click", deleteTasks);
 confCancelBtn.addEventListener("click", hideDeleteModal);
 
 function deleteTasks(e) {
@@ -169,6 +169,7 @@ function deleteTasks(e) {
     allTasks.splice(indexToRemove, 1);
     setTasks(allTasks);
     loadTasks();
+    hideDeleteModal()
 }
 
 export { taskModal }

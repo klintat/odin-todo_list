@@ -266,7 +266,7 @@ dialog::backdrop {
 }
 
 /* Delete note conform modal */
-#delete-note-conf-modal {
+#delete-conf-modal, #delete-conf-note-modal {
     width: 600px;
     height: 300px;
     padding: 0.5rem;
@@ -283,7 +283,7 @@ dialog::backdrop {
     font-size: 24px;
 }
 
-.conf-note-delete-btn, .conf-note-cancel-btn {
+.conf-delete-btn, .conf-delete-note-btn, .conf-cancel-btn, .conf-cancel-note-btn {
     font-family: "MyFont";
     font-size: 16px;
     border-style: none;
@@ -295,22 +295,27 @@ dialog::backdrop {
     color: rgba(255, 255, 255, 0.895);
 }
 
-.conf-note-delete-btn {
+.conf-delete-btn, .conf-delete-note-btn {
     background-color: var(--bg-Color);
     border: var(--logo-Color) solid 2px;
 }
 
-.conf-note-delete-btn:hover {
+.conf-delete-btn:hover {
     background-color: var(--logo-Color);
     transition: 0.5ms;
 }
 
-.conf-note-cancel-btn {
+.conf-delete-note-btn:hover {
+    background-color: var(--logo-Color);
+    transition: 0.5ms;
+}
+
+.conf-cancel-btn, .conf-cancel-note-btn {
     background-color: var(--bg-Color);
     border: white solid 2px;
 }
 
-.conf-note-cancel-btn:hover {
+.conf-cancel-btn:hover {
     background-color: white;
     color: var(--logo-Color);
     transition: 0.5ms;

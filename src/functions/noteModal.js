@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { deleteConfirmModal } from "./deleteConfirmModal";
 
 function noteModal() {
     const noteDialog = document.getElementById("note-dialog");
@@ -16,9 +17,6 @@ function noteModal() {
     loadNotes();
     registerNoteSubmitForm();
 }
-
-// 2. Class template to create note
-//document.addEventListener("DOMContentLoaded", loadNotes);
 
 class Note {
     constructor(id, noteText, date) {
@@ -127,18 +125,19 @@ function loadNotes() {
     })
 }
 
-const deleteConfModal = document.getElementById("delete-note-conf-modal");
-const deleteConfNoteText = document.querySelector(".delete-note-conf-text");
-const confDeleteNoteBtn = document.querySelector(".conf-note-delete-btn");
-const confCancelBtn = document.querySelector(".conf-note-cancel-btn");
+const deleteConfNoteModal = document.getElementById("delete-conf-note-modal");
+const deleteConfNoteText = document.querySelector(".delete-conf-note-text");
+const confDeleteNoteBtn = document.querySelector(".conf-delete-note-btn");
+const confCancelBtn = document.querySelector(".conf-cancel-note-btn");
 
 function showDeleteConfirm() {
-    deleteConfModal.showModal();
+    // deleteConfirmModal();
+    deleteConfNoteModal.showModal();
     deleteConfNoteText.textContent = "Are you sure you want to delete this note?";
 }
 
 function hideDeleteModal() {
-    deleteConfModal.close();
+    deleteConfNoteModal.close();
 }
 
 confDeleteNoteBtn.addEventListener("click", deleteNotes);
@@ -153,8 +152,20 @@ function deleteNotes(e) {
     allNotes.splice(indexToRemove, 1);
     setNotes(allNotes);
     loadNotes();
-    hideDeleteModal();
+    hideDeleteModal()
 }
+
+
+// function defaultNote() {
+//     const defaultNote = document.getElementById("default-note");
+//     const allNotesList = document.getElementById("all-note-container");
+    
+//     if(allNotesList.childNodes.lenght > 1) {
+//         defaultNote.style.display = none;
+//     }
+// }
+
+// // defaultNote();
 
 // function updateNoteStatus(note) {
 //     let notes = getNotes();
@@ -167,4 +178,4 @@ function deleteNotes(e) {
 //     localStorage.setItem("notes", JSON.stringify(notes));
 // }
 
-export { noteModal }
+export { noteModal, deleteNotes }
