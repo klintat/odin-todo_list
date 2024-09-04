@@ -9,12 +9,6 @@ function setDateValue() {
     dateInput.setAttribute("value", today);
 }
 
-noteModal();
-taskModal();
-setDateValue();
-addTask();
-
-document.addEventListener("DOMContentLoaded", loadTasks);
 class Task {
     constructor(id, text, date, prio, project) {
         this.id = id
@@ -71,38 +65,33 @@ class Task {
     }
 };
 
-function addTask() {
-    const saveBtn = document.getElementById("save-task-btn");
-    saveBtn.addEventListener("click", () => {
-        const taskText = document.getElementById("task-text").value;
-        const taskDate = document.getElementById("task-date").value;
-        const taskPrio = ["prio", "prio-medium", "prio-high"].map((id) => {
-            return document.getElementById(id);
-        }).find((element) => {
-            return element.checked;
-        }).value;
-
-        let id;
-    
-        do {
-            id = Math.floor(Math.random() * 10000);
-        } while(isIdNotUnique(id));
-
-        let newTask = new Task(id, taskText, taskDate, taskPrio, "task");
-
-        saveTask(newTask);
-        loadTasks();
-        clearForm()
-    })
+function registerSubmitForm() {
+    const resetForm = document.getElementById("task-modal-content");
+    resetForm.addEventListener("submit", onSubmitForm);
 }
 
-function clearForm() {
-    const resetForm = document.getElementById("task-modal-content");
-    resetForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        resetForm.reset();
-        document.getElementById("task-dialog").close();
-    })
+function onSubmitForm(e) {
+    const taskText = document.getElementById("task-text").value;
+    const taskDate = document.getElementById("task-date").value;
+    const taskPrio = ["prio", "prio-medium", "prio-high"].map((id) => {
+        return document.getElementById(id);
+    }).find((element) => {
+        return element.checked;
+    }).value;
+
+    let id;
+
+    do {
+        id = Math.floor(Math.random() * 10000);
+    } while(isIdNotUnique(id));
+
+    let newTask = new Task(id, taskText, taskDate, taskPrio, "task");
+
+    saveTask(newTask);
+    loadTasks();
+
+    e.srcElement.reset();
+    document.getElementById("task-dialog").close();
 }
 
 function isIdNotUnique(id) {
@@ -150,3 +139,13 @@ function deleteTasks(e) {
     setTasks(allTasks);
     loadTasks();
 }
+
+function initialize() {
+    noteModal();
+    taskModal();
+    setDateValue();
+    registerSubmitForm();
+    loadTasks();
+}
+
+document.addEventListener("DOMContentLoaded", initialize);

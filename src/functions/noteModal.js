@@ -10,19 +10,21 @@ function noteModal() {
     const openNoteModal = document.querySelector(".add-note-btn");
     const closeNoteModal = document.querySelector(".close-note-modal-btn");
 
-    document.addEventListener("DOMContentLoaded", () => {
+    //document.addEventListener("DOMContentLoaded", () => {
         openNoteModal.addEventListener("click", () => {
             noteDialog.showModal();
         });
-    })
+    //})
 
     closeNoteModal.addEventListener("click", () => {
         noteDialog.close();
     });
+
+    loadNotes();
 }
 
 // 2. Class template to create note
-document.addEventListener("DOMContentLoaded", loadNotes);
+//document.addEventListener("DOMContentLoaded", loadNotes);
 
 class Note {
     constructor(id, noteText, date) {
@@ -34,9 +36,9 @@ class Note {
 
     createNote() {
         const note = document.createElement("div");
+        note.className = "new-note";
         const noteTextContainer = document.createElement("div");
         noteTextContainer.className = "note-text-container";
-        note.className = "new-note";
         noteTextContainer.innerHTML = this.noteText;
 
         const noteDate = document.createElement("div");
@@ -65,7 +67,7 @@ class Note {
 function addNewNote() {
     const saveNoteBtn = document.getElementById("save-note-btn");
     saveNoteBtn.addEventListener("click", () => {
-        const noteText = document.getElementById("note-text")
+        const noteText = document.getElementById("note-text");
         let note = noteText.value;
         let date = format(new Date(), "PPPP");
         
