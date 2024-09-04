@@ -1,5 +1,3 @@
-import { deleteNotes } from "../functions/noteModal";
-
 function deleteConfirmModal() {
     const confirmDeleteModal = document.createElement("dialog");
     const confirmDeleteText = document.createElement("div");

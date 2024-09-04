@@ -1,5 +1,4 @@
 import { format } from "date-fns";
-import { deleteConfirmModal } from "./deleteConfirmModal";
 
 function noteModal() {
     const noteDialog = document.getElementById("note-dialog");
@@ -113,8 +112,7 @@ function setNotes(notes) {
 }
 
 function loadNotes() {
-    const noteList = document.getElementById("all-note-container");
-    noteList.replaceChildren([]);
+    removeNotesFromHtml();
     getNotes().forEach(function(note) {
         addToNoteList(note);
         // if(note.completed){
@@ -123,6 +121,11 @@ function loadNotes() {
         //     'line-through'
         // }
     })
+}
+
+function removeNotesFromHtml() {
+    const noteList = document.getElementById("all-note-container");
+    new DocumentFragment().append(...noteList.querySelectorAll(".new-note"))
 }
 
 const deleteConfNoteModal = document.getElementById("delete-conf-note-modal");
@@ -152,20 +155,9 @@ function deleteNotes(e) {
     allNotes.splice(indexToRemove, 1);
     setNotes(allNotes);
     loadNotes();
-    hideDeleteModal()
-}
-
-
-// function defaultNote() {
-//     const defaultNote = document.getElementById("default-note");
-//     const allNotesList = document.getElementById("all-note-container");
+    hideDeleteModal();
     
-//     if(allNotesList.childNodes.lenght > 1) {
-//         defaultNote.style.display = none;
-//     }
-// }
-
-// // defaultNote();
+}
 
 // function updateNoteStatus(note) {
 //     let notes = getNotes();
@@ -178,4 +170,4 @@ function deleteNotes(e) {
 //     localStorage.setItem("notes", JSON.stringify(notes));
 // }
 
-export { noteModal, deleteNotes }
+export { noteModal }
