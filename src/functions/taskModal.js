@@ -10,6 +10,10 @@ function taskModal() {
     closeTaskModal.addEventListener("click", () => {
         taskDialog.close();
     });
+
+    loadTasks();
+    setDateValue();
+    registerSubmitForm();
 }
 
 function setDateValue() {
@@ -60,7 +64,7 @@ class Task {
 
         const deleteBtn = document.createElement("button");
         deleteBtn.classList.add("delete-task");
-        deleteBtn.addEventListener("click", deleteTasks);
+        deleteBtn.addEventListener("click", showDeleteConfirm);
         deleteBtn.dataset.id = this.id;
 
         task.appendChild(prioDot);
@@ -139,6 +143,23 @@ function loadTasks() {
     })
 }
 
+const deleteConfModal = document.getElementById("delete-note-conf-modal");
+const deleteConfNoteText = document.querySelector(".delete-note-conf-text");
+const confDeleteNoteBtn = document.querySelector(".conf-note-delete-btn");
+const confCancelBtn = document.querySelector(".conf-note-cancel-btn");
+
+function showDeleteConfirm() {
+    deleteConfModal.showModal();
+    deleteConfNoteText.textContent = "Are you sure you want to delete this task?";
+}
+
+function hideDeleteModal() {
+    deleteConfModal.close();
+}
+
+confDeleteNoteBtn.addEventListener("click", deleteTasks);
+confCancelBtn.addEventListener("click", hideDeleteModal);
+
 function deleteTasks(e) {
     const idToRemove = e.srcElement.dataset.id;
     const allTasks = getTasks();
@@ -150,4 +171,4 @@ function deleteTasks(e) {
     loadTasks();
 }
 
-export { taskModal, setDateValue, registerSubmitForm, loadTasks }
+export { taskModal }

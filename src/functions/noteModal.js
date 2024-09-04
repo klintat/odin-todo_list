@@ -12,6 +12,9 @@ function noteModal() {
     closeNoteModal.addEventListener("click", () => {
         noteDialog.close();
     });
+
+    loadNotes();
+    registerNoteSubmitForm();
 }
 
 // 2. Class template to create note
@@ -43,7 +46,7 @@ class Note {
         const deleteNoteBtn = document.createElement("button");
         deleteNoteBtn.textContent = "Delete";
         deleteNoteBtn.className = "delete-note-btn";
-        deleteNoteBtn.addEventListener("click", deleteNotes);
+        deleteNoteBtn.addEventListener("click", showDeleteConfirm);
         deleteNoteBtn.dataset.id = this.id;
 
         note.appendChild(noteTextContainer);
@@ -124,6 +127,23 @@ function loadNotes() {
     })
 }
 
+const deleteConfModal = document.getElementById("delete-note-conf-modal");
+const deleteConfNoteText = document.querySelector(".delete-note-conf-text");
+const confDeleteNoteBtn = document.querySelector(".conf-note-delete-btn");
+const confCancelBtn = document.querySelector(".conf-note-cancel-btn");
+
+function showDeleteConfirm() {
+    deleteConfModal.showModal();
+    deleteConfNoteText.textContent = "Are you sure you want to delete this note?";
+}
+
+function hideDeleteModal() {
+    deleteConfModal.close();
+}
+
+confDeleteNoteBtn.addEventListener("click", deleteNotes);
+confCancelBtn.addEventListener("click", hideDeleteModal);
+
 function deleteNotes(e) {
     const noteIdToRemove = e.srcElement.dataset.id;
     const allNotes = getNotes();
@@ -133,6 +153,7 @@ function deleteNotes(e) {
     allNotes.splice(indexToRemove, 1);
     setNotes(allNotes);
     loadNotes();
+    hideDeleteModal();
 }
 
 // function updateNoteStatus(note) {
@@ -146,4 +167,4 @@ function deleteNotes(e) {
 //     localStorage.setItem("notes", JSON.stringify(notes));
 // }
 
-export { noteModal, registerNoteSubmitForm, loadNotes }
+export { noteModal }
