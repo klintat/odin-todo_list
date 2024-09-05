@@ -2,9 +2,11 @@ function taskModal() {
     const taskDialog = document.getElementById("task-dialog");
     const openTaskModal = document.getElementById("add-task-btn");
     const closeTaskModal = document.getElementById("close-task-modal-btn");
+    const taskText = document.getElementById("task-text");
 
     openTaskModal.addEventListener("click", () => {
             taskDialog.showModal();
+            taskText.innerText = "";
     });
 
     closeTaskModal.addEventListener("click", () => {
