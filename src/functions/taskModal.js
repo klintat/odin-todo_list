@@ -52,11 +52,11 @@ class Task {
         checkBoxInput.className = "task-done";
 
         const taskText = document.createElement("span");
-        taskText.innerHTML = this.text;
+        taskText.innerText = this.text;
         taskText.classList.add("task-name");
 
         const taskDate = document.createElement("span");
-        taskDate.textContent = this.date;
+        taskDate.innerText = this.date;
         taskDate.classList.add("task-date");
 
         const editBtn = document.createElement("button");
@@ -150,7 +150,7 @@ const confCancelBtn = document.querySelector(".conf-cancel-btn");
 
 function showDeleteConfirm() {
     deleteConfModal.showModal();
-    deleteConfText.textContent = "Are you sure you want to delete this task?";
+    deleteConfText.innerText = "Are you sure you want to delete this task?";
 }
 
 function hideDeleteModal() {
