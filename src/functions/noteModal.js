@@ -22,7 +22,6 @@ class Note {
         this.id = id;
         this.noteText = noteText;
         this.date = date;
-        // this.completed = false;
     }
 
     createNote() {
@@ -39,7 +38,6 @@ class Note {
         const editNoteBtn = document.createElement("button");
         editNoteBtn.innerText = "Edit";
         editNoteBtn.className = "edit-note-btn";
-        // Add event listener to edit btn
         editNoteBtn.addEventListener("click", editNote);
         editNoteBtn.dataset.id = this.id;
         
@@ -69,7 +67,6 @@ function onSubmitNoteForm(e) {
     let note = noteText.value;
 
     if (noteId) {
-        //  -> 2. find note  -> 3.newNote text to note -> 4.SaveNotes
         let allNotes = getNotes();
         const noteToEdit = allNotes.find(note => {
             return note.id === noteId;
@@ -180,16 +177,5 @@ function editNote(e) {
     document.getElementById("note-text").innerText = noteToEdit.noteText;
     document.getElementById("note-modal-content").dataset.id = noteToEdit.id;
 }
-
-// function updateNoteStatus(note) {
-//     let notes = getNotes();
-//     notes = notes.map(noteObj => {
-//         if(noteObj.note === note){
-//              noteObj.completed = !noteObj.completed;
-//         }
-//         return noteObj;
-//     });
-//     localStorage.setItem("notes", JSON.stringify(notes));
-// }
 
 export { noteModal }
