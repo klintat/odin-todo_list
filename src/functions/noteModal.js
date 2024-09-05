@@ -145,7 +145,8 @@ const deleteConfNoteText = document.querySelector(".delete-conf-note-text");
 const confDeleteNoteBtn = document.querySelector(".conf-delete-note-btn");
 const confCancelBtn = document.querySelector(".conf-cancel-note-btn");
 
-function showDeleteConfirm() {
+function showDeleteConfirm(e) {
+    document.querySelector(".conf-delete-note-btn").dataset.id = e.srcElement.dataset.id;
     deleteConfNoteModal.showModal();
     deleteConfNoteText.innerText = "Are you sure you want to delete this note?";
 }
@@ -158,7 +159,7 @@ confDeleteNoteBtn.addEventListener("click", deleteNotes);
 confCancelBtn.addEventListener("click", hideDeleteModal);
 
 function deleteNotes(e) {
-    const noteIdToRemove = e.srcElement.dataset.id;
+    const noteIdToRemove = parseInt(e.srcElement.dataset.id);
     const allNotes = getNotes();
     const indexToRemove = allNotes.findIndex(note => {
         return note.id === noteIdToRemove;

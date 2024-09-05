@@ -171,7 +171,8 @@ const deleteConfText = document.querySelector(".delete-conf-text");
 const confDeleteTaskBtn = document.querySelector(".conf-delete-btn");
 const confCancelBtn = document.querySelector(".conf-cancel-btn");
 
-function showDeleteConfirm() {
+function showDeleteConfirm(e) {
+    document.querySelector(".conf-delete-btn").dataset.id = e.srcElement.dataset.id;
     deleteConfModal.showModal();
     deleteConfText.innerText = "Are you sure you want to delete this task?";
 }
@@ -184,7 +185,7 @@ confDeleteTaskBtn.addEventListener("click", deleteTasks);
 confCancelBtn.addEventListener("click", hideDeleteModal);
 
 function deleteTasks(e) {
-    const idToRemove = e.srcElement.dataset.id;
+    const idToRemove = parseInt(e.srcElement.dataset.id);
     const allTasks = getTasks();
     const indexToRemove = allTasks.findIndex(task => {
         return task.id === idToRemove;
