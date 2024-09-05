@@ -4,9 +4,11 @@ function noteModal() {
     const noteDialog = document.getElementById("note-dialog");
     const openNoteModal = document.querySelector(".add-note-btn");
     const closeNoteModal = document.querySelector(".close-note-modal-btn");
+    const noteText = document.getElementById("note-text");
 
     openNoteModal.addEventListener("click", () => {
         noteDialog.showModal();
+        noteText.innerText = "";
     });
 
     closeNoteModal.addEventListener("click", () => {
@@ -57,8 +59,8 @@ class Note {
 }
 
 function registerNoteSubmitForm() {
-    const resetForm = document.getElementById("note-modal-content");
-    resetForm.addEventListener("submit", onSubmitNoteForm);
+    const noteForm = document.getElementById("note-modal-content");
+    noteForm.addEventListener("submit", onSubmitNoteForm);
 }
 
 function onSubmitNoteForm(e) {
@@ -75,6 +77,7 @@ function onSubmitNoteForm(e) {
         setNotes(allNotes);
 
         delete e.srcElement.dataset.id;
+
     } else {
         let date = format(new Date(), "PPPP");
             
