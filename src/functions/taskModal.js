@@ -61,7 +61,9 @@ class Task {
 
         const editBtn = document.createElement("button");
         editBtn.classList.add("edit-task");
-
+        editBtn.addEventListener("click", editTask);
+        editBtn.dataset.id = this.id;
+    
         const deleteBtn = document.createElement("button");
         deleteBtn.classList.add("delete-task");
         deleteBtn.addEventListener("click", showDeleteConfirm);
@@ -85,27 +87,46 @@ function registerSubmitForm() {
 }
 
 function onSubmitForm(e) {
-    const taskText = document.getElementById("task-text").value;
-    const taskDate = document.getElementById("task-date").value;
-    const taskPrio = ["prio", "prio-medium", "prio-high"].map((id) => {
+    const taskId = parseInt(e.srcElement.dataset.id);
+    let taskText = document.getElementById("task-text").value;
+    let taskDate = document.getElementById("task-date").value;
+    let taskPrio = ["prio", "prio-medium", "prio-high"].map((id) => {
         return document.getElementById(id);
     }).find((element) => {
         return element.checked;
     }).value;
 
-    let id;
+    if(taskId) {
+        let allTasks = getTasks();
+        let noteToEdit = allTasks.find(task => {
+            return task.id === taskId;
+        })
+        noteToEdit.text = taskText;
+        noteToEdit.date = taskDate;
+        noteToEdit.prio = taskPrio;
+        setTasks(allTasks);
 
-    do {
-        id = Math.floor(Math.random() * 10000);
-    } while(isIdNotUnique(id));
+        delete e.srcElement.dataset.id;
+    } else {
+        let id = getId();
 
-    let newTask = new Task(id, taskText, taskDate, taskPrio, "task");
+        let newTask = new Task(id, taskText, taskDate, taskPrio, "task");
 
-    saveTask(newTask);
+        saveTask(newTask);
+    }
+
     loadTasks();
 
     e.srcElement.reset();
     document.getElementById("task-dialog").close();
+}
+
+function getId() {
+    let id;
+    do {
+       id = Math.floor(Math.random() * 10000);
+    } while (isIdNotUnique(id));
+    return id;
 }
 
 function isIdNotUnique(id) {
@@ -170,6 +191,27 @@ function deleteTasks(e) {
     setTasks(allTasks);
     loadTasks();
     hideDeleteModal()
+}
+
+function editTask(e) {
+    const taskDialog = document.getElementById("task-dialog");
+    taskDialog.showModal();
+    let allTasks = getTasks();
+    const taskIdToEdit = parseInt(e.srcElement.dataset.id);
+    const taskToEdit = allTasks.find(task => {
+        return task.id === taskIdToEdit;
+    })
+    document.getElementById("task-text").innerText = taskToEdit.text;
+    document.getElementById("task-date").value = taskToEdit.date;
+
+    const hashmap = {
+        low: "prio",
+        medium: "prio-medium",
+        high: "prio-high"
+    };
+
+    document.getElementById(hashmap[taskToEdit.prio]).checked = taskToEdit.prio;
+    document.getElementById("task-modal-content").dataset.id = taskToEdit.id;
 }
 
 export { taskModal }
