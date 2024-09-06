@@ -138,7 +138,7 @@ function isIdNotUnique(id) {
 }
 
 function addToList(newTask) {
-    const taskList = document.querySelector(".task-list");
+    const taskList = document.getElementById("task-list");;
     taskList.appendChild(newTask.getAsRow());
 }
 
@@ -158,9 +158,13 @@ function setTasks(tasks) {
     localStorage.setItem("task", JSON.stringify(tasks));
 }
 
+function removeTasksFromHtml() {
+    const taskList = document.getElementById("task-list");
+    new DocumentFragment().append(...taskList.querySelectorAll(".new-task"))
+}
+
 function loadTasks() {
-    const taskList = document.querySelector(".task-list");
-    taskList.replaceChildren([]);
+    removeTasksFromHtml();
     getTasks().forEach(function(task) {
         addToList(task)
     })

@@ -509,10 +509,11 @@ input:checked + .prio-high {
     border-radius: 16px;
 }
 
-.task-list {
+#task-list {
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100%;
     padding: 7px;
 }
 
@@ -526,11 +527,11 @@ input:checked + .prio-high {
     padding: 14px;
 }
 
-.task-list > .task {
+#task-list > .task {
     border-bottom: 1px solid rgba(221, 158, 22, 0.5);
 }
 
-.task-list > .task:last-child {
+#task-list > .task:last-child {
     border-radius: 8px;
 }
 
@@ -583,4 +584,26 @@ input:checked + .prio-high {
     background-position: center;
     border: none;
     cursor: pointer;
+}
+
+.no-task-img {
+    display: flex;
+    background-image: url("./assets/work-order.png");
+    width: 256px;
+    height: 256px;
+    margin: 56px auto;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    opacity: 0.5;
+}
+
+.no-tasks-text {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.458);
+    font-style: italic;
+}
+
+#no-task-container:not(:only-child) {
+    display: none;
 }
