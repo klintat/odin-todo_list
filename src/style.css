@@ -41,13 +41,14 @@ button {
 
 #layout-container {
     width: 120rem;
-    height: 67.5rem;
-    margin: 5rem auto;
+    height: 58rem;
+    margin: 1rem auto;
     display: grid;
     grid-template-columns: 2.5fr 10fr 3fr;
-    padding: 1rem;
+    padding: 0 1rem;
     background-color: var(--bg-Color);
     gap: 1rem;
+    grid-template-rows: 1fr;
 }
 
 /* Sidebar layout */
