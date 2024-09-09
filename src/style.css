@@ -351,15 +351,15 @@ dialog::backdrop {
     cursor: pointer;
 }
 
+#close-task-modal-btn:hover {
+    background-color: rgba(221, 158, 22, 0.8);
+    transition: 0.5ms;
+}
+
 .close-task-list-btn-container {
     display: flex;
     justify-content: right;
     margin: 8px;
-}
-
-.close-task-modal-btn:hover {
-    background-color: rgba(221, 158, 22, 0.8);
-    transition: 0.5ms;
 }
 
 .add-task-title {
@@ -586,6 +586,7 @@ input:checked + .prio-high {
     cursor: pointer;
 }
 
+/* Task list when no tasks */
 .no-task-img {
     display: flex;
     background-image: url("./assets/work-order.png");
@@ -606,4 +607,134 @@ input:checked + .prio-high {
 
 #no-task-container:not(:only-child) {
     display: none;
+}
+
+/* Project layout and modal */
+
+.project-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin: 20px 0 4px 0;
+}
+
+.add-project-btn {
+    background: transparent;
+    border: none;
+    border: 2px solid;
+    color: orange;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    width: 40px;
+    padding: 5px 5px 5px 13px;
+    border-radius: 30px;
+    overflow: hidden;
+    white-space: nowrap; 
+    cursor: pointer;
+    transition: all 0.6s;
+}
+
+.add-project-btn > span {
+    display: inline-block;
+    transform: translateX(60px);
+    opacity: 0;
+    transition: opacity 0.1s, transform 0.3s 0.4s;
+    padding-left: 6px;
+}
+
+.add-project-btn:hover {
+    background: rgb(255, 255, 255);
+    color: orange;
+    width: 80px;
+    padding-right: 15px;
+}
+
+.add-project-btn:hover > span {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+#project-modal {
+    width: 600px;
+    padding: 0.5rem;
+    background: #2c5364;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 24px rgba(175, 255, 255, 0.881);
+    font-size: 24px;
+}
+
+.project-cancel-btn {
+    padding: 2px 8px;
+    background: var(--logo-Color);
+    font-family: "MyFont";
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.895);
+    border-style: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    float: right;
+}
+
+.project-cancel-btn:hover {
+    background-color: rgba(221, 158, 22, 0.8);
+    transition: 0.5ms;
+}
+
+.project-title {
+    font-size: 24px;
+    margin-top: 26px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.project-form {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    gap: 8px;
+    width: 50%;
+    margin: 20px auto;
+}
+
+.project-form > span {
+    text-align: center;
+}
+
+.project-title-text {
+    height: 30px;
+    background-color: #a7cdde;
+    border-style: none;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.project-description {
+    height: 60px;
+    background-color: #a7cdde;
+    border-style: none;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.save-project-btn {
+    margin: 4px auto;
+    border-style: none;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background-color: var(--logo-Color);
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.895);
+}
+
+.save-project-btn:hover {
+    background-color: rgba(221, 158, 22, 0.8);
+    transition: 0.5ms;
 }

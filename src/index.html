@@ -14,7 +14,10 @@
           <button class="btn">Today</button>
           <button class="btn">This week</button>
           <button class="btn">Overdue</button>
-          <h2 id="my-projects">My projects</h2>
+          <div class="project-container">
+            <h2 class="projects">Projects</h2>
+            <button class="add-project-btn" type="button">+<span>New</span></button>
+          </div>
           <button class="btn">Trip</button>
           <button class="btn">Running</button>
         </aside>
@@ -46,7 +49,7 @@
       <dialog id="task-dialog">
         <div class="task-modal-container">
           <div class="close-task-list-btn-container">
-            <button id="close-task-modal-btn" formmethod="dialog">X</button>
+            <button id="close-task-modal-btn">X</button>
           </div>
           <h1 class="add-task-title">Add task</h1>
           <form method="dialog" id="task-modal-content">
@@ -100,7 +103,7 @@
       <dialog id="note-dialog">
         <div class="note-modal-container">
           <div class="close-btn-container">
-            <button class="close-note-modal-btn" formmethod="dialog">X</button>
+            <button class="close-note-modal-btn" >X</button>
           </div>
           <form method="dialog" id="note-modal-content">
               <h1 class="add-note-title">Add note</h1>
@@ -125,6 +128,21 @@
       </dialog>
       <!-- End of delete note modal -->
       <!-- End of notes content -->
+      <!-- Project modal -->
+      <dialog id="project-modal">
+          <button class="project-cancel-btn" type="button">X</button>
+          <h2 class="project-title">Add project</h2>
+        <form method="dialog" class="project-form">  
+          <span>Title:</span><input class="project-title-text" type="text" placeholder="Trip">
+          <span>Description:</span><textarea class="project-description" type="text" placeholder="Preparing for trip to japan"></textarea>
+          <button class="save-project-btn" type="submit">Save</button>
+        </form>
+      </dialog>
+      <!-- Project modal end -->
+       <!--  -->
+      <div>
+
+      </div>
     </div>
   </body>
 </html>
