@@ -5,8 +5,8 @@ function taskModal() {
     const taskText = document.getElementById("task-text");
 
     openTaskModal.addEventListener("click", () => {
-            taskDialog.showModal();
-            taskText.innerText = "";
+        taskDialog.showModal();
+        taskText.innerText = "";
     });
 
     closeTaskModal.addEventListener("click", () => {
@@ -176,7 +176,7 @@ const confDeleteTaskBtn = document.querySelector(".conf-delete-btn");
 const confCancelBtn = document.querySelector(".conf-cancel-btn");
 
 function showDeleteConfirm(e) {
-    document.querySelector(".conf-delete-btn").dataset.id = e.srcElement.dataset.id;
+    confDeleteTaskBtn.dataset.id = e.srcElement.dataset.id;
     deleteConfModal.showModal();
     deleteConfText.innerText = "Are you sure you want to delete this task?";
 }

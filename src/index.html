@@ -14,12 +14,18 @@
           <button class="btn">Today</button>
           <button class="btn">This week</button>
           <button class="btn">Overdue</button>
-          <div class="project-container">
+          <div class="add-new-project">
             <h2 class="projects">Projects</h2>
             <button class="add-project-btn" type="button">+<span>New</span></button>
           </div>
-          <button class="btn">Trip</button>
-          <button class="btn">Running</button>
+          <div class="project-container">
+            <div class="project-content">
+              <div class="project-title">Trip to Italy</div>
+              <div class="project-description">Everything needed</div>
+              <button class="edit-project-btn" type="button">Edit</button>
+              <button class="delete-project-btn" type="button">Delete</button>
+            </div>
+          </div>
         </aside>
       </div>
       <!-- Main container to display tasks -->
@@ -115,7 +121,7 @@
         </div>
       </dialog>          
       <!--  -->
-      <!-- Delete note modal -->
+      <!-- Delete modals -->
       <dialog id="delete-conf-modal">
         <div class="delete-conf-text"></div>
         <button class="conf-delete-btn" type="button">Delete</button>
@@ -126,15 +132,20 @@
         <button class="conf-delete-note-btn" type="button">Delete</button>
         <button class="conf-cancel-note-btn" type="button">Cancel</button>
       </dialog>
+      <dialog id="delete-conf-project-modal">
+        <div class="delete-conf-project-text"></div>
+        <button class="conf-delete-project-btn" type="button">Delete</button>
+        <button class="conf-cancel-project-btn" type="button">Cancel</button>
+      </dialog>
       <!-- End of delete note modal -->
       <!-- End of notes content -->
       <!-- Project modal -->
       <dialog id="project-modal">
           <button class="project-cancel-btn" type="button">X</button>
-          <h2 class="project-title">Add project</h2>
-        <form method="dialog" class="project-form">  
+          <h2 class="modal-project-title">Add project</h2>
+        <form method="dialog" id="project-form">  
           <span>Title:</span><input class="project-title-text" type="text" placeholder="Projects name">
-          <span>Description:</span><textarea class="project-description" type="text" placeholder="What the project is for"></textarea>
+          <span>Description:</span><textarea class="project-description-text" type="text" placeholder="What the project is for"></textarea>
           <button class="save-project-btn" type="submit">Save</button>
         </form>
       </dialog>
