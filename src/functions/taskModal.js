@@ -1,3 +1,5 @@
+import { isThisISOWeek, isToday, isPast } from "date-fns";
+
 function taskModal() {
     const taskDialog = document.getElementById("task-dialog");
     const openTaskModal = document.getElementById("add-task-btn");
@@ -97,6 +99,7 @@ function onSubmitForm(e) {
     }).find((element) => {
         return element.checked;
     }).value;
+    let taskProject = document.getElementById("project").value;
 
     if(taskId) {
         let allTasks = getTasks();
@@ -112,7 +115,7 @@ function onSubmitForm(e) {
     } else {
         let id = getId();
 
-        let newTask = new Task(id, taskText, taskDate, taskPrio, "task");
+        let newTask = new Task(id, taskText, taskDate, taskPrio, taskProject);
 
         saveTask(newTask);
     }
@@ -165,7 +168,55 @@ function removeTasksFromHtml() {
 
 function loadTasks() {
     removeTasksFromHtml();
-    getTasks().forEach(function(task) {
+    let allTasks = getTasks();
+    allTasks.forEach(function(task) {
+        addToList(task)
+    })
+}
+
+let allTasksBtn = document.querySelector(".btn-all-tasks");
+let todayTasksBtn = document.querySelector(".btn-today-tasks");
+let weekTasksBtn = document.querySelector(".btn-week-tasks");
+let overdueTasksBtn = document.querySelector(".btn-overdue-tasks");
+
+allTasksBtn.addEventListener("click", loadTasks);
+todayTasksBtn.addEventListener("click", loadTodayTasks);
+weekTasksBtn.addEventListener("click", loadWeekTasks);
+overdueTasksBtn.addEventListener("click", loadOverdueTasks);
+
+function loadProjectTasks(e) {
+    removeTasksFromHtml();
+    let allTasks = getTasks();
+    const projectToFilter = e.currentTarget.querySelector(".project-title").innerText
+    allTasks = allTasks.filter((task) => task.project === projectToFilter);
+    allTasks.forEach(function(task) {
+        addToList(task)
+    })
+}
+
+function loadTodayTasks() {
+    removeTasksFromHtml();
+    let allTasks = getTasks();
+    allTasks = allTasks.filter((task) => isToday(new Date(task.date)));
+    allTasks.forEach(function(task) {
+        addToList(task)
+    })
+}
+
+function loadWeekTasks() {
+    removeTasksFromHtml();
+    let allTasks = getTasks();
+    allTasks = allTasks.filter((task) => isThisISOWeek(new Date(task.date)));
+    allTasks.forEach(function(task) {
+        addToList(task)
+    })
+}
+
+function loadOverdueTasks() {
+    removeTasksFromHtml();
+    let allTasks = getTasks();
+    allTasks = allTasks.filter((task) => isPast(new Date(task.date)));
+    allTasks.forEach(function(task) {
         addToList(task)
     })
 }
@@ -221,4 +272,4 @@ function editTask(e) {
     document.getElementById("task-modal-content").dataset.id = taskToEdit.id;
 }
 
-export { taskModal }
+export { taskModal, loadProjectTasks }

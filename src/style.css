@@ -33,6 +33,7 @@ html {
 body {
     color: var(--text-color);
     font-family: "MyFont";
+    height: 98vh;
 }
 
 button {
@@ -41,14 +42,13 @@ button {
 
 #layout-container {
     width: 120rem;
-    height: 58rem;
+    height: 100%;
     margin: 1rem auto;
     display: grid;
     grid-template-columns: 2.5fr 10fr 3fr;
-    padding: 0 1rem;
+    grid-template-rows: 1fr;
     background-color: var(--bg-Color);
     gap: 1rem;
-    grid-template-rows: 1fr;
 }
 
 /* Sidebar layout */
@@ -56,29 +56,46 @@ button {
 #sidebar-container, #task-container, #notes-container {
     border-radius: 1rem;
     background-color: var(--layout-Bg-Color);
-    padding: 2rem;
+    padding: 0 2rem;
+    overflow: auto;
 }
 
 #sidebar-container {
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow-y: scroll;
-}
-
-#app-logo {
-    position: fixed;
-    color: var(--logo-Color);
-}
-
-#sidebar {
-    display: flex;
-    height: 100%; 
-    flex-direction: column;
     justify-content: space-between;
     text-align-last: left;
     gap: 0.5rem;
-    margin-top: 5.625rem;
+}
+
+#app-logo {
+    color: var(--logo-Color);
+}
+
+.navigation-container, .task-header-container, .notes-header {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    background-color: var(--layout-Bg-Color);
+    padding-top: 2rem;
+}
+
+.btn-field {
+    display: grid;
+    grid-template-columns: 8fr 1fr;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-field:hover {
+    .edit-project-btn, .delete-project-btn {
+        display: block;
+    }
 }
 
 .btn {
@@ -101,8 +118,15 @@ button {
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow-y: scroll;
 }
+
+/* #notes-header {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    background-color: var(--layout-Bg-Color);
+} */
 
 .add-note-btn {
     width: 50%;
@@ -462,10 +486,11 @@ input:checked + .prio-high {
 }
 
 /* Task layout */
-#task-title {
+#task-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 39px;
 }
 
 #add-task-btn {
@@ -526,7 +551,7 @@ input:checked + .prio-high {
     margin-bottom: 2.5rem;
 }
 
-.task-header {
+.task-list-header {
     background: var(--bg-Color);
     font-size: 18px;
     border-radius: 16px;
@@ -552,6 +577,12 @@ input:checked + .prio-high {
 
 #task-list > .task {
     border-bottom: 1px solid rgba(221, 158, 22, 0.5);
+}
+
+#task-list > .task:nth-child(2)  {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-top: 1px solid rgba(221, 158, 22, 0.5);
 }
 
 #task-list > .task:last-child {
@@ -642,12 +673,9 @@ input:checked + .prio-high {
 }
 
 .project-content {
-    display: grid;
-    grid-template-columns: 8fr 1fr;
     background-color: var(--bg-Color);
     border-radius: 8px;
     padding: 12px 16px;
-    overflow-wrap: anywhere;
 }
 
 .project-title {
@@ -660,13 +688,15 @@ input:checked + .prio-high {
     font-size: 14px;
     font-style: italic;
     grid-row: 2/3;
+    text-align: left;
 }
 
 .edit-project-btn {
     background-image: url("../src/assets/edit-note.png");
     background-color: transparent !important;
     color: transparent;
-    width: 24px;
+    width: 20px;
+    height: 20px;
     background-repeat: no-repeat;
     background-size: contain;
     border: none;
@@ -674,15 +704,19 @@ input:checked + .prio-high {
 }
 
 .delete-project-btn {
-    grid-column: 2 / 3;
     background-image: url("../src/assets/delete-note.png");
     background-color: transparent !important;
     color: transparent;
-    width: 20px;
+    width: 18px;
+    height: 18px;
     background-repeat: no-repeat;
     background-size: contain;
     border: none;
     cursor: pointer;
+}
+
+.edit-project-btn, .delete-project-btn {
+    display: none
 }
 
 .add-new-project {

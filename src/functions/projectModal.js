@@ -1,3 +1,5 @@
+import { loadProjectTasks } from '../functions/taskModal';
+
 function projectModal() {
     const projectModal = document.getElementById("project-modal");
     const addProjectBtn = document.querySelector(".add-project-btn");
@@ -27,12 +29,14 @@ class Project {
 
     createProject() {
         const project = document.createElement("div");
-        const projectTitle = document.createElement("div");
-        const projectDescription = document.createElement("div");
+        const projectBtnField = document.createElement("button");
+        const projectTitle = document.createElement("span");
+        const projectDescription = document.createElement("span");
         const editProjectBtn = document.createElement("button");
         const deleteProjectBtn = document.createElement("button");
 
         project.className = "project-content";
+        projectBtnField.className = "btn-field";
         projectTitle.className = "project-title";
         projectDescription.className = "project-description";
         editProjectBtn.className = "edit-project-btn";
@@ -40,17 +44,20 @@ class Project {
 
         editProjectBtn.dataset.id = this.id;
         deleteProjectBtn.dataset.id = this.id;
+        projectBtnField.type = "button";
 
         projectTitle.innerText = this.title;
         projectDescription.innerText = this.description;
 
         editProjectBtn.addEventListener("click", editProject);
         deleteProjectBtn.addEventListener("click", showDeleteConfirm);
+        projectBtnField.addEventListener("click", loadProjectTasks);
 
-        project.appendChild(projectTitle);
-        project.appendChild(projectDescription);
-        project.appendChild(editProjectBtn);
-        project.appendChild(deleteProjectBtn);
+        project.appendChild(projectBtnField)
+        projectBtnField.appendChild(projectTitle);
+        projectBtnField.appendChild(projectDescription);
+        projectBtnField.appendChild(editProjectBtn);
+        projectBtnField.appendChild(deleteProjectBtn);
 
         return project
     }
@@ -127,13 +134,27 @@ function setProjects(projects) {
 
 function removeProjectsFromHtml() {
     const projectContainer = document.querySelector(".project-container");
-    new DocumentFragment().append(...projectContainer.querySelectorAll(".project-content"))
+    new DocumentFragment().append(...projectContainer.querySelectorAll(".project-content"));
+}
+
+function removeProjectsFromDropdown() {
+    const projectDropdown = document.getElementById("project");
+    new DocumentFragment().append(...projectDropdown.querySelectorAll("option"));
+}
+
+function addToDropdownList(projectTitle) {
+    const projectDropdown = document.getElementById("project");
+    const createProjectOption = document.createElement("option");
+    createProjectOption.innerText = projectTitle;
+    projectDropdown.appendChild(createProjectOption);
 }
 
 function loadProjects() {
     removeProjectsFromHtml();
+    removeProjectsFromDropdown()
     getProjects().forEach(function(project) {
         addToProjectContainer(project);
+        addToDropdownList(project.title);
     })
 }
 

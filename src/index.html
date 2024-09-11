@@ -8,40 +8,44 @@
   <body>
     <div id="layout-container">
       <div id="sidebar-container">
-        <h1 id="app-logo">GoalApp</h1>
-        <aside id="sidebar">
-          <button class="btn">All tasks</button>
-          <button class="btn">Today</button>
-          <button class="btn">This week</button>
-          <button class="btn">Overdue</button>
+        <div class="navigation-container">
+          <h1 id="app-logo">GoalApp</h1>
+          <div id="task-filter">
+            <button class="btn btn-all-tasks" type="button">All tasks</button>
+            <button class="btn btn-today-tasks">Today</button>
+            <button class="btn btn-week-tasks">This week</button>
+            <button class="btn btn-overdue-tasks">Overdue</button>
+          </div>
           <div class="add-new-project">
             <h2 class="projects">Projects</h2>
             <button class="add-project-btn" type="button">+<span>New</span></button>
           </div>
-          <div class="project-container">
-            <div class="project-content">
-              <div class="project-title">Trip to Italy</div>
-              <div class="project-description">Everything needed</div>
-              <button class="edit-project-btn" type="button">Edit</button>
-              <button class="delete-project-btn" type="button">Delete</button>
-            </div>
+        </div>
+        <div class="project-container">
+          <div class="project-content">
+            <div class="project-title">Trip to Italy</div>
+            <div class="project-description">Everything needed</div>
+            <button class="edit-project-btn" type="button">Edit</button>
+            <button class="delete-project-btn" type="button">Delete</button>
           </div>
-        </aside>
+        </div>
       </div>
       <!-- Main container to display tasks -->
       <div id="task-container">
-        <div id="task-title">
-          <h1>Tasks</h1>
-          <button id="add-task-btn">+ Add task</button>
-        </div>
-        <div class="task-header">
-          <div class="task">
-            <span>Prio</span>
-            <span>Done</span>
-            <span class="task-name">Task Name</span>
-            <span>Due By</span>
-            <span>Edit</span>
-            <span>Delete</span>
+        <div class="task-header-container">
+          <div id="task-header">
+            <h1>Tasks</h1>
+            <button id="add-task-btn">+ Add task</button>
+          </div>
+          <div class="task-list-header">
+            <div class="task">
+              <span>Prio</span>
+              <span>Done</span>
+              <span class="task-name">Task Name</span>
+              <span>Due By</span>
+              <span>Edit</span>
+              <span>Delete</span>
+            </div>
           </div>
         </div>
         <div id="task-list">
@@ -89,8 +93,10 @@
       </dialog>
       <!-- Notes content -->
       <div id="notes-container">
-        <h2 id="notes-heading">Notes</h2>
-        <button class="add-note-btn">+ New note</button>
+        <div class="notes-header">
+          <h2 id="notes-heading">Notes</h2>
+          <button class="add-note-btn">+ New note</button>
+        </div>
         <div id="all-note-container">
           <div id="default-note" class="default-note">
             <div class="note-text-container">
@@ -150,10 +156,7 @@
         </form>
       </dialog>
       <!-- Project modal end -->
-       <!--  -->
-      <div>
-
-      </div>
+      <!--  -->
     </div>
   </body>
 </html>
