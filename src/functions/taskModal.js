@@ -28,18 +28,20 @@ function setDateValue() {
 }
 
 class Task {
-    constructor(id, text, date, prio, project) {
+    constructor(id, text, date, prio, project, complete) {
         this.id = id
         this.text = text;
         this.date = date;
         this.prio = prio;
         this.project = project;
+        this.complete = complete;
     }
 
     getAsRow() {
         const task = document.createElement("div");
         task.classList.add("task", "new-task");
-
+        task.dataset.id = this.id;
+        
         const dotClassMap = {
             low: "dot-green",
             medium: "dot-yellow",
@@ -47,13 +49,17 @@ class Task {
         };
         const prioDot = document.createElement("span");
         prioDot.classList.add("dot", dotClassMap[this.prio]);
-
         const checkTask = document.createElement("span");
         const checkBoxInput = document.createElement("input");
         checkBoxInput.type = "checkbox";
-        checkBoxInput.name = "name";
-        checkBoxInput.value = "value";
-        checkBoxInput.className = "task-done";
+        checkBoxInput.classList.add("toggle-complete");
+        if(this.complete) {
+            task.classList.add("completed");
+        }
+
+        checkBoxInput.checked = this.complete;
+        checkBoxInput.dataset.id = this.id;
+        checkBoxInput.addEventListener("click", taskComplete);
 
         const taskText = document.createElement("span");
         taskText.innerText = this.text;
@@ -85,6 +91,24 @@ class Task {
     }
 };
 
+function taskComplete(e) {
+    const checkbox = e.srcElement;
+    let checkboxId = parseInt(checkbox.dataset.id);
+    let allTasks = getTasks();
+    let taskToEdit = allTasks.find(task => {
+        return task.id === checkboxId;
+    });
+    taskToEdit.complete = !!checkbox.checked;
+
+    let task = document.querySelector(`[data-id="${checkboxId}"]`, ".new-task");
+    if(taskToEdit.complete) {
+        task.classList.add("completed");
+    } else {
+        task.classList.remove("completed");
+    };
+    setTasks(allTasks);
+}
+
 function registerSubmitForm() {
     const resetForm = document.getElementById("task-modal-content");
     resetForm.addEventListener("submit", onSubmitForm);
@@ -100,22 +124,23 @@ function onSubmitForm(e) {
         return element.checked;
     }).value;
     let taskProject = document.getElementById("project").value;
+    let complete = false;
 
     if(taskId) {
         let allTasks = getTasks();
-        let noteToEdit = allTasks.find(task => {
+        let taskToEdit = allTasks.find(task => {
             return task.id === taskId;
         })
-        noteToEdit.text = taskText;
-        noteToEdit.date = taskDate;
-        noteToEdit.prio = taskPrio;
+        taskToEdit.text = taskText;
+        taskToEdit.date = taskDate;
+        taskToEdit.prio = taskPrio;
         setTasks(allTasks);
 
         delete e.srcElement.dataset.id;
     } else {
         let id = getId();
 
-        let newTask = new Task(id, taskText, taskDate, taskPrio, taskProject);
+        let newTask = new Task(id, taskText, taskDate, taskPrio, taskProject, complete);
 
         saveTask(newTask);
     }
@@ -141,7 +166,7 @@ function isIdNotUnique(id) {
 }
 
 function addToList(newTask) {
-    const taskList = document.getElementById("task-list");;
+    const taskList = document.getElementById("task-list");
     taskList.appendChild(newTask.getAsRow());
 }
 
@@ -153,7 +178,7 @@ function saveTask(newTask) {
 
 function getTasks() {
     return (JSON.parse(localStorage.getItem("task")) || []).map(task => {
-        return new Task(task.id, task.text, task.date, task.prio, task.project);
+        return new Task(task.id, task.text, task.date, task.prio, task.project, task.complete);
     });
 }
 
@@ -169,6 +194,7 @@ function removeTasksFromHtml() {
 function loadTasks() {
     removeTasksFromHtml();
     let allTasks = getTasks();
+    allTasks = allTasks.filter((task) => task.complete == false);
     allTasks.forEach(function(task) {
         addToList(task)
     })
@@ -178,11 +204,13 @@ let allTasksBtn = document.querySelector(".btn-all-tasks");
 let todayTasksBtn = document.querySelector(".btn-today-tasks");
 let weekTasksBtn = document.querySelector(".btn-week-tasks");
 let overdueTasksBtn = document.querySelector(".btn-overdue-tasks");
+let completeTasksBtn = document.querySelector(".btn-done-tasks");
 
 allTasksBtn.addEventListener("click", loadTasks);
 todayTasksBtn.addEventListener("click", loadTodayTasks);
 weekTasksBtn.addEventListener("click", loadWeekTasks);
 overdueTasksBtn.addEventListener("click", loadOverdueTasks);
+completeTasksBtn.addEventListener("click", loadCompleteTasks);
 
 function loadProjectTasks(e) {
     removeTasksFromHtml();
@@ -197,7 +225,7 @@ function loadProjectTasks(e) {
 function loadTodayTasks() {
     removeTasksFromHtml();
     let allTasks = getTasks();
-    allTasks = allTasks.filter((task) => isToday(new Date(task.date)));
+    allTasks = allTasks.filter((task) => isToday(new Date(task.date)) && task.complete === false);
     allTasks.forEach(function(task) {
         addToList(task)
     })
@@ -206,7 +234,7 @@ function loadTodayTasks() {
 function loadWeekTasks() {
     removeTasksFromHtml();
     let allTasks = getTasks();
-    allTasks = allTasks.filter((task) => isThisISOWeek(new Date(task.date)));
+    allTasks = allTasks.filter((task) => isThisISOWeek(new Date(task.date)) && task.complete == false);
     allTasks.forEach(function(task) {
         addToList(task)
     })
@@ -215,7 +243,16 @@ function loadWeekTasks() {
 function loadOverdueTasks() {
     removeTasksFromHtml();
     let allTasks = getTasks();
-    allTasks = allTasks.filter((task) => isPast(new Date(task.date)));
+    allTasks = allTasks.filter((task) => isPast(new Date(task.date)) && task.complete == false);
+    allTasks.forEach(function(task) {
+        addToList(task)
+    })
+}
+
+function loadCompleteTasks() {
+    removeTasksFromHtml();
+    let allTasks = getTasks();
+    allTasks = allTasks.filter((task) => task.complete);
     allTasks.forEach(function(task) {
         addToList(task)
     })
