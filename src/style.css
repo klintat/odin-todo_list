@@ -73,6 +73,53 @@ button {
     color: var(--logo-Color);
 }
 
+/* #task-filter {
+    display: flex;
+    flex-direction: column;
+} */
+
+.btn {
+    display: flex;
+    flex-direction: row;
+    background: transparent;
+    cursor: pointer;
+    border: none;
+    color: var(--text-color);
+    font-size: 20px;
+    gap: 12px;
+    line-height: 42px;
+    align-items: center;
+}
+
+.for-icon {
+    width: 25px;
+    height: 25px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-all-tasks > span  {
+    background-image: url('./assets/icons/checklist-100.png');
+}
+
+.btn-today-tasks > span {
+    background-image: url('./assets/icons/today.png');
+}
+
+.btn-week-tasks > span {
+    background-image: url('./assets/icons/timeline-week.png');
+}
+
+.btn-overdue-tasks > span {
+    background-image: url('./assets/icons/overdue.png');
+}
+
+.btn-done-tasks > span {
+    background-image: url('./assets/icons/today.png');
+}
+
 .navigation-container, .task-header-container, .notes-header {
     position: sticky;
     display: flex;
@@ -96,14 +143,6 @@ button {
     .edit-project-btn, .delete-project-btn {
         display: block;
     }
-}
-
-.btn {
-    width: 6rem;
-    background: transparent;
-    cursor: pointer;
-    border: none;
-    color: var(--text-color);
 }
 
 #my-projects {
@@ -171,7 +210,7 @@ button {
 }
 
 .edit-note-btn {
-    background-image: url("../src/assets/edit-note.png");
+    background-image: url("../src/assets/icons/edit-note.png");
     background-color: transparent !important;
     color: transparent;
     width: 24px;
@@ -183,7 +222,7 @@ button {
 
 .delete-note-btn {
     grid-column: 2/3;
-    background-image: url("../src/assets/delete-note.png");
+    background-image: url("../src/assets/icons/delete-note.png");
     background-color: transparent !important;
     color: transparent;
     width: 20px;
@@ -611,7 +650,7 @@ input:checked + .prio-high {
 }
 
 .edit-task {
-    background-image: url('../src/assets/create-outline.svg');
+    background-image: url('../src/assets/icons/create-outline.svg');
     background-color: transparent !important;
     color: transparent;
     width: 26px;
@@ -623,7 +662,7 @@ input:checked + .prio-high {
 }
 
 .delete-task {
-    background-image: url('../src/assets/trash-outline.svg');
+    background-image: url('../src/assets/icons/trash-outline.svg');
     background-color: transparent !important;
     color: transparent;
     width: 26px;
@@ -637,7 +676,7 @@ input:checked + .prio-high {
 /* Task list when no tasks */
 .no-task-img {
     display: flex;
-    background-image: url("./assets/work-order.png");
+    background-image: url("./assets/icons/work-order.png");
     width: 256px;
     height: 256px;
     margin: 56px auto;
@@ -686,7 +725,7 @@ input:checked + .prio-high {
 }
 
 .edit-project-btn {
-    background-image: url("../src/assets/edit-note.png");
+    background-image: url("../src/assets/icons/edit-note.png");
     background-color: transparent !important;
     color: transparent;
     width: 20px;
@@ -698,7 +737,7 @@ input:checked + .prio-high {
 }
 
 .delete-project-btn {
-    background-image: url("../src/assets/delete-note.png");
+    background-image: url("../src/assets/icons/delete-note.png");
     background-color: transparent !important;
     color: transparent;
     width: 18px;
