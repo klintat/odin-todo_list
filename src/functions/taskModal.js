@@ -200,6 +200,23 @@ function loadTasks() {
     })
 }
 
+let prevButton = null;
+
+const taskFilter = document.getElementById("task-filter");
+
+taskFilter.addEventListener('click', (e) => {
+  const isButton = e.target.nodeName === 'BUTTON'; 
+  if (!isButton) {
+    return;
+  }
+
+  e.target.classList.add('current');
+  if(prevButton !== null) {
+    prevButton.classList.remove('current');
+  }
+  prevButton = e.target;
+});
+
 let allTasksBtn = document.querySelector(".btn-all-tasks");
 let todayTasksBtn = document.querySelector(".btn-today-tasks");
 let weekTasksBtn = document.querySelector(".btn-week-tasks");

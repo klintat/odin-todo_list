@@ -1,7 +1,7 @@
 @font-face {
     font-family: "MyFont";
     src: url("./assets/fonts/Manrope-ExtraLight.woff2");
-    font-weight: 400;
+    font-weight: 600;
     font-style: normal;
 }
 
@@ -56,27 +56,29 @@ button {
 #sidebar-container, #task-container, #notes-container {
     border-radius: 1rem;
     background-color: var(--layout-Bg-Color);
-    padding: 0 2rem;
+    padding: 0 2rem 2rem 2rem;
     overflow: auto;
 }
 
 #sidebar-container {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    justify-content: space-between;
     text-align-last: left;
-    gap: 0.5rem;
 }
 
 #app-logo {
     color: var(--logo-Color);
+    border-bottom: 1px white solid;
+    padding-bottom: 4px;
+    font-weight: 400;
 }
 
-/* #task-filter {
-    display: flex;
-    flex-direction: column;
-} */
+#task-filter {
+    border-bottom: 1px white solid;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    padding-bottom: 32px;
+}
 
 .btn {
     display: flex;
@@ -89,6 +91,13 @@ button {
     gap: 12px;
     line-height: 42px;
     align-items: center;
+    border-radius: 8px;
+}
+
+.current {
+    background-color: #df99204f;
+    width: 100%;
+    padding-left: 16px
 }
 
 .for-icon {
@@ -127,6 +136,7 @@ button {
     top: 0;
     background-color: var(--layout-Bg-Color);
     padding-top: 2rem;
+    z-index: 1;
 }
 
 .btn-field {
@@ -156,7 +166,6 @@ button {
 #notes-container {
     display: flex;
     flex-direction: column;
-    height: 100%;
 }
 
 .add-note-btn {
@@ -591,17 +600,21 @@ input:checked + .prio-high {
 #task-list {
     display: flex;
     flex-direction: column;
-    padding: 7px;
+    padding-top: 7px;
+    gap: 6px;
 }
 
 .task {
-    height: auto; 
     display: grid;
     grid-template-columns: 1fr 1fr 14fr 2.5fr 1.5fr 1.5fr;
     gap: 8px;
     align-content: center;
     justify-items: center;
     padding: 14px;
+}
+
+.new-task {
+    background-color: rgba(203, 141, 24, 0.42);
 }
 
 #task-list > .task {
@@ -615,7 +628,8 @@ input:checked + .prio-high {
 }
 
 #task-list > .task:last-child {
-    border-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 .task-name {
@@ -647,6 +661,7 @@ input:checked + .prio-high {
 
 .completed {
     opacity: 0.28;
+    background-color: var(--layout-Bg-Color);
 }
 
 .edit-task {
@@ -700,7 +715,6 @@ input:checked + .prio-high {
 
 .project-container {
     display: flex;
-    height: 100%;
     flex-direction: column;
     gap: 0.5rem;
 }
@@ -722,6 +736,7 @@ input:checked + .prio-high {
     font-style: italic;
     grid-row: 2/3;
     text-align: left;
+    padding-right: 8px;
 }
 
 .edit-project-btn {
@@ -755,8 +770,8 @@ input:checked + .prio-high {
 .add-new-project {
     display: flex;
     width: 100%;
-    gap: 6.5rem;
     margin: 16px auto;
+    justify-content: space-between;
 }
 
 .add-project-btn {
