@@ -8,26 +8,26 @@
   <body>
     <div id="layout-container">
       <div id="sidebar-container">
-        <div class="navigation-container">
-          <h1 id="app-logo">GoalApp</h1>
-          <div id="task-filter">
-            <button class="btn btn-all-tasks" type="button"><span class="for-icon"></span>All tasks</button>
-            <button class="btn btn-today-tasks" type="button"><span class="for-icon"></span>Today</button>
-            <button class="btn btn-week-tasks" type="button"><span class="for-icon"></span>This week</button>
-            <button class="btn btn-overdue-tasks" type="button"><span class="for-icon"></span>Overdue</button>
-            <button class="btn btn-done-tasks" type="button"><span class="for-icon"></span>Completed tasks</button>
-          </div>
-          <div class="add-new-project">
-            <h2 class="projects">Projects</h2>
-            <button class="add-project-btn" type="button">+<span>New</span></button>
-          </div>
+        <h1 id="app-logo">GoalApp</h1>
+        <div id="task-filter">
+          <button class="btn btn-all-tasks" type="button" data-btn="select"><span class="for-icon"></span>All tasks</button>
+          <button class="btn btn-today-tasks" type="button" data-btn="select"><span class="for-icon"></span>Today</button>
+          <button class="btn btn-week-tasks" type="button" data-btn="select"><span class="for-icon"></span>This week</button>
+          <button class="btn btn-overdue-tasks" type="button" data-btn="select"><span class="for-icon"></span>Overdue</button>
+          <button class="btn btn-done-tasks" type="button" data-btn="select"><span class="for-icon"></span>Completed tasks</button>
         </div>
-        <div class="project-container">
-          <div class="project-content">
-            <div class="project-title">Trip to Italy</div>
-            <div class="project-description">Everything needed</div>
-            <button class="edit-project-btn" type="button">Edit</button>
-            <button class="delete-project-btn" type="button">Delete</button>
+        <div class="add-new-project">
+          <h2 class="projects">Projects</h2>
+          <button class="add-project-btn" type="button">+<span>New</span></button>
+          <div class="default-project">
+            <button class="btn-field btn-field-default" type="button" data-btn="select">
+              <div class="project-title">Default</div>
+              <div class="project-description">Tasks without projects</div>
+              <button class="edit-project-btn" type="button">Edit</button>
+              <button class="delete-project-btn" type="button">Delete</button>
+            </button>
+          </div>
+          <div class="project-container">
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@
         <div class="task-header-container">
           <div id="task-header">
             <h1>Tasks</h1>
-            <button id="add-task-btn">+ Add task</button>
+            <button id="add-task-btn">+ New task</button>
           </div>
           <div class="task-list-header">
             <div class="task">
@@ -82,8 +82,7 @@
             <div class="task-content task-project">
               <label for="project">Project:</label>
               <select name="project" id="project">
-                <option value="task">Task</option>
-                <option value="task">Projects</option>
+                <option>None</option>
               </select>
             </div>
             <div class="modal-action">
@@ -148,11 +147,13 @@
       <!-- End of notes content -->
       <!-- Project modal -->
       <dialog id="project-modal">
-          <button class="project-cancel-btn" type="button">X</button>
-          <h2 class="modal-project-title">Add project</h2>
+        <button class="project-cancel-btn" type="button">X</button>
+        <h2 class="modal-project-title">Add project</h2>
         <form method="dialog" id="project-form">  
-          <span>Title:</span><input class="project-title-text" type="text" placeholder="Projects name">
-          <span>Description:</span><textarea class="project-description-text" type="text" placeholder="What the project is for"></textarea>
+          <span>Title:</span>
+          <input class="project-title-text" type="text" placeholder="Projects name" minlength="5" maxlength="20" required>
+          <span>Description:</span>
+          <textarea class="project-description-text" type="text" placeholder="What the project is for" minlength="5" maxlength="100" required></textarea>
           <button class="save-project-btn" type="submit">Save</button>
         </form>
       </dialog>

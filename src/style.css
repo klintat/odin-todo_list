@@ -24,6 +24,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: "MyFont";
 }
 
 html {
@@ -32,12 +33,7 @@ html {
 
 body {
     color: var(--text-color);
-    font-family: "MyFont";
     height: 98vh;
-}
-
-button {
-    font-family: "MyFont";
 }
 
 #layout-container {
@@ -83,6 +79,7 @@ button {
 .btn {
     display: flex;
     flex-direction: row;
+    width: 100%;
     background: transparent;
     cursor: pointer;
     border: none;
@@ -92,12 +89,6 @@ button {
     line-height: 42px;
     align-items: center;
     border-radius: 8px;
-}
-
-.current {
-    background-color: #df99204f;
-    width: 100%;
-    padding-left: 16px
 }
 
 .for-icon {
@@ -129,7 +120,7 @@ button {
     background-image: url('./assets/icons/today.png');
 }
 
-.navigation-container, .task-header-container, .notes-header {
+#sidebar-container, .task-header-container, .notes-header {
     position: sticky;
     display: flex;
     flex-direction: column;
@@ -143,8 +134,12 @@ button {
     display: grid;
     grid-template-columns: 8fr 1fr;
     width: 100%;
-    background-color: transparent;
-    border: none;
+    min-height: 80px;
+    border-radius: 8px;
+    padding: 12px 16px;
+    background-color: var(--bg-Color);
+    border-style: none;
+    border-radius: 8px;
     color: white;
     cursor: pointer;
 }
@@ -155,11 +150,10 @@ button {
     }
 }
 
-#my-projects {
-    margin: 0.75rem 0 0 0;
+.current {
+    background-color: #df99204f;
+    width: 100%;
 }
-
-/* Main content layout */
 
 /* Note content layout */
 
@@ -534,18 +528,18 @@ input:checked + .prio-high {
 }
 
 #add-task-btn {
-    width: 16rem;
+    width: 8rem;
     height: 2rem;
+    font-size: 16px;
+    background-color: var(--layout-Bg-Color);
     border-radius: 16px;
-    border-style: none;
+    border: 1px solid orange;
+    color: orange;
     cursor: pointer;
 }
 
 #add-task-btn:hover {
-    background-color: var(--logo-Color);
-    transition: 0.4s;
-    box-shadow: 0 0 16px white;
-    color: white;
+    border: 2px solid;
 }
 
 #add-task-btn:active {
@@ -716,13 +710,14 @@ input:checked + .prio-high {
 .project-container {
     display: flex;
     flex-direction: column;
+    width: 100%;
     gap: 0.5rem;
 }
 
-.project-content {
-    background-color: var(--bg-Color);
+.default-project {
+    margin-top: 0.5rem;
+    width: 100%;
     border-radius: 8px;
-    padding: 12px 16px;
 }
 
 .project-title {
@@ -769,7 +764,8 @@ input:checked + .prio-high {
 
 .add-new-project {
     display: flex;
-    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
     margin: 16px auto;
     justify-content: space-between;
 }
@@ -800,7 +796,6 @@ input:checked + .prio-high {
 }
 
 .add-project-btn:hover {
-    background: rgb(255, 255, 255);
     color: orange;
     width: 80px;
     padding-right: 15px;

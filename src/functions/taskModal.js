@@ -89,6 +89,7 @@ class Task {
 
         return task;
     }
+
 };
 
 function taskComplete(e) {
@@ -200,34 +201,19 @@ function loadTasks() {
     })
 }
 
-let prevButton = null;
-
-const taskFilter = document.getElementById("task-filter");
-
-taskFilter.addEventListener('click', (e) => {
-  const isButton = e.target.nodeName === 'BUTTON'; 
-  if (!isButton) {
-    return;
-  }
-
-  e.target.classList.add('current');
-  if(prevButton !== null) {
-    prevButton.classList.remove('current');
-  }
-  prevButton = e.target;
-});
-
 let allTasksBtn = document.querySelector(".btn-all-tasks");
 let todayTasksBtn = document.querySelector(".btn-today-tasks");
 let weekTasksBtn = document.querySelector(".btn-week-tasks");
 let overdueTasksBtn = document.querySelector(".btn-overdue-tasks");
 let completeTasksBtn = document.querySelector(".btn-done-tasks");
+let allTasksDefault = document.querySelector(".btn-field-default");
 
 allTasksBtn.addEventListener("click", loadTasks);
 todayTasksBtn.addEventListener("click", loadTodayTasks);
 weekTasksBtn.addEventListener("click", loadWeekTasks);
 overdueTasksBtn.addEventListener("click", loadOverdueTasks);
 completeTasksBtn.addEventListener("click", loadCompleteTasks);
+allTasksDefault.addEventListener("click", loadTasksNoProject);
 
 function loadProjectTasks(e) {
     removeTasksFromHtml();
@@ -270,6 +256,15 @@ function loadCompleteTasks() {
     removeTasksFromHtml();
     let allTasks = getTasks();
     allTasks = allTasks.filter((task) => task.complete);
+    allTasks.forEach(function(task) {
+        addToList(task)
+    })
+}
+
+function loadTasksNoProject() {
+    removeTasksFromHtml();
+    let allTasks = getTasks();
+    allTasks = allTasks.filter((task) => task.project === "None");
     allTasks.forEach(function(task) {
         addToList(task)
     })

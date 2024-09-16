@@ -4,9 +4,11 @@ function projectModal() {
     const projectModal = document.getElementById("project-modal");
     const addProjectBtn = document.querySelector(".add-project-btn");
     const projectCancelBtn = document.querySelector(".project-cancel-btn");
+    const projectText = document.querySelector(".project-description-text");
 
     function openProjectModal() {
         projectModal.showModal();
+        projectText.innerText = "";
     };
 
     function closeProjectModal() {
@@ -18,6 +20,7 @@ function projectModal() {
 
     loadProjects();
     registerProjectForm();
+    selectBtn()
 }
 
 class Project {
@@ -36,7 +39,7 @@ class Project {
         const deleteProjectBtn = document.createElement("button");
 
         project.className = "project-content";
-        projectBtnField.className = "btn-field";
+        projectBtnField.classList.add("btn-field", "btn-select");
         projectTitle.className = "project-title";
         projectDescription.className = "project-description";
         editProjectBtn.className = "edit-project-btn";
@@ -45,6 +48,7 @@ class Project {
         editProjectBtn.dataset.id = this.id;
         deleteProjectBtn.dataset.id = this.id;
         projectBtnField.type = "button";
+        projectBtnField.setAttribute("data-btn", "select");
 
         projectTitle.innerText = this.title;
         projectDescription.innerText = this.description;
@@ -63,9 +67,26 @@ class Project {
     }
 }
 
+function selectBtn() {
+    const bntSelect = document.querySelectorAll("[data-btn]");
+    let activeBtn = null;
+
+    bntSelect.forEach((bntSelect) => {
+        bntSelect.addEventListener("click", (e) => {
+        e.currentTarget.classList.add("current");
+
+    if ((activeBtn != null && activeBtn !== e.currentTarget)) {
+        activeBtn.classList.remove("current");
+    }
+        activeBtn = e.currentTarget;
+        });
+    });
+}
+
 function registerProjectForm() {
     const projectForm = document.getElementById("project-form");
     projectForm.addEventListener("submit", onSubmitProjectForm);
+    projectForm.reset();
 }
 
 function onSubmitProjectForm(e) {
@@ -139,12 +160,13 @@ function removeProjectsFromHtml() {
 
 function removeProjectsFromDropdown() {
     const projectDropdown = document.getElementById("project");
-    new DocumentFragment().append(...projectDropdown.querySelectorAll("option"));
+    new DocumentFragment().append(...projectDropdown.querySelectorAll("user-project"));
 }
 
 function addToDropdownList(projectTitle) {
     const projectDropdown = document.getElementById("project");
     const createProjectOption = document.createElement("option");
+    createProjectOption.classList.add("user-project");
     createProjectOption.innerText = projectTitle;
     projectDropdown.appendChild(createProjectOption);
 }
