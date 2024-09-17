@@ -3,6 +3,7 @@ import { loadProjectTasks } from '../functions/taskModal';
 const addProjectBtn = document.querySelector(".add-project-btn");
 const projectCancelBtn = document.getElementById("project-close-btn");
 const projectText = document.getElementById("project-text");
+const projectModalDialog = document.getElementById("project-modal-container");
 const projectForm = document.getElementById("project-form");
 const projectTitleText = document.querySelector(".project-title-text");
 const projectContainer = document.querySelector(".project-container");
@@ -16,19 +17,19 @@ const confCancelBtn = document.querySelector(".conf-cancel-project-btn");
 
 function projectModal() {
     function openProjectModal() {
-        projectForm.showModal();
+        projectModalDialog.showModal();
         projectText.innerText = "";
     };
 
     function closeProjectModal() {
-        projectForm.close();
+        projectModalDialog.close();
     };
 
     addProjectBtn.addEventListener("click", openProjectModal);
     projectCancelBtn.addEventListener("click", closeProjectModal);
 
     loadProjects();
-    registerProjectForm();
+    registerProjectModalDialog();
     selectBtn()
 }
 
@@ -92,12 +93,12 @@ function selectBtn() {
     });
 }
 
-function registerProjectForm() {
-    projectForm.addEventListener("submit", onSubmitProjectForm);
+function registerProjectModalDialog() {
+    projectModalDialog.addEventListener("submit", onSubmitProjectModalDialog);
     projectForm.reset();
 }
 
-function onSubmitProjectForm(e) {
+function onSubmitProjectModalDialog(e) {
     const projectId = parseInt(e.srcElement.dataset.id);
     let projectTitle = projectTitleText.value;
     let projectDescription = projectText.value;
@@ -123,7 +124,7 @@ function onSubmitProjectForm(e) {
     loadProjects();
 
     e.srcElement.reset();
-    projectForm.close();
+    projectModalDialog.close();
 }
 
 function getId() {
@@ -209,7 +210,7 @@ function deleteProjects(e) {
 }
 
 function editProject(e) {
-    projectForm.showModal();
+    projectModalDialog.showModal();
     let allProjects = getProjects();
     const projectIdToEdit = parseInt(e.srcElement.dataset.id);
     const projectToEdit = allProjects.find(project => {
@@ -217,7 +218,7 @@ function editProject(e) {
     })
     projectTitleText.value = projectToEdit.title;
     projectText.innerText = projectToEdit.description;
-    projectForm.dataset.id = projectToEdit.id;
+    projectModalDialog.dataset.id = projectToEdit.id;
 }
 
 export { projectModal }
