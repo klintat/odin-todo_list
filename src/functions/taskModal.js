@@ -4,7 +4,6 @@ const taskDialog = document.getElementById("task-dialog");
 const openTaskModal = document.getElementById("add-task-btn");
 const closeTaskModal = document.getElementById("close-task-modal-btn");
 const taskText = document.getElementById("task-text");
-const dateInput = document.getElementById("task-date");
 const taskForm = document.getElementById("task-form");
 const taskList = document.getElementById("task-list");
 const taskDate = document.getElementById("task-date")
@@ -37,8 +36,8 @@ function taskModal() {
 
 function setDateValue() {
 	const today = new Date().toISOString().split("T")[0];
-	dateInput.setAttribute("min", today);
-    dateInput.setAttribute("value", today);
+	taskDate.setAttribute("min", today);
+    taskDate.setAttribute("value", today);
 }
 
 class Task {
@@ -140,7 +139,7 @@ function onSubmitForm(e) {
     }).find((element) => {
         return element.checked;
     }).value;
-    let taskProject = document.getElementById("project-task").value;
+    let taskProject = document.getElementById("project").value;
     let complete = false;
 
     if(taskId) {

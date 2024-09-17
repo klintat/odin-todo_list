@@ -1,19 +1,17 @@
 import { loadProjectTasks } from '../functions/taskModal';
 
+const projectModalDialog = document.getElementById("project-modal-container");
 const addProjectBtn = document.querySelector(".add-project-btn");
 const projectCancelBtn = document.getElementById("project-close-btn");
 const projectText = document.getElementById("project-text");
-const projectModalDialog = document.getElementById("project-modal-container");
 const projectForm = document.getElementById("project-form");
 const projectTitleText = document.querySelector(".project-title-text");
 const projectContainer = document.querySelector(".project-container");
 const projectDropdown = document.getElementById("project");
-const createProjectOption = document.createElement("option");
 const deleteConfModal = document.getElementById("delete-conf-project-modal");
 const deleteConfText = document.querySelector(".delete-conf-project-text");
 const confDeleteProjectBtn = document.querySelector(".conf-delete-project-btn");
 const confCancelBtn = document.querySelector(".conf-cancel-project-btn");
-
 
 function projectModal() {
     function openProjectModal() {
@@ -170,6 +168,7 @@ function removeProjectsFromDropdown() {
 }
 
 function addToDropdownList(projectTitle) {
+    const createProjectOption = document.createElement("option");
     createProjectOption.classList.add("user-project");
     createProjectOption.innerText = projectTitle;
     projectDropdown.appendChild(createProjectOption);
@@ -218,7 +217,7 @@ function editProject(e) {
     })
     projectTitleText.value = projectToEdit.title;
     projectText.innerText = projectToEdit.description;
-    projectModalDialog.dataset.id = projectToEdit.id;
+    projectForm.dataset.id = projectToEdit.id;
 }
 
 export { projectModal }
