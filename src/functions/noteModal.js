@@ -1,11 +1,17 @@
 import { format } from "date-fns";
 
-function noteModal() {
-    const noteDialog = document.getElementById("note-dialog");
-    const openNoteModal = document.querySelector(".add-note-btn");
-    const closeNoteModal = document.querySelector(".close-note-modal-btn");
-    const noteText = document.getElementById("note-text");
+const noteDialog = document.getElementById("note-dialog");
+const openNoteModal = document.querySelector(".add-note-btn");
+const closeNoteModal = document.getElementById("close-note-modal-btn");
+const noteText = document.getElementById("note-text");
+const noteForm = document.getElementById("note-form");
+const noteList = document.getElementById("all-note-container");
+const deleteConfNoteModal = document.getElementById("delete-conf-note-modal");
+const deleteConfNoteText = document.querySelector(".delete-conf-note-text");
+const confDeleteNoteBtn = document.querySelector(".conf-delete-note-btn");
+const confCancelBtn = document.querySelector(".conf-cancel-note-btn");
 
+function noteModal() {
     openNoteModal.addEventListener("click", () => {
         noteDialog.showModal();
         noteText.innerText = "";
@@ -28,27 +34,29 @@ class Note {
 
     createNote() {
         const note = document.createElement("div");
-        note.className = "new-note";
         const noteTextContainer = document.createElement("div");
-        noteTextContainer.className = "note-text-container";
-        noteTextContainer.innerText = this.noteText;
-
         const noteDate = document.createElement("div");
-        noteDate.className = "note-date";
-        noteDate.innerText = `Date: ` + this.date;
-
         const editNoteBtn = document.createElement("button");
-        editNoteBtn.innerText = "Edit";
-        editNoteBtn.className = "edit-note-btn";
-        editNoteBtn.addEventListener("click", editNote);
-        editNoteBtn.dataset.id = this.id;
-        
         const deleteNoteBtn = document.createElement("button");
+
+        note.className = "new-note";
+        noteTextContainer.className = "note-text-container";
+        noteDate.className = "note-date";
+        editNoteBtn.className = "edit-note-btn";
+        editNoteBtn.classList.add("edit-btn", "edit-note-btn");
+        deleteNoteBtn.classList.add("delete-btn", "delete-note-btn");
+
+        noteTextContainer.innerText = this.noteText;
+        noteDate.innerText = `Date: ` + this.date;
+        editNoteBtn.innerText = "Edit";
         deleteNoteBtn.innerText = "Delete";
-        deleteNoteBtn.className = "delete-note-btn";
-        deleteNoteBtn.addEventListener("click", showDeleteConfirm);
+        
+        editNoteBtn.dataset.id = this.id;
         deleteNoteBtn.dataset.id = this.id;
 
+        editNoteBtn.addEventListener("click", editNote);
+        deleteNoteBtn.addEventListener("click", showDeleteConfirm);
+        
         note.appendChild(noteTextContainer);
         note.appendChild(editNoteBtn);
         note.appendChild(deleteNoteBtn);
@@ -59,13 +67,11 @@ class Note {
 }
 
 function registerNoteSubmitForm() {
-    const noteForm = document.getElementById("note-modal-content");
     noteForm.addEventListener("submit", onSubmitNoteForm);
 }
 
 function onSubmitNoteForm(e) {
     const noteId = parseInt(e.srcElement.dataset.id);
-    const noteText = document.getElementById("note-text");
     let note = noteText.value;
 
     if (noteId) {
@@ -90,7 +96,7 @@ function onSubmitNoteForm(e) {
     loadNotes();
 
     e.srcElement.reset();
-    document.getElementById("note-dialog").close();
+    noteDialog.close();
 }
 
 function getId() {
@@ -108,7 +114,6 @@ function isIdNotUnique(id) {
 }
 
 function addToNoteList(newNote) {
-    const noteList = document.getElementById("all-note-container");
     noteList.appendChild(newNote.createNote());
 }
 
@@ -136,17 +141,11 @@ function loadNotes() {
 }
 
 function removeNotesFromHtml() {
-    const noteList = document.getElementById("all-note-container");
     new DocumentFragment().append(...noteList.querySelectorAll(".new-note"))
 }
 
-const deleteConfNoteModal = document.getElementById("delete-conf-note-modal");
-const deleteConfNoteText = document.querySelector(".delete-conf-note-text");
-const confDeleteNoteBtn = document.querySelector(".conf-delete-note-btn");
-const confCancelBtn = document.querySelector(".conf-cancel-note-btn");
-
 function showDeleteConfirm(e) {
-    document.querySelector(".conf-delete-note-btn").dataset.id = e.srcElement.dataset.id;
+    confDeleteNoteBtn.dataset.id = e.srcElement.dataset.id;
     deleteConfNoteModal.showModal();
     deleteConfNoteText.innerText = "Are you sure you want to delete this note?";
 }
@@ -171,15 +170,14 @@ function deleteNotes(e) {
 }
 
 function editNote(e) {
-    const noteDialog = document.getElementById("note-dialog");
     noteDialog.showModal();
     let allNotes = getNotes();
     const noteIdToEdit = parseInt(e.srcElement.dataset.id);
     const noteToEdit = allNotes.find(note => {
         return note.id === noteIdToEdit;
     })
-    document.getElementById("note-text").innerText = noteToEdit.noteText;
-    document.getElementById("note-modal-content").dataset.id = noteToEdit.id;
+    noteText.innerText = noteToEdit.noteText;
+    noteForm.dataset.id = noteToEdit.id;
 }
 
 export { noteModal }

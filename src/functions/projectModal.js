@@ -1,18 +1,27 @@
 import { loadProjectTasks } from '../functions/taskModal';
 
-function projectModal() {
-    const projectModal = document.getElementById("project-modal");
-    const addProjectBtn = document.querySelector(".add-project-btn");
-    const projectCancelBtn = document.querySelector(".project-cancel-btn");
-    const projectText = document.querySelector(".project-description-text");
+const addProjectBtn = document.querySelector(".add-project-btn");
+const projectCancelBtn = document.getElementById("project-close-btn");
+const projectText = document.getElementById("project-text");
+const projectForm = document.getElementById("project-form");
+const projectTitleText = document.querySelector(".project-title-text");
+const projectContainer = document.querySelector(".project-container");
+const projectDropdown = document.getElementById("project");
+const createProjectOption = document.createElement("option");
+const deleteConfModal = document.getElementById("delete-conf-project-modal");
+const deleteConfText = document.querySelector(".delete-conf-project-text");
+const confDeleteProjectBtn = document.querySelector(".conf-delete-project-btn");
+const confCancelBtn = document.querySelector(".conf-cancel-project-btn");
 
+
+function projectModal() {
     function openProjectModal() {
-        projectModal.showModal();
+        projectForm.showModal();
         projectText.innerText = "";
     };
 
     function closeProjectModal() {
-        projectModal.close();
+        projectForm.close();
     };
 
     addProjectBtn.addEventListener("click", openProjectModal);
@@ -42,16 +51,16 @@ class Project {
         projectBtnField.classList.add("btn-field", "btn-select");
         projectTitle.className = "project-title";
         projectDescription.className = "project-description";
-        editProjectBtn.className = "edit-project-btn";
-        deleteProjectBtn.className = "delete-project-btn";
+        editProjectBtn.classList.add("edit-btn", "edit-project-btn");
+        deleteProjectBtn.classList.add("delete-btn", "delete-project-btn");
+
+        projectTitle.innerText = this.title;
+        projectDescription.innerText = this.description;
 
         editProjectBtn.dataset.id = this.id;
         deleteProjectBtn.dataset.id = this.id;
         projectBtnField.type = "button";
         projectBtnField.setAttribute("data-btn", "select");
-
-        projectTitle.innerText = this.title;
-        projectDescription.innerText = this.description;
 
         editProjectBtn.addEventListener("click", editProject);
         deleteProjectBtn.addEventListener("click", showDeleteConfirm);
@@ -84,15 +93,14 @@ function selectBtn() {
 }
 
 function registerProjectForm() {
-    const projectForm = document.getElementById("project-form");
     projectForm.addEventListener("submit", onSubmitProjectForm);
     projectForm.reset();
 }
 
 function onSubmitProjectForm(e) {
     const projectId = parseInt(e.srcElement.dataset.id);
-    let projectTitle = document.querySelector(".project-title-text").value;
-    let projectDescription = document.querySelector(".project-description-text").value;
+    let projectTitle = projectTitleText.value;
+    let projectDescription = projectText.value;
     
     if (projectId) {
         let allProjects = getProjects();
@@ -115,7 +123,7 @@ function onSubmitProjectForm(e) {
     loadProjects();
 
     e.srcElement.reset();
-    document.getElementById("project-modal").close();
+    projectForm.close();
 }
 
 function getId() {
@@ -133,8 +141,7 @@ function isIdNotUnique(id) {
 }
 
 function addToProjectContainer(newProject) {
-    const projectContent = document.querySelector(".project-container");
-    projectContent.appendChild(newProject.createProject());
+    projectContainer.appendChild(newProject.createProject());
 }
 
 function saveProject(newProject) {
@@ -154,18 +161,14 @@ function setProjects(projects) {
 }
 
 function removeProjectsFromHtml() {
-    const projectContainer = document.querySelector(".project-container");
     new DocumentFragment().append(...projectContainer.querySelectorAll(".project-content"));
 }
 
 function removeProjectsFromDropdown() {
-    const projectDropdown = document.getElementById("project");
     new DocumentFragment().append(...projectDropdown.querySelectorAll("user-project"));
 }
 
 function addToDropdownList(projectTitle) {
-    const projectDropdown = document.getElementById("project");
-    const createProjectOption = document.createElement("option");
     createProjectOption.classList.add("user-project");
     createProjectOption.innerText = projectTitle;
     projectDropdown.appendChild(createProjectOption);
@@ -179,11 +182,6 @@ function loadProjects() {
         addToDropdownList(project.title);
     })
 }
-
-const deleteConfModal = document.getElementById("delete-conf-project-modal");
-const deleteConfText = document.querySelector(".delete-conf-project-text");
-const confDeleteProjectBtn = document.querySelector(".conf-delete-project-btn");
-const confCancelBtn = document.querySelector(".conf-cancel-project-btn");
 
 function showDeleteConfirm(e) {
     confDeleteProjectBtn.dataset.id = e.srcElement.dataset.id;
@@ -211,16 +209,15 @@ function deleteProjects(e) {
 }
 
 function editProject(e) {
-    const projectModal = document.getElementById("project-modal");
-    projectModal.showModal();
+    projectForm.showModal();
     let allProjects = getProjects();
     const projectIdToEdit = parseInt(e.srcElement.dataset.id);
     const projectToEdit = allProjects.find(project => {
         return project.id === projectIdToEdit;
     })
-    document.querySelector(".project-title-text").value = projectToEdit.title;
-    document.querySelector(".project-description-text").innerText = projectToEdit.description;
-    document.getElementById("project-form").dataset.id = projectToEdit.id;
+    projectTitleText.value = projectToEdit.title;
+    projectText.innerText = projectToEdit.description;
+    projectForm.dataset.id = projectToEdit.id;
 }
 
 export { projectModal }

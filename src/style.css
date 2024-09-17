@@ -12,11 +12,23 @@
 :root {
     --bg-Color: #0F2027;
     --layout-Bg-Color: #2C5364;
-    --logo-Color: rgb(221, 158, 22);
-    --text-color: white;
-    --prio-green: #0cbf66;
-    --prio-yellow: #df9920;
-    --prio-red: #b31d1d;
+    --logo-Main-Color: orange;
+    --text-Color-White: white;
+    --text-Color-Gray: gray;
+    --select-Bg: rgba(223, 153, 32, 0.5);
+    --prio-Green: #30b24e;
+    --prio-Yellow: #e1940e;
+    --prio-Red: #ae1a1a;
+    --modal-Textarea-Color: #a7cdde;
+    --dialog-Backdrop: rgba(0, 0, 0, 0.5);
+    --save-Btn-color: rgba(255, 166, 0, 0.85);
+    --box-shadow-Color-Dark: rgba(255, 255, 255, 0);
+    --box-shadow-Color: rgba(175, 255, 255, 0.881);
+    --text-shadow: #427388;
+    --checkbox-border-color: rgba(203, 203, 203, 0.785);
+    --checkbox-checked-color: #e6ab52;
+    --checkbox-hover-color: rgba(255, 229, 182, 0.218);
+    --checkbox-disabled-bg-color: orange;
 }
 
 /* Layout style */
@@ -32,29 +44,39 @@ html {
 }
 
 body {
-    color: var(--text-color);
+    color: var(--text-Color-White);
     height: 98vh;
 }
 
 #layout-container {
     width: 120rem;
     height: 100%;
-    margin: 1rem auto;
+    margin: 16px auto;
     display: grid;
     grid-template-columns: 2.5fr 10fr 3fr;
     grid-template-rows: 1fr;
     background-color: var(--bg-Color);
-    gap: 1rem;
+    gap: 16px;
+}
+
+#sidebar-container, #task-container, #notes-container {
+    border-radius: 16px;
+    background-color: var(--layout-Bg-Color);
+    padding: 0 32px 32px 32px;
+    overflow: auto;
+}
+
+#sidebar-container, .task-header-container, .notes-header {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    background-color: var(--layout-Bg-Color);
+    padding-top: 32px;
+    z-index: 1;
 }
 
 /* Sidebar layout */
-
-#sidebar-container, #task-container, #notes-container {
-    border-radius: 1rem;
-    background-color: var(--layout-Bg-Color);
-    padding: 0 2rem 2rem 2rem;
-    overflow: auto;
-}
 
 #sidebar-container {
     display: flex;
@@ -63,32 +85,24 @@ body {
 }
 
 #app-logo {
-    color: var(--logo-Color);
-    border-bottom: 1px white solid;
+    color: var(--logo-Main-Color);
+    border-bottom: 1px var(--logo-Main-Color) solid;
     padding-bottom: 4px;
-    font-weight: 400;
 }
 
 #task-filter {
-    border-bottom: 1px white solid;
+    border-bottom: 1px var(--logo-Main-Color)  solid;
     margin-top: 32px;
     margin-bottom: 16px;
     padding-bottom: 32px;
 }
 
-.btn {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    background: transparent;
+.for-icon, .btn, .btn-field, #add-task-btn, .add-note-btn,
+.add-project-btn, .edit-btn, .delete-btn, .close-btn,
+.conf-delete-btn, .conf-delete-note-btn, .conf-delete-project-btn, 
+.conf-cancel-btn, .conf-cancel-note-btn, .conf-cancel-project-btn, 
+.prio-span, .save-btn{
     cursor: pointer;
-    border: none;
-    color: var(--text-color);
-    font-size: 20px;
-    gap: 12px;
-    line-height: 42px;
-    align-items: center;
-    border-radius: 8px;
 }
 
 .for-icon {
@@ -97,7 +111,6 @@ body {
     background-repeat: no-repeat;
     background-size: contain;
     border: none;
-    cursor: pointer;
 }
 
 .btn-all-tasks > span  {
@@ -120,14 +133,21 @@ body {
     background-image: url('./assets/icons/today.png');
 }
 
-#sidebar-container, .task-header-container, .notes-header {
-    position: sticky;
+.btn, .btn-field {
+    border-radius: 8px;
+    border: none;
+}
+
+.btn {
     display: flex;
-    flex-direction: column;
-    top: 0;
-    background-color: var(--layout-Bg-Color);
-    padding-top: 2rem;
-    z-index: 1;
+    flex-direction: row;
+    font-size: 1.125rem;
+    gap: 12px;
+    line-height: 42px;
+    align-items: center;
+    padding-left: 8px;
+    background: var(--layout-Bg-Color);
+    color: var(--text-Color-White);
 }
 
 .btn-field {
@@ -135,13 +155,9 @@ body {
     grid-template-columns: 8fr 1fr;
     width: 100%;
     min-height: 80px;
-    border-radius: 8px;
     padding: 12px 16px;
     background-color: var(--bg-Color);
-    border-style: none;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
+    color: var(--text-Color-White);
 }
 
 .btn-field:hover {
@@ -151,474 +167,90 @@ body {
 }
 
 .current {
-    background-color: #df99204f;
+    background-color: var(--select-Bg);
     width: 100%;
 }
 
-/* Note content layout */
+/* Project layout */
 
-#notes-container {
+.project-container {
     display: flex;
     flex-direction: column;
-}
-
-.add-note-btn {
-    width: 50%;
-    background: transparent;
-    cursor: pointer;
-    border: none;
-    color: var(--text-color);
-    align-self: center;
-    margin: 0.5rem 0;
-    padding: 0.5rem 1rem;
-}
-
-.add-note-btn:hover {
-    background-color: var(--logo-Color);
-    transition: 0.5s;
-}
-
-.add-note-btn:active {
-   transform: scale(0.9); 
-}
-
-#all-note-container {
-    display: flex;
-    flex-direction: column;
-    height: auto;
+    width: 100%;
     gap: 0.5rem;
 }
 
-.new-note, .default-note {
-    display: grid;
-    grid-template-columns: 90% 10%;
-    grid-template-rows: 45px auto;;
-    padding: 10px 6px 10px 16px;
+.default-project {
+    margin-top: 0.5rem;
     width: 100%;
-    height: auto;
-    overflow-wrap: anywhere;
-    background-color: var(--bg-Color);
-    border-radius: 0.5rem;
-    list-style: none;
-    font-size: 15px;
+    border-radius: 8px;
 }
 
-.default-note:not(:only-child) {
-    display: none;
+.project-title {
+    font-size: 1rem;
+    margin-bottom: 14px;
+    font-weight: bold;
 }
 
-.note-text-container {
-    grid-row: 1/3;
-    padding: 6px 12px 8px 0;
-}
-
-.edit-note-btn {
-    background-image: url("../src/assets/icons/edit-note.png");
-    background-color: transparent !important;
-    color: transparent;
-    width: 24px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    border: none;
-    cursor: pointer;
-}
-
-.delete-note-btn {
-    grid-column: 2/3;
-    background-image: url("../src/assets/icons/delete-note.png");
-    background-color: transparent !important;
-    color: transparent;
-    width: 20px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    border: none;
-    cursor: pointer;
-}
-
-.note-date {
-    grid-column: 1 / 3;
-    color: gray;
+.project-description {
+    font-size: 0.875rem;
     font-style: italic;
-    font-size: 13px;
-    align-self: flex-end;
+    grid-row: 2/3;
+    text-align: left;
+    padding-right: 8px;
 }
 
-/* Notes modal */
-dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px);
-}
-
-.note-modal-container {
-    width: 600px;
-    height: 300px;
-    padding: 0.5rem;
-    background: #2c5364;
-    position: fixed;
-    border-radius: 16px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 24px rgba(175, 255, 255, 0.881);
-}
-
-.close-btn-container {
+.add-new-project {
     display: flex;
-    justify-content: right;
-    margin: 8px;
-}
-
-.close-note-modal-btn {
-    padding: 4px 8px;
-    background: var(--logo-Color);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.895);
-    border-style: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close-note-modal-btn:hover {
-    background-color: rgba(221, 158, 22, 0.8);
-    transition: 0.5ms;
-}
-
-#note-modal-content {
-    display: flex;
-    flex-direction: column;
-    margin: 20px auto;
-    max-width: 510px;
-    width: 100%;
-    gap: 24px;
-}
-
-.add-note-title {
-    color: var(--text-color);
-    font-size: 32px;
-}
-
-#note-text {
-    width: 100%;
-    height: 60px;
-    background-color: #a7cdde;
-    color: rgb(0, 0, 0);
-    border-style: none;
-    border-radius: 8px;
-    padding: 10px;
-}
-
-#note-text:hover {
-    background-color: rgba(167, 205, 222, 0.8);
-    transition: 0.5ms;
-}
-
-.modal-action {
-    text-align: center;
-}
-
-#save-note-btn {
-    border-style: none;
-    font-weight: bold;
-    padding: 8px 16px;
-    border-radius: 8px;
-    background-color: var(--logo-Color);
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.895);
-}
-
-#save-note-btn:hover {
-    background-color: rgba(221, 158, 22, 0.8);
-}
-
-/* Delete note conform modal */
-#delete-conf-modal, #delete-conf-note-modal, #delete-conf-project-modal {
-    width: 600px;
-    height: 300px;
-    padding: 0.5rem;
-    background: #2c5364;
-    color: white;
-    border: none;
-    border-radius: 16px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 24px rgba(175, 255, 255, 0.881);
-    text-align: center;
-    align-content: center;
-    font-size: 24px;
-}
-
-.conf-delete-btn, .conf-delete-note-btn, .conf-delete-project-btn, 
-.conf-cancel-btn, .conf-cancel-note-btn, .conf-cancel-project-btn {
-    font-family: "MyFont";
-    font-size: 16px;
-    border-style: none;
-    font-weight: bold;
-    padding: 8px 16px;
-    margin: 36px 6px 0 6px;
-    border-radius: 8px;
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.895);
-}
-
-.conf-delete-btn, .conf-delete-note-btn, .conf-delete-project-btn {
-    background-color: var(--bg-Color);
-    border: var(--logo-Color) solid 2px;
-}
-
-.conf-delete-btn:hover {
-    background-color: var(--logo-Color);
-    transition: 0.5ms;
-}
-
-.conf-delete-note-btn:hover {
-    background-color: var(--logo-Color);
-    transition: 0.5ms;
-}
-
-.conf-delete-project-btn:hover {
-    background-color: var(--logo-Color);
-    transition: 0.5ms;
-}
-
-.conf-cancel-btn, .conf-cancel-note-btn, .conf-cancel-project-btn {
-    background-color: var(--bg-Color);
-    border: white solid 2px;
-}
-
-.conf-cancel-btn:hover {
-    background-color: white;
-    color: var(--logo-Color);
-    transition: 0.5ms;
-}
-
-.conf-cancel-note-btn:hover {
-    background-color: white;
-    color: var(--logo-Color);
-    transition: 0.5ms;
-}
-
-.conf-cancel-project-btn:hover {
-    background-color: white;
-    color: var(--logo-Color);
-    transition: 0.5ms;
-}
-
-/* Task modal */
-.task-modal-container {
-    width: 600px;
-    height: auto;
-    padding: 0.5rem;
-    background: #2c5364;
-    position: fixed;
-    border-radius: 16px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 24px rgba(175, 255, 255, 0.881);
-}
-
-#close-task-modal-btn {
-    padding: 4px 8px;
-    background: var(--logo-Color);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.895);
-    border-style: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-#close-task-modal-btn:hover {
-    background-color: rgba(221, 158, 22, 0.8);
-    transition: 0.5ms;
-}
-
-.close-task-list-btn-container {
-    display: flex;
-    justify-content: right;
-    margin: 8px;
-}
-
-.add-task-title {
-    text-align: center;
-}
-
-#task-modal-content {
-    display: grid;
-    margin: 20px auto;
-    max-width: 510px;
-    width: 100%;
-    font-size: 18px;
-    gap: 24px;
-    color: white;
-}
-
-.task-date, .task-prio, .task-project {
-    justify-self: center;
-}
-
-.task-prio {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-.prio-radio-container {
-    display: flex;
-    gap: 12px;
-}
-
-.prio-span {
-    font-size: 16px;
-    color: white;
-    padding: 4px 16px;
-    cursor: pointer;
-    border-radius: 6px;
-    border: 2px solid;
-}
-
-.prio-radio > input {
-    display: none;
-}
-
-.prio-radio:hover  {
-    box-shadow: 0 0 4px transparent;
-    transition: 0.4s;
-    transform: scale(0.9); 
-}
-
-.prio-low:hover {
-    color: var(--prio-green);
-}
-
-.prio-medium:hover {
-    color: var(--prio-yellow);
-}
-
-.prio-high:hover {
-    color: var(--prio-red);
-}
-
-input:checked + .prio-low {
-    color: var(--prio-green);
-    border: 3px solid var(--prio-green);
-}
-
-input:checked + .prio-medium {
-    color: var(--prio-yellow);
-    border: 3px solid var(--prio-yellow);
-}
-
-input:checked + .prio-high {
-    color: var(--prio-red);
-    border: 3px solid var(--prio-red);
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px auto;
+    justify-content: space-between;
 }
 
 /* Task layout */
+
 #task-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 39px;
-}
-
-#add-task-btn {
-    width: 8rem;
-    height: 2rem;
-    font-size: 16px;
-    background-color: var(--layout-Bg-Color);
-    border-radius: 16px;
-    border: 1px solid orange;
-    color: orange;
-    cursor: pointer;
-}
-
-#add-task-btn:hover {
-    border: 2px solid;
-}
-
-#add-task-btn:active {
-   transform: scale(0.9); 
-}
-
-.add-task-title {
-    color: var(--text-color);
-    font-size: 32px;
-}
-
-#task-text {
-    width: 100%;
-    height: 60px;
-    background-color: #a7cdde;
-    color: rgb(0, 0, 0);
-    border-style: none;
-    border-radius: 8px;
-    padding: 10px;
-}
-
-#task-text:hover {
-    background-color: rgba(167, 205, 222, 0.8);
-    transition: 0.5ms;
-}
-
-#save-task-btn {
-    border-style: none;
-    font-weight: bold;
-    padding: 8px 16px;
-    border-radius: 8px;
-    background-color: var(--logo-Color);
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.895);
-}
-
-#save-task-btn:hover {
-    background-color: rgba(221, 158, 22, 0.8);
-}
-
-/* Task table */
-#task-title {
-    margin-bottom: 2.5rem;
+    margin-bottom: 50px;
 }
 
 .task-list-header {
     background: var(--bg-Color);
-    font-size: 18px;
-    border-radius: 16px;
+    font-size: 1.125rem;
+    border-radius: 8px;
 }
 
 #task-list {
     display: flex;
     flex-direction: column;
     padding-top: 7px;
-    gap: 6px;
+    gap: 5px;
 }
 
 .task {
     display: grid;
     grid-template-columns: 1fr 1fr 14fr 2.5fr 1.5fr 1.5fr;
     gap: 8px;
-    align-content: center;
+    align-items: center;
     justify-items: center;
     padding: 14px;
 }
 
 .new-task {
-    background-color: rgba(203, 141, 24, 0.42);
+    background-color: var(--select-Bg);
 }
 
 #task-list > .task {
-    border-bottom: 1px solid rgba(221, 158, 22, 0.5);
+    border-bottom: 1px solid var(--select-Bg);
 }
 
 #task-list > .task:nth-child(2)  {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    border-top: 1px solid rgba(221, 158, 22, 0.5);
+    border-top: 1px solid var(--select-Bg);
 }
 
 #task-list > .task:last-child {
@@ -631,55 +263,70 @@ input:checked + .prio-high {
 }
 
 .dot {
-    height: 21px;
-    width: 21px;
+    height: 20px;
+    width: 20px;
     border-radius: 50%;
     display: inline-block;
 }
+
 .dot-green {
-    background-color: #0cbf66;
+    background-color: var(--prio-Green);
 }
 
 .dot-yellow {
-    background-color: #df9920;
+    background-color: var(--prio-Yellow);
 }
 
 .dot-red {
-    background-color: #b31d1d;
+    background-color: var(--prio-Red);
 }
 
-.toggle-complete {
-    height: 21px;
-    width: 21px;
+.checkbox-container {
+    height: 25px;
+    width: 25px;
+}
+
+input[type="checkbox"] {
+    box-sizing: border-box;
+    width: 25px;
+    height: 25px;
+    border: 2px solid var(--checkbox-border-color);
+    border-radius: 4px;
+    appearance: none;
+    background-color: transparent;
+    outline: none;
+    transition: outline 0.1s;
+}
+
+input[type="checkbox"]:checked {
+    background-size: cover;
+    border: 1px solid;
+    padding: 4px;
+}
+  
+input[type="checkbox"]:not(:disabled):checked {
+    border-color: var(--checkbox-checked-color);
+    background-color: var(--checkbox-disabled-bg-color);
+}
+
+input[type="checkbox"]:disabled {
+    background-color: var(--checkbox-disabled-bg-color);
+}
+  
+input[type="checkbox"]:disabled:checked {
+    background-image: var(--checkbox-checked-color);
+}
+
+@media (hover: hover) {
+    input[type="checkbox"]:not(:disabled):hover {
+      background-color: var(--checkbox-hover-color);
+      transform: scale(1);
+    }
 }
 
 .completed {
     opacity: 0.28;
     background-color: var(--layout-Bg-Color);
-}
-
-.edit-task {
-    background-image: url('../src/assets/icons/create-outline.svg');
-    background-color: transparent !important;
-    color: transparent;
-    width: 26px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    border: none;
-    cursor: pointer;
-}
-
-.delete-task {
-    background-image: url('../src/assets/icons/trash-outline.svg');
-    background-color: transparent !important;
-    color: transparent;
-    width: 26px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    border: none;
-    cursor: pointer;
 }
 
 /* Task list when no tasks */
@@ -697,7 +344,7 @@ input:checked + .prio-high {
 
 .no-tasks-text {
     text-align: center;
-    color: rgba(255, 255, 255, 0.458);
+    color: var(--checkbox-border-color);
     font-style: italic;
 }
 
@@ -705,188 +352,360 @@ input:checked + .prio-high {
     display: none;
 }
 
-/* Project layout and modal */
+/* Note layout */
 
-.project-container {
+#notes-container {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    gap: 0.5rem;
 }
 
-.default-project {
-    margin-top: 0.5rem;
-    width: 100%;
-    border-radius: 8px;
-}
-
-.project-title {
-    font-size: 16px;
-    margin-bottom: 14px;
-    font-weight: bold;
-}
-
-.project-description {
-    font-size: 14px;
-    font-style: italic;
-    grid-row: 2/3;
-    text-align: left;
-    padding-right: 8px;
-}
-
-.edit-project-btn {
-    background-image: url("../src/assets/icons/edit-note.png");
-    background-color: transparent !important;
-    color: transparent;
-    width: 20px;
-    height: 20px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    border: none;
-    cursor: pointer;
-}
-
-.delete-project-btn {
-    background-image: url("../src/assets/icons/delete-note.png");
-    background-color: transparent !important;
-    color: transparent;
-    width: 18px;
-    height: 18px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    border: none;
-    cursor: pointer;
-}
-
-.edit-project-btn, .delete-project-btn {
-    display: none
-}
-
-.add-new-project {
+#all-note-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    height: auto;
     gap: 8px;
-    margin: 16px auto;
-    justify-content: space-between;
 }
 
-.add-project-btn {
-    background: transparent;
-    border: none;
-    border: 2px solid;
-    color: orange;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    width: 40px;
-    padding: 5px 5px 5px 13px;
-    border-radius: 30px;
-    overflow: hidden;
-    white-space: nowrap; 
-    cursor: pointer;
-    transition: all 0.6s;
+.note-text-container {
+    grid-row: 1/3;
+    padding: 6px 12px 8px 0;
 }
 
-.add-project-btn > span {
-    display: inline-block;
-    transform: translateX(60px);
-    opacity: 0;
-    transition: opacity 0.1s, transform 0.3s 0.4s;
-    padding-left: 6px;
+.new-note, .default-note {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    grid-template-rows: 45px auto;;
+    padding: 10px 6px 10px 16px;
+    overflow-wrap: anywhere;
+    background-color: var(--bg-Color);
+    border-radius: 8px;
+    list-style: none;
+    font-size: 0.938rem;
 }
 
-.add-project-btn:hover {
-    color: orange;
-    width: 80px;
-    padding-right: 15px;
+.default-note:not(:only-child) {
+    display: none;
 }
 
-.add-project-btn:hover > span {
-    transform: translateX(0);
-    opacity: 1;
+.note-date {
+    grid-column: 1 / 3;
+    color: var(--text-Color-Gray);
+    font-style: italic;
+    font-size: 0.813rem;
+    align-self: flex-end;
 }
 
-/* Project modal */
-#project-modal {
+/* Modals */
+dialog::backdrop {
+    background-color: var(--dialog-Backdrop);
+    backdrop-filter: blur(2px);
+}
+
+#project-modal-container, .note-modal-container, .task-modal-container,
+#delete-conf-modal, #delete-conf-note-modal, #delete-conf-project-modal {
     width: 600px;
-    padding: 0.5rem;
-    background: #2c5364;
-    color: white;
-    border: none;
+    height: fit-content;
+    padding: 8px;
+    background: var(--layout-Bg-Color);
+    color: var(--text-Color-White);
     border-radius: 16px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 0 24px rgba(175, 255, 255, 0.881);
-    font-size: 24px;
+    box-shadow: 0 0 24px var(--box-shadow-Color);
+    font-size: 1.5rem;
 }
 
-.project-cancel-btn {
+#project-modal-container {
+    border: none;
+}
+
+.note-modal-container, .task-modal-container {
+    position: fixed;
+}
+
+/* Close and save button */
+.close-btn {
+    width: 28px;
+    height: 28px;
     padding: 2px 8px;
-    background: var(--logo-Color);
-    font-family: "MyFont";
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.895);
-    border-style: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
+    background-color: var(--layout-Bg-Color);
+    color: var(--text-Color-White);
+    font-size: 1.1rem;
+    border: none;
     float: right;
 }
 
-.project-cancel-btn:hover {
-    background-color: rgba(221, 158, 22, 0.8);
-    transition: 0.5ms;
+.close-btn:hover {
+    text-shadow: 0 0 3px var(--text-Color-White);
+    transition: 0.4ms;
 }
 
-.modal-project-title {
-    font-size: 24px;
+.save-btn {
+    margin: auto;
+    margin-bottom: 4px;
+    border-style: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    background-color: var(--save-Btn-color);
+    color: var(--text-Color-White);
+}
+
+.save-btn:hover {
+    box-shadow: 0 0 5px var(--logo-Main-Color);
+    transition: 0.4ms;
+}
+
+.save-btn:active {
+    scale: 1.1;
+}
+
+/* Modal title */
+
+.modal-title {
+    font-size: 1.5rem;
     margin-top: 26px;
     margin-bottom: 16px;
     text-align: center;
 }
 
-#project-form {
+.modal-form {
+    height: fit-content;
     display: flex;
     flex-direction: column;
-    font-size: 16px;
-    gap: 8px;
-    width: 50%;
-    margin: 20px auto;
+    font-size: 1rem;
+    margin-left: 27px;
+    gap: 12px;
 }
 
-#project-form > span {
-    text-align: center;
+.modal-textarea, .project-title-text {
+    background-color: var(--modal-Textarea-Color);
+    border-style: none;
+    border-radius: 8px;
+    padding: 16px;
 }
 
 .project-title-text {
     height: 30px;
-    background-color: #a7cdde;
-    border-style: none;
-    border-radius: 8px;
-    padding: 10px;
 }
 
-.project-description-text {
+.modal-textarea  {
     height: 60px;
-    background-color: #a7cdde;
-    border-style: none;
-    border-radius: 8px;
-    padding: 10px;
 }
 
-.save-project-btn {
-    margin: 4px auto;
+.modal-textarea:hover, .project-title-text:hover {
+    background-color: var(--modal-Textarea-Color);
+    transition: 0.5ms;
+}
+
+textarea:focus, input:focus, select:focus{
+    outline: none;
+}
+
+#task-text {
+    width: 100%;
+}
+
+/* Task modal */
+
+#task-date, #project {
+    height: 30px;
+    background-color: var(--modal-Textarea-Color);
+    border: none;
+    border-radius: 8px;
+    margin-top: 12px 2px;
+}
+
+#task-date {
+    width: 190px;
+    padding: 16px;
+}
+
+#project {
+    width: 128px;
+    padding-left: 12px;
+}
+
+.task-prio {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    margin: 12px 0;
+}
+
+.prio-span {
+    font-size: 16px;
+    color: var(--text-Color-White);
+    padding: 4px 16px;
+    border-radius: 8px;
+    border: 2px solid;
+}
+
+.prio-radio > input {
+    display: none;
+}
+
+.prio-radio:hover  {
+    box-shadow: 0 0 4px transparent;
+    transition: 0.4s;
+    transform: scale(0.9); 
+}
+
+.prio-low:hover {
+    color: var(--prio-Green);
+}
+
+.prio-medium:hover {
+    color: var(--prio-Yellow);
+}
+
+.prio-high:hover {
+    color: var(--prio-red);
+}
+
+input:checked + .prio-low {
+    color: var(--prio-Green);
+    border: 3px solid var(--prio-Green);
+}
+
+input:checked + .prio-medium {
+    color: var(--prio-Yellow);
+    border: 3px solid var(--prio-Yellow);
+}
+
+input:checked + .prio-high {
+    color: var(--prio-red);
+    border: 3px solid var(--prio-Red);
+}
+
+/* Add task, note, project buttons */
+.add-project-btn {
+    width: 32px;
+    height: 32px;
+    padding-left: 10px;
+}
+
+.add-note-btn {
+    margin: 14px auto;
+}
+
+#add-task-btn, .add-note-btn {
+    width: 128px;
+    height: 32px;
+}
+
+#add-task-btn, .add-note-btn, .add-project-btn {
+    font-size: 1rem;
+    border-radius: 16px;
+    color: var(--logo-Main-Color);
+    border: 1px solid var(--logo-Main-Color);
+    background-color: var(--layout-Bg-Color);
+    box-shadow: inset 0 0 20px var(--box-shadow-Color-Darkshadow-Color);
+    outline: 1px solid var(--logo-Main-Color);
+    outline-color: var(--select-Bg);
+    outline-offset: 0px;
+    transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+#add-task-btn:hover, .add-note-btn:hover, .add-project-btn:hover {
+    border: 1px solid;
+    outline-color: var(--box-shadow-Color-Darkshadow-Color);
+    outline-offset: 15px;
+    text-shadow: 1px 1px 2px var(--text-shadow); 
+}
+
+#add-task-btn:active, .add-note-btn:active, .add-project-btn:active {
+   transform: scale(0.9); 
+}
+
+/* Edit and delete button */
+
+.edit-btn, .delete-btn {
+    background-color: transparent !important;
+    color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: none;
+}
+
+.edit-btn {
+    background-image: url("../src/assets/icons/edit-note.png");
+    width: 24px;
+}
+
+.delete-btn {
+    background-image: url("../src/assets/icons/delete-note.png");
+}
+
+.edit-task, .delete-task {
+    height: 100%;
+    width: 26px;
+    background-position: center;
+}
+
+.edit-task {
+    background-image: url('../src/assets/icons/create-outline.svg');
+}
+
+.delete-task {
+    background-image: url('../src/assets/icons/trash-outline.svg');
+}
+
+.delete-note-btn {
+    grid-column: 2/3;
+    width: 20px;
+}
+
+.edit-project-btn, .delete-project-btn {
+    display: none;
+}
+
+.edit-project-btn {
+    width: 20px;
+    height: 20px;
+}
+
+.delete-project-btn {
+    width: 18px;
+    height: 18px;
+}
+
+/* Delete note conform modal */
+#delete-conf-modal, #delete-conf-note-modal, #delete-conf-project-modal {
+    border: none;
+    text-align: center;
+    align-content: center;
+}
+
+.conf-delete-btn, .conf-delete-note-btn, .conf-delete-project-btn, 
+.conf-cancel-btn, .conf-cancel-note-btn, .conf-cancel-project-btn {
+    font-size: 1rem;
     border-style: none;
     font-weight: bold;
     padding: 8px 16px;
+    margin: 36px 6px 0 6px;
     border-radius: 8px;
-    background-color: var(--logo-Color);
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.895);
+    color: var(--text-Color-White);
 }
 
-.save-project-btn:hover {
-    background-color: rgba(221, 158, 22, 0.8);
+.conf-delete-btn, .conf-delete-note-btn, .conf-delete-project-btn {
+    background-color: var(--bg-Color);
+    border: var(--logo-Main-Color) solid 2px;
+}
+
+.conf-delete-btn:hover, .conf-delete-note-btn:hover, .conf-delete-project-btn:hover {
+    background-color: var(--logo-Main-Color);
+    transition: 0.5ms;
+}
+
+.conf-cancel-btn, .conf-cancel-note-btn, .conf-cancel-project-btn {
+    background-color: var(--bg-Color);
+    border: var(--text-Color-White) solid 2px;
+}
+
+.conf-cancel-btn:hover, .conf-cancel-note-btn:hover, .conf-cancel-project-btn:hover  {
+    background-color: var(--text-Color-White);
+    color: var(--logo-Main-Color);
     transition: 0.5ms;
 }

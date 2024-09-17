@@ -1,11 +1,26 @@
 import { isThisISOWeek, isToday, isPast } from "date-fns";
 
-function taskModal() {
-    const taskDialog = document.getElementById("task-dialog");
-    const openTaskModal = document.getElementById("add-task-btn");
-    const closeTaskModal = document.getElementById("close-task-modal-btn");
-    const taskText = document.getElementById("task-text");
+const taskDialog = document.getElementById("task-dialog");
+const openTaskModal = document.getElementById("add-task-btn");
+const closeTaskModal = document.getElementById("close-task-modal-btn");
+const taskText = document.getElementById("task-text");
+const dateInput = document.getElementById("task-date");
+const taskForm = document.getElementById("task-form");
+const taskList = document.getElementById("task-list");
+const taskDate = document.getElementById("task-date")
+const deleteConfModal = document.getElementById("delete-conf-modal");
+const deleteConfText = document.querySelector(".delete-conf-text");
+const confDeleteTaskBtn = document.querySelector(".conf-delete-btn");
+const confCancelBtn = document.querySelector(".conf-cancel-btn");
 
+let allTasksBtn = document.querySelector(".btn-all-tasks");
+let todayTasksBtn = document.querySelector(".btn-today-tasks");
+let weekTasksBtn = document.querySelector(".btn-week-tasks");
+let overdueTasksBtn = document.querySelector(".btn-overdue-tasks");
+let completeTasksBtn = document.querySelector(".btn-done-tasks");
+let allTasksDefault = document.querySelector(".btn-field-default");
+
+function taskModal() {
     openTaskModal.addEventListener("click", () => {
         taskDialog.showModal();
         taskText.innerText = "";
@@ -21,7 +36,6 @@ function taskModal() {
 }
 
 function setDateValue() {
-	const dateInput = document.getElementById("task-date");
 	const today = new Date().toISOString().split("T")[0];
 	dateInput.setAttribute("min", today);
     dateInput.setAttribute("value", today);
@@ -39,49 +53,52 @@ class Task {
 
     getAsRow() {
         const task = document.createElement("div");
-        task.classList.add("task", "new-task");
-        task.dataset.id = this.id;
-        
+        const prioDot = document.createElement("span");
+        const checkTask = document.createElement("span");
+        const checkBoxInput = document.createElement("input");
+        const checkmark = document.createElement("span");
+        const taskText = document.createElement("span");
+        const taskDate = document.createElement("span");
+        const deleteBtn = document.createElement("button");
+        const editBtn = document.createElement("button");
+
         const dotClassMap = {
             low: "dot-green",
             medium: "dot-yellow",
             high: "dot-red"
         };
-        const prioDot = document.createElement("span");
+
+        task.classList.add("task", "new-task");
         prioDot.classList.add("dot", dotClassMap[this.prio]);
-        const checkTask = document.createElement("span");
-        const checkBoxInput = document.createElement("input");
-        checkBoxInput.type = "checkbox";
+        checkTask.classList.add("checkbox-container")
         checkBoxInput.classList.add("toggle-complete");
+        checkmark.classList.add("checkmark");
         if(this.complete) {
             task.classList.add("completed");
         }
-
+        taskText.classList.add("task-name");
+        taskDate.classList.add("task-date");
+        editBtn.classList.add("edit-btn", "edit-task");
+        deleteBtn.classList.add("delete-btn", "delete-task");
+        
+        taskText.innerText = this.text;
+        taskDate.innerText = this.date;
+        
+        checkBoxInput.type = "checkbox";
         checkBoxInput.checked = this.complete;
         checkBoxInput.dataset.id = this.id;
-        checkBoxInput.addEventListener("click", taskComplete);
-
-        const taskText = document.createElement("span");
-        taskText.innerText = this.text;
-        taskText.classList.add("task-name");
-
-        const taskDate = document.createElement("span");
-        taskDate.innerText = this.date;
-        taskDate.classList.add("task-date");
-
-        const editBtn = document.createElement("button");
-        editBtn.classList.add("edit-task");
-        editBtn.addEventListener("click", editTask);
+        task.dataset.id = this.id;
         editBtn.dataset.id = this.id;
-    
-        const deleteBtn = document.createElement("button");
-        deleteBtn.classList.add("delete-task");
-        deleteBtn.addEventListener("click", showDeleteConfirm);
         deleteBtn.dataset.id = this.id;
 
+        checkBoxInput.addEventListener("click", taskComplete);
+        editBtn.addEventListener("click", editTask);
+        deleteBtn.addEventListener("click", showDeleteConfirm);
+       
         task.appendChild(prioDot);
         task.appendChild(checkTask);
         checkTask.appendChild(checkBoxInput);
+        checkTask.appendChild(checkmark);
         task.appendChild(taskText);
         task.appendChild(taskDate);
         task.appendChild(editBtn);
@@ -111,8 +128,7 @@ function taskComplete(e) {
 }
 
 function registerSubmitForm() {
-    const resetForm = document.getElementById("task-modal-content");
-    resetForm.addEventListener("submit", onSubmitForm);
+    taskForm.addEventListener("submit", onSubmitForm);
 }
 
 function onSubmitForm(e) {
@@ -124,7 +140,7 @@ function onSubmitForm(e) {
     }).find((element) => {
         return element.checked;
     }).value;
-    let taskProject = document.getElementById("project").value;
+    let taskProject = document.getElementById("project-task").value;
     let complete = false;
 
     if(taskId) {
@@ -149,7 +165,7 @@ function onSubmitForm(e) {
     loadTasks();
 
     e.srcElement.reset();
-    document.getElementById("task-dialog").close();
+    taskDialog.close();
 }
 
 function getId() {
@@ -167,7 +183,6 @@ function isIdNotUnique(id) {
 }
 
 function addToList(newTask) {
-    const taskList = document.getElementById("task-list");
     taskList.appendChild(newTask.getAsRow());
 }
 
@@ -188,7 +203,6 @@ function setTasks(tasks) {
 }
 
 function removeTasksFromHtml() {
-    const taskList = document.getElementById("task-list");
     new DocumentFragment().append(...taskList.querySelectorAll(".new-task"))
 }
 
@@ -200,13 +214,6 @@ function loadTasks() {
         addToList(task)
     })
 }
-
-let allTasksBtn = document.querySelector(".btn-all-tasks");
-let todayTasksBtn = document.querySelector(".btn-today-tasks");
-let weekTasksBtn = document.querySelector(".btn-week-tasks");
-let overdueTasksBtn = document.querySelector(".btn-overdue-tasks");
-let completeTasksBtn = document.querySelector(".btn-done-tasks");
-let allTasksDefault = document.querySelector(".btn-field-default");
 
 allTasksBtn.addEventListener("click", loadTasks);
 todayTasksBtn.addEventListener("click", loadTodayTasks);
@@ -270,11 +277,6 @@ function loadTasksNoProject() {
     })
 }
 
-const deleteConfModal = document.getElementById("delete-conf-modal");
-const deleteConfText = document.querySelector(".delete-conf-text");
-const confDeleteTaskBtn = document.querySelector(".conf-delete-btn");
-const confCancelBtn = document.querySelector(".conf-cancel-btn");
-
 function showDeleteConfirm(e) {
     confDeleteTaskBtn.dataset.id = e.srcElement.dataset.id;
     deleteConfModal.showModal();
@@ -301,15 +303,14 @@ function deleteTasks(e) {
 }
 
 function editTask(e) {
-    const taskDialog = document.getElementById("task-dialog");
     taskDialog.showModal();
     let allTasks = getTasks();
     const taskIdToEdit = parseInt(e.srcElement.dataset.id);
     const taskToEdit = allTasks.find(task => {
         return task.id === taskIdToEdit;
     })
-    document.getElementById("task-text").innerText = taskToEdit.text;
-    document.getElementById("task-date").value = taskToEdit.date;
+    taskText.innerText = taskToEdit.text;
+    taskDate.value = taskToEdit.date;
 
     const hashmap = {
         low: "prio",
@@ -318,7 +319,7 @@ function editTask(e) {
     };
 
     document.getElementById(hashmap[taskToEdit.prio]).checked = taskToEdit.prio;
-    document.getElementById("task-modal-content").dataset.id = taskToEdit.id;
+    taskForm.dataset.id = taskToEdit.id;
 }
 
 export { taskModal, loadProjectTasks }
