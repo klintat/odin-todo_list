@@ -1,4 +1,4 @@
-import { loadProjectTasks } from '../functions/taskModal';
+import { loadProjectTasks } from './taskModule';
 
 const projectModalDialog = document.getElementById("project-modal-container");
 const addProjectBtn = document.querySelector(".add-project-btn");

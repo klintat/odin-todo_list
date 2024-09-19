@@ -1,4 +1,4 @@
-import { isThisISOWeek, isToday, isPast } from "date-fns";
+import { isThisISOWeek, isToday, isPast, format } from "date-fns";
 
 const taskDialog = document.getElementById("task-dialog");
 const openTaskModal = document.getElementById("add-task-btn");
@@ -134,6 +134,7 @@ function onSubmitForm(e) {
     const taskId = parseInt(e.srcElement.dataset.id);
     let taskText = document.getElementById("task-text").value;
     let taskDate = document.getElementById("task-date").value;
+    let taskDateFormat = format(new Date(taskDate), 'PPP');
     let taskPrio = ["prio", "prio-medium", "prio-high"].map((id) => {
         return document.getElementById(id);
     }).find((element) => {
@@ -148,7 +149,7 @@ function onSubmitForm(e) {
             return task.id === taskId;
         })
         taskToEdit.text = taskText;
-        taskToEdit.date = taskDate;
+        taskToEdit.date = taskDateFormat;
         taskToEdit.prio = taskPrio;
         setTasks(allTasks);
 
@@ -156,7 +157,7 @@ function onSubmitForm(e) {
     } else {
         let id = getId();
 
-        let newTask = new Task(id, taskText, taskDate, taskPrio, taskProject, complete);
+        let newTask = new Task(id, taskText, taskDateFormat, taskPrio, taskProject, complete);
 
         saveTask(newTask);
     }

@@ -15,7 +15,7 @@
     --logo-Main-Color: orange;
     --text-Color-White: white;
     --text-Color-Gray: gray;
-    --select-Bg: rgba(223, 153, 32, 0.5);
+    --select-Bg: rgba(235, 164, 42, 0.5);
     --prio-Green: #30b24e;
     --prio-Yellow: #e1940e;
     --prio-Red: #ae1a1a;
@@ -232,7 +232,7 @@ body {
 
 .task {
     display: grid;
-    grid-template-columns: 1fr 1fr 14fr 2.5fr 1.5fr 1.5fr;
+    grid-template-columns: 1fr 1fr 14fr 4fr 1.5fr 1.5fr;
     gap: 8px;
     align-items: center;
     justify-items: center;
@@ -482,7 +482,7 @@ dialog::backdrop {
     background-color: var(--modal-Textarea-Color);
     border-style: none;
     border-radius: 8px;
-    padding: 16px;
+    padding: 10px 12px;
 }
 
 .project-title-text {
@@ -513,17 +513,16 @@ textarea:focus, input:focus, select:focus{
     background-color: var(--modal-Textarea-Color);
     border: none;
     border-radius: 8px;
-    margin-top: 12px 2px;
 }
 
 #task-date {
     width: 190px;
-    padding: 16px;
+    padding: 10px;
 }
 
 #project {
     width: 128px;
-    padding-left: 12px;
+    padding-left: 8px;
 }
 
 .task-prio {
@@ -602,17 +601,14 @@ input:checked + .prio-high {
     border: 1px solid var(--logo-Main-Color);
     background-color: var(--layout-Bg-Color);
     box-shadow: inset 0 0 20px var(--box-shadow-Color-Darkshadow-Color);
-    outline: 1px solid var(--logo-Main-Color);
-    outline-color: var(--select-Bg);
-    outline-offset: 0px;
-    transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
+    outline: none;
+    transition-property: background-color,border-color,color,box-shadow,filter;
+    transition-duration: 0.3s;
 }
 
 #add-task-btn:hover, .add-note-btn:hover, .add-project-btn:hover {
-    border: 1px solid;
-    outline-color: var(--box-shadow-Color-Darkshadow-Color);
-    outline-offset: 15px;
-    text-shadow: 1px 1px 2px var(--text-shadow); 
+    color: var(--text-Color-White);
+    background-color: var(--select-Bg);
 }
 
 #add-task-btn:active, .add-note-btn:active, .add-project-btn:active {

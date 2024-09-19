@@ -1,7 +1,7 @@
 import '../src/style.css';
-import { noteModal } from './functions/noteModal';
-import { taskModal } from './functions/taskModal';
-import { projectModal } from './functions/projectModal';
+import { noteModal } from './functions/noteModule';
+import { taskModal } from './functions/taskModule';
+import { projectModal } from './functions/projectModule';
 
 function initialize() {
     noteModal();
