@@ -1,707 +1,760 @@
 @font-face {
-    font-family: "MyFont";
-    src: url("./assets/fonts/Manrope-ExtraLight.woff2");
-    font-weight: 600;
-    font-style: normal;
+  font-family: "MyFont";
+  src: url("./assets/fonts/Manrope-ExtraLight.woff2");
+  font-weight: 600;
+  font-style: normal;
 }
 
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 :root {
-    --bg-Color: #0F2027;
-    --layout-Bg-Color: #2C5364;
-    --logo-Main-Color: orange;
-    --text-Color-White: white;
-    --text-Color-Gray: gray;
-    --select-Bg: rgba(235, 164, 42, 0.5);
-    --prio-Green: #30b24e;
-    --prio-Yellow: #e1940e;
-    --prio-Red: #ae1a1a;
-    --modal-Textarea-Color: #a7cdde;
-    --dialog-Backdrop: rgba(0, 0, 0, 0.5);
-    --save-Btn-color: rgba(255, 166, 0, 0.85);
-    --box-shadow-Color-Dark: rgba(255, 255, 255, 0);
-    --box-shadow-Color: rgba(175, 255, 255, 0.881);
-    --text-shadow: #427388;
-    --checkbox-border-color: rgba(203, 203, 203, 0.785);
-    --checkbox-checked-color: #e6ab52;
-    --checkbox-hover-color: rgba(255, 229, 182, 0.218);
-    --checkbox-disabled-bg-color: orange;
+  --bg-Color: #0f2027;
+  --layout-Bg-Color: #2c5364;
+  --logo-Main-Color: orange;
+  --text-Color-White: white;
+  --text-Color-Gray: gray;
+  --select-Bg: rgba(235, 164, 42, 0.5);
+  --prio-Green: #30b24e;
+  --prio-Yellow: #e1940e;
+  --prio-Red: #ae1a1a;
+  --modal-Textarea-Color: #a7cdde;
+  --dialog-Backdrop: rgba(0, 0, 0, 0.5);
+  --save-Btn-color: rgba(255, 166, 0, 0.85);
+  --box-shadow-Color-Dark: rgba(255, 255, 255, 0);
+  --box-shadow-Color: rgba(175, 255, 255, 0.881);
+  --text-shadow: #427388;
+  --checkbox-border-color: rgba(203, 203, 203, 0.785);
+  --checkbox-checked-color: #e6ab52;
+  --checkbox-hover-color: rgba(255, 229, 182, 0.218);
+  --checkbox-disabled-bg-color: orange;
 }
 
 /* Layout style */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: "MyFont";
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "MyFont";
 }
 
 html {
-    background-color: var(--bg-Color);
+  background-color: var(--bg-Color);
 }
 
 body {
-    color: var(--text-Color-White);
-    height: 98vh;
+  color: var(--text-Color-White);
+  height: 98vh;
 }
 
 #layout-container {
-    width: 120rem;
-    height: 100%;
-    margin: 16px auto;
-    display: grid;
-    grid-template-columns: 2.5fr 10fr 3fr;
-    grid-template-rows: 1fr;
-    background-color: var(--bg-Color);
-    gap: 16px;
+  width: 120rem;
+  height: 100%;
+  margin: 16px auto;
+  display: grid;
+  grid-template-columns: 2.5fr 10fr 3fr;
+  grid-template-rows: 1fr;
+  background-color: var(--bg-Color);
+  gap: 16px;
 }
 
-#sidebar-container, #task-container, #notes-container {
-    border-radius: 16px;
-    background-color: var(--layout-Bg-Color);
-    padding: 0 32px 32px 32px;
-    overflow: auto;
+#sidebar-container,
+#task-container,
+#notes-container {
+  border-radius: 16px;
+  background-color: var(--layout-Bg-Color);
+  padding: 0 32px 32px 32px;
+  overflow: auto;
 }
 
-#sidebar-container, .task-header-container, .notes-header {
-    position: sticky;
-    display: flex;
-    flex-direction: column;
-    top: 0;
-    background-color: var(--layout-Bg-Color);
-    padding-top: 32px;
-    z-index: 1;
+#sidebar-container,
+.task-header-container,
+.notes-header {
+  position: sticky;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  background-color: var(--layout-Bg-Color);
+  padding-top: 32px;
+  z-index: 1;
 }
 
 /* Sidebar layout */
 
 #sidebar-container {
-    display: flex;
-    flex-direction: column;
-    text-align-last: left;
+  display: flex;
+  flex-direction: column;
+  text-align-last: left;
 }
 
 #app-logo {
-    color: var(--logo-Main-Color);
-    border-bottom: 1px var(--logo-Main-Color) solid;
-    padding-bottom: 4px;
+  color: var(--logo-Main-Color);
+  border-bottom: 1px var(--logo-Main-Color) solid;
+  padding-bottom: 4px;
 }
 
 #task-filter {
-    border-bottom: 1px var(--logo-Main-Color)  solid;
-    margin-top: 32px;
-    margin-bottom: 16px;
-    padding-bottom: 32px;
+  border-bottom: 1px var(--logo-Main-Color) solid;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  padding-bottom: 32px;
 }
 
-.for-icon, .btn, .btn-field, #add-task-btn, .add-note-btn,
-.add-project-btn, .edit-btn, .delete-btn, .close-btn,
-.conf-delete-btn, .conf-delete-note-btn, .conf-delete-project-btn, 
-.conf-cancel-btn, .conf-cancel-note-btn, .conf-cancel-project-btn, 
-.prio-span, .save-btn{
-    cursor: pointer;
+.for-icon,
+.btn,
+.btn-field,
+#add-task-btn,
+.add-note-btn,
+.add-project-btn,
+.edit-btn,
+.delete-btn,
+.close-btn,
+.conf-delete-btn,
+.conf-delete-note-btn,
+.conf-delete-project-btn,
+.conf-cancel-btn,
+.conf-cancel-note-btn,
+.conf-cancel-project-btn,
+.prio-span,
+.save-btn {
+  cursor: pointer;
 }
 
 .for-icon {
-    width: 25px;
-    height: 25px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    border: none;
+  width: 25px;
+  height: 25px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: none;
 }
 
-.btn-all-tasks > span  {
-    background-image: url('./assets/icons/checklist-100.png');
+.btn-all-tasks > span {
+  background-image: url("./assets/icons/checklist-100.png");
 }
 
 .btn-today-tasks > span {
-    background-image: url('./assets/icons/today.png');
+  background-image: url("./assets/icons/today.png");
 }
 
 .btn-week-tasks > span {
-    background-image: url('./assets/icons/timeline-week.png');
+  background-image: url("./assets/icons/timeline-week.png");
 }
 
 .btn-overdue-tasks > span {
-    background-image: url('./assets/icons/overdue.png');
+  background-image: url("./assets/icons/overdue.png");
 }
 
 .btn-done-tasks > span {
-    background-image: url('./assets/icons/today.png');
+  background-image: url("./assets/icons/today.png");
 }
 
-.btn, .btn-field {
-    border-radius: 8px;
-    border: none;
+.btn,
+.btn-field {
+  border-radius: 8px;
+  border: none;
 }
 
 .btn {
-    display: flex;
-    flex-direction: row;
-    font-size: 1.125rem;
-    gap: 12px;
-    line-height: 42px;
-    align-items: center;
-    padding-left: 8px;
-    background: var(--layout-Bg-Color);
-    color: var(--text-Color-White);
+  display: flex;
+  flex-direction: row;
+  font-size: 1.125rem;
+  gap: 12px;
+  line-height: 42px;
+  align-items: center;
+  padding-left: 8px;
+  background: var(--layout-Bg-Color);
+  color: var(--text-Color-White);
 }
 
 .btn-field {
-    display: grid;
-    grid-template-columns: 8fr 1fr;
-    width: 100%;
-    min-height: 80px;
-    padding: 12px 16px;
-    background-color: var(--bg-Color);
-    color: var(--text-Color-White);
+  display: grid;
+  grid-template-columns: 8fr 1fr;
+  width: 100%;
+  min-height: 80px;
+  padding: 12px 16px;
+  background-color: var(--bg-Color);
+  color: var(--text-Color-White);
 }
 
 .btn-field:hover {
-    .edit-project-btn, .delete-project-btn {
-        display: block;
-    }
+  .edit-project-btn,
+  .delete-project-btn {
+    display: block;
+  }
 }
 
 .current {
-    background-color: var(--select-Bg);
-    width: 100%;
+  background-color: var(--select-Bg);
+  width: 100%;
 }
 
 /* Project layout */
 
 .project-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
 }
 
 .default-project {
-    margin-top: 0.5rem;
-    width: 100%;
-    border-radius: 8px;
+  margin-top: 0.5rem;
+  width: 100%;
+  border-radius: 8px;
 }
 
 .project-title {
-    font-size: 1rem;
-    margin-bottom: 14px;
-    font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 14px;
+  font-weight: bold;
 }
 
 .project-description {
-    font-size: 0.875rem;
-    font-style: italic;
-    grid-row: 2/3;
-    text-align: left;
-    padding-right: 8px;
+  font-size: 0.875rem;
+  font-style: italic;
+  grid-row: 2/3;
+  text-align: left;
+  padding-right: 8px;
 }
 
 .add-new-project {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 16px auto;
-    justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px auto;
+  justify-content: space-between;
 }
 
 /* Task layout */
 
 #task-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
 }
 
 .task-list-header {
-    background: var(--bg-Color);
-    font-size: 1.125rem;
-    border-radius: 8px;
+  background: var(--bg-Color);
+  font-size: 1.125rem;
+  border-radius: 8px;
 }
 
 #task-list {
-    display: flex;
-    flex-direction: column;
-    padding-top: 7px;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 7px;
+  gap: 5px;
 }
 
 .task {
-    display: grid;
-    grid-template-columns: 1fr 1fr 14fr 4fr 1.5fr 1.5fr;
-    gap: 8px;
-    align-items: center;
-    justify-items: center;
-    padding: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 14fr 4fr 1.5fr 1.5fr;
+  gap: 8px;
+  align-items: center;
+  justify-items: center;
+  padding: 14px;
 }
 
 .new-task {
-    background-color: var(--select-Bg);
+  background-color: var(--select-Bg);
 }
 
 #task-list > .task {
-    border-bottom: 1px solid var(--select-Bg);
+  border-bottom: 1px solid var(--select-Bg);
 }
 
-#task-list > .task:nth-child(2)  {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    border-top: 1px solid var(--select-Bg);
+#task-list > .task:nth-child(2) {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-top: 1px solid var(--select-Bg);
 }
 
 #task-list > .task:last-child {
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .task-name {
-    justify-self: left;
+  justify-self: left;
 }
 
 .dot {
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    display: inline-block;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .dot-green {
-    background-color: var(--prio-Green);
+  background-color: var(--prio-Green);
 }
 
 .dot-yellow {
-    background-color: var(--prio-Yellow);
+  background-color: var(--prio-Yellow);
 }
 
 .dot-red {
-    background-color: var(--prio-Red);
+  background-color: var(--prio-Red);
 }
 
 .checkbox-container {
-    height: 25px;
-    width: 25px;
+  height: 25px;
+  width: 25px;
 }
 
 input[type="checkbox"] {
-    box-sizing: border-box;
-    width: 25px;
-    height: 25px;
-    border: 2px solid var(--checkbox-border-color);
-    border-radius: 4px;
-    appearance: none;
-    background-color: transparent;
-    outline: none;
-    transition: outline 0.1s;
+  box-sizing: border-box;
+  width: 25px;
+  height: 25px;
+  border: 2px solid var(--checkbox-border-color);
+  border-radius: 4px;
+  appearance: none;
+  background-color: transparent;
+  outline: none;
+  transition: outline 0.1s;
 }
 
 input[type="checkbox"]:checked {
-    background-size: cover;
-    border: 1px solid;
-    padding: 4px;
+  background-size: cover;
+  border: 1px solid;
+  padding: 4px;
 }
-  
+
 input[type="checkbox"]:not(:disabled):checked {
-    border-color: var(--checkbox-checked-color);
-    background-color: var(--checkbox-disabled-bg-color);
+  border-color: var(--checkbox-checked-color);
+  background-color: var(--checkbox-disabled-bg-color);
 }
 
 input[type="checkbox"]:disabled {
-    background-color: var(--checkbox-disabled-bg-color);
+  background-color: var(--checkbox-disabled-bg-color);
 }
-  
+
 input[type="checkbox"]:disabled:checked {
-    background-image: var(--checkbox-checked-color);
+  background-image: var(--checkbox-checked-color);
 }
 
 @media (hover: hover) {
-    input[type="checkbox"]:not(:disabled):hover {
-      background-color: var(--checkbox-hover-color);
-      transform: scale(1);
-    }
+  input[type="checkbox"]:not(:disabled):hover {
+    background-color: var(--checkbox-hover-color);
+    transform: scale(1);
+  }
 }
 
 .completed {
-    opacity: 0.28;
-    background-color: var(--layout-Bg-Color);
+  opacity: 0.28;
+  background-color: var(--layout-Bg-Color);
 }
 
 /* Task list when no tasks */
 .no-task-img {
-    display: flex;
-    background-image: url("./assets/icons/work-order.png");
-    width: 256px;
-    height: 256px;
-    margin: 56px auto;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    opacity: 0.5;
+  display: flex;
+  background-image: url("./assets/icons/work-order.png");
+  width: 256px;
+  height: 256px;
+  margin: 56px auto;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  opacity: 0.5;
 }
 
 .no-tasks-text {
-    text-align: center;
-    color: var(--checkbox-border-color);
-    font-style: italic;
+  text-align: center;
+  color: var(--checkbox-border-color);
+  font-style: italic;
 }
 
 #no-task-container:not(:only-child) {
-    display: none;
+  display: none;
 }
 
 /* Note layout */
 
 #notes-container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 #all-note-container {
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  gap: 8px;
 }
 
 .note-text-container {
-    grid-row: 1/3;
-    padding: 6px 12px 8px 0;
+  grid-row: 1/3;
+  padding: 6px 12px 8px 0;
 }
 
-.new-note, .default-note {
-    display: grid;
-    grid-template-columns: 90% 10%;
-    grid-template-rows: 45px auto;;
-    padding: 10px 6px 10px 16px;
-    overflow-wrap: anywhere;
-    background-color: var(--bg-Color);
-    border-radius: 8px;
-    list-style: none;
-    font-size: 0.938rem;
+.new-note,
+.default-note {
+  display: grid;
+  grid-template-columns: 90% 10%;
+  grid-template-rows: 45px auto;
+  padding: 10px 6px 10px 16px;
+  overflow-wrap: anywhere;
+  background-color: var(--bg-Color);
+  border-radius: 8px;
+  list-style: none;
+  font-size: 0.938rem;
 }
 
 .default-note:not(:only-child) {
-    display: none;
+  display: none;
 }
 
 .note-date {
-    grid-column: 1 / 3;
-    color: var(--text-Color-Gray);
-    font-style: italic;
-    font-size: 0.813rem;
-    align-self: flex-end;
+  grid-column: 1 / 3;
+  color: var(--text-Color-Gray);
+  font-style: italic;
+  font-size: 0.813rem;
+  align-self: flex-end;
 }
 
 /* Modals */
 dialog::backdrop {
-    background-color: var(--dialog-Backdrop);
-    backdrop-filter: blur(2px);
+  background-color: var(--dialog-Backdrop);
+  backdrop-filter: blur(2px);
 }
 
-#project-modal-container, .note-modal-container, .task-modal-container,
-#delete-conf-modal, #delete-conf-note-modal, #delete-conf-project-modal {
-    width: 600px;
-    height: fit-content;
-    padding: 8px;
-    background: var(--layout-Bg-Color);
-    color: var(--text-Color-White);
-    border-radius: 16px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 24px var(--box-shadow-Color);
-    font-size: 1.5rem;
+#project-modal-container,
+.note-modal-container,
+.task-modal-container,
+#delete-conf-modal,
+#delete-conf-note-modal,
+#delete-conf-project-modal {
+  width: 600px;
+  height: fit-content;
+  padding: 8px;
+  background: var(--layout-Bg-Color);
+  color: var(--text-Color-White);
+  border-radius: 16px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 24px var(--box-shadow-Color);
+  font-size: 1.5rem;
 }
 
 #project-modal-container {
-    border: none;
+  border: none;
 }
 
-.note-modal-container, .task-modal-container {
-    position: fixed;
+.note-modal-container,
+.task-modal-container {
+  position: fixed;
 }
 
 /* Close and save button */
 .close-btn {
-    width: 28px;
-    height: 28px;
-    padding: 2px 8px;
-    background-color: var(--layout-Bg-Color);
-    color: var(--text-Color-White);
-    font-size: 1.1rem;
-    border: none;
-    float: right;
+  width: 28px;
+  height: 28px;
+  padding: 2px 8px;
+  background-color: var(--layout-Bg-Color);
+  color: var(--text-Color-White);
+  font-size: 1.1rem;
+  border: none;
+  float: right;
 }
 
 .close-btn:hover {
-    text-shadow: 0 0 3px var(--text-Color-White);
-    transition: 0.4ms;
+  text-shadow: 0 0 3px var(--text-Color-White);
+  transition: 0.4ms;
 }
 
 .save-btn {
-    margin: auto;
-    margin-bottom: 4px;
-    border-style: none;
-    padding: 6px 14px;
-    border-radius: 8px;
-    background-color: var(--save-Btn-color);
-    color: var(--text-Color-White);
+  margin: auto;
+  margin-bottom: 4px;
+  border-style: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background-color: var(--save-Btn-color);
+  color: var(--text-Color-White);
 }
 
 .save-btn:hover {
-    box-shadow: 0 0 5px var(--logo-Main-Color);
-    transition: 0.4ms;
+  box-shadow: 0 0 5px var(--logo-Main-Color);
+  transition: 0.4ms;
 }
 
 .save-btn:active {
-    scale: 1.1;
+  scale: 1.1;
 }
 
 /* Modal title */
 
 .modal-title {
-    font-size: 1.5rem;
-    margin-top: 26px;
-    margin-bottom: 16px;
-    text-align: center;
+  font-size: 1.5rem;
+  margin-top: 26px;
+  margin-bottom: 16px;
+  text-align: center;
 }
 
 .modal-form {
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    font-size: 1rem;
-    margin-left: 27px;
-    gap: 12px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  margin-left: 27px;
+  gap: 12px;
 }
 
-.modal-textarea, .project-title-text {
-    background-color: var(--modal-Textarea-Color);
-    border-style: none;
-    border-radius: 8px;
-    padding: 10px 12px;
+.modal-textarea,
+.project-title-text {
+  background-color: var(--modal-Textarea-Color);
+  border-style: none;
+  border-radius: 8px;
+  padding: 10px 12px;
 }
 
 .project-title-text {
-    height: 30px;
+  height: 30px;
 }
 
-.modal-textarea  {
-    height: 60px;
+.modal-textarea {
+  height: 60px;
 }
 
-.modal-textarea:hover, .project-title-text:hover {
-    background-color: var(--modal-Textarea-Color);
-    transition: 0.5ms;
+.modal-textarea:hover,
+.project-title-text:hover {
+  background-color: var(--modal-Textarea-Color);
+  transition: 0.5ms;
 }
 
-textarea:focus, input:focus, select:focus{
-    outline: none;
+textarea:focus,
+input:focus,
+select:focus {
+  outline: none;
 }
 
 #task-text {
-    width: 100%;
+  width: 100%;
 }
 
 /* Task modal */
 
-#task-date, #project {
-    height: 30px;
-    background-color: var(--modal-Textarea-Color);
-    border: none;
-    border-radius: 8px;
+#task-date,
+#project {
+  height: 30px;
+  background-color: var(--modal-Textarea-Color);
+  border: none;
+  border-radius: 8px;
 }
 
 #task-date {
-    width: 190px;
-    padding: 10px;
+  width: 190px;
+  padding: 10px;
 }
 
 #project {
-    width: 128px;
-    padding-left: 8px;
+  width: 128px;
+  padding-left: 8px;
 }
 
 .task-prio {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 30px;
-    margin: 12px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+  margin: 12px 0;
 }
 
 .prio-span {
-    font-size: 16px;
-    color: var(--text-Color-White);
-    padding: 4px 16px;
-    border-radius: 8px;
-    border: 2px solid;
+  font-size: 16px;
+  color: var(--text-Color-White);
+  padding: 4px 16px;
+  border-radius: 8px;
+  border: 2px solid;
 }
 
 .prio-radio > input {
-    display: none;
+  display: none;
 }
 
-.prio-radio:hover  {
-    box-shadow: 0 0 4px transparent;
-    transition: 0.4s;
-    transform: scale(0.9); 
+.prio-radio:hover {
+  box-shadow: 0 0 4px transparent;
+  transition: 0.4s;
+  transform: scale(0.9);
 }
 
 .prio-low:hover {
-    color: var(--prio-Green);
+  color: var(--prio-Green);
 }
 
 .prio-medium:hover {
-    color: var(--prio-Yellow);
+  color: var(--prio-Yellow);
 }
 
 .prio-high:hover {
-    color: var(--prio-red);
+  color: var(--prio-red);
 }
 
 input:checked + .prio-low {
-    color: var(--prio-Green);
-    border: 3px solid var(--prio-Green);
+  color: var(--prio-Green);
+  border: 3px solid var(--prio-Green);
 }
 
 input:checked + .prio-medium {
-    color: var(--prio-Yellow);
-    border: 3px solid var(--prio-Yellow);
+  color: var(--prio-Yellow);
+  border: 3px solid var(--prio-Yellow);
 }
 
 input:checked + .prio-high {
-    color: var(--prio-red);
-    border: 3px solid var(--prio-Red);
+  color: var(--prio-red);
+  border: 3px solid var(--prio-Red);
 }
 
 /* Add task, note, project buttons */
 .add-project-btn {
-    width: 32px;
-    height: 32px;
-    padding-left: 10px;
+  width: 32px;
+  height: 32px;
+  padding-left: 10px;
 }
 
 .add-note-btn {
-    margin: 14px auto;
+  margin: 14px auto;
 }
 
-#add-task-btn, .add-note-btn {
-    width: 128px;
-    height: 32px;
+#add-task-btn,
+.add-note-btn {
+  width: 128px;
+  height: 32px;
 }
 
-#add-task-btn, .add-note-btn, .add-project-btn {
-    font-size: 1rem;
-    border-radius: 16px;
-    color: var(--logo-Main-Color);
-    border: 1px solid var(--logo-Main-Color);
-    background-color: var(--layout-Bg-Color);
-    box-shadow: inset 0 0 20px var(--box-shadow-Color-Darkshadow-Color);
-    outline: none;
-    transition-property: background-color,border-color,color,box-shadow,filter;
-    transition-duration: 0.3s;
+#add-task-btn,
+.add-note-btn,
+.add-project-btn {
+  font-size: 1rem;
+  border-radius: 16px;
+  color: var(--logo-Main-Color);
+  border: 1px solid var(--logo-Main-Color);
+  background-color: var(--layout-Bg-Color);
+  box-shadow: inset 0 0 20px var(--box-shadow-Color-Darkshadow-Color);
+  outline: none;
+  transition-property: background-color, border-color, color, box-shadow, filter;
+  transition-duration: 0.3s;
 }
 
-#add-task-btn:hover, .add-note-btn:hover, .add-project-btn:hover {
-    color: var(--text-Color-White);
-    background-color: var(--select-Bg);
+#add-task-btn:hover,
+.add-note-btn:hover,
+.add-project-btn:hover {
+  color: var(--text-Color-White);
+  background-color: var(--select-Bg);
 }
 
-#add-task-btn:active, .add-note-btn:active, .add-project-btn:active {
-   transform: scale(0.9); 
+#add-task-btn:active,
+.add-note-btn:active,
+.add-project-btn:active {
+  transform: scale(0.9);
 }
 
 /* Edit and delete button */
 
-.edit-btn, .delete-btn {
-    background-color: transparent !important;
-    color: transparent;
-    background-repeat: no-repeat;
-    background-size: contain;
-    border: none;
+.edit-btn,
+.delete-btn {
+  background-color: transparent !important;
+  color: transparent;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: none;
 }
 
 .edit-btn {
-    background-image: url("../src/assets/icons/edit-note.png");
-    width: 24px;
+  background-image: url("../src/assets/icons/edit-note.png");
+  width: 24px;
 }
 
 .delete-btn {
-    background-image: url("../src/assets/icons/delete-note.png");
+  background-image: url("../src/assets/icons/delete-note.png");
 }
 
-.edit-task, .delete-task {
-    height: 100%;
-    width: 26px;
-    background-position: center;
+.edit-task,
+.delete-task {
+  height: 100%;
+  width: 26px;
+  background-position: center;
 }
 
 .edit-task {
-    background-image: url('../src/assets/icons/create-outline.svg');
+  background-image: url("../src/assets/icons/create-outline.svg");
 }
 
 .delete-task {
-    background-image: url('../src/assets/icons/trash-outline.svg');
+  background-image: url("../src/assets/icons/trash-outline.svg");
 }
 
 .delete-note-btn {
-    grid-column: 2/3;
-    width: 20px;
+  grid-column: 2/3;
+  width: 20px;
 }
 
-.edit-project-btn, .delete-project-btn {
-    display: none;
+.edit-project-btn,
+.delete-project-btn {
+  display: none;
 }
 
 .edit-project-btn {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 .delete-project-btn {
-    width: 18px;
-    height: 18px;
+  width: 18px;
+  height: 18px;
 }
 
 /* Delete note conform modal */
-#delete-conf-modal, #delete-conf-note-modal, #delete-conf-project-modal {
-    border: none;
-    text-align: center;
-    align-content: center;
+#delete-conf-modal,
+#delete-conf-note-modal,
+#delete-conf-project-modal {
+  border: none;
+  text-align: center;
+  align-content: center;
 }
 
-.conf-delete-btn, .conf-delete-note-btn, .conf-delete-project-btn, 
-.conf-cancel-btn, .conf-cancel-note-btn, .conf-cancel-project-btn {
-    font-size: 1rem;
-    border-style: none;
-    font-weight: bold;
-    padding: 8px 16px;
-    margin: 36px 6px 0 6px;
-    border-radius: 8px;
-    color: var(--text-Color-White);
+.conf-delete-btn,
+.conf-delete-note-btn,
+.conf-delete-project-btn,
+.conf-cancel-btn,
+.conf-cancel-note-btn,
+.conf-cancel-project-btn {
+  font-size: 1rem;
+  border-style: none;
+  font-weight: bold;
+  padding: 8px 16px;
+  margin: 36px 6px 0 6px;
+  border-radius: 8px;
+  color: var(--text-Color-White);
 }
 
-.conf-delete-btn, .conf-delete-note-btn, .conf-delete-project-btn {
-    background-color: var(--bg-Color);
-    border: var(--logo-Main-Color) solid 2px;
+.conf-delete-btn,
+.conf-delete-note-btn,
+.conf-delete-project-btn {
+  background-color: var(--bg-Color);
+  border: var(--logo-Main-Color) solid 2px;
 }
 
-.conf-delete-btn:hover, .conf-delete-note-btn:hover, .conf-delete-project-btn:hover {
-    background-color: var(--logo-Main-Color);
-    transition: 0.5ms;
+.conf-delete-btn:hover,
+.conf-delete-note-btn:hover,
+.conf-delete-project-btn:hover {
+  background-color: var(--logo-Main-Color);
+  transition: 0.5ms;
 }
 
-.conf-cancel-btn, .conf-cancel-note-btn, .conf-cancel-project-btn {
-    background-color: var(--bg-Color);
-    border: var(--text-Color-White) solid 2px;
+.conf-cancel-btn,
+.conf-cancel-note-btn,
+.conf-cancel-project-btn {
+  background-color: var(--bg-Color);
+  border: var(--text-Color-White) solid 2px;
 }
 
-.conf-cancel-btn:hover, .conf-cancel-note-btn:hover, .conf-cancel-project-btn:hover  {
-    background-color: var(--text-Color-White);
-    color: var(--logo-Main-Color);
-    transition: 0.5ms;
+.conf-cancel-btn:hover,
+.conf-cancel-note-btn:hover,
+.conf-cancel-project-btn:hover {
+  background-color: var(--text-Color-White);
+  color: var(--logo-Main-Color);
+  transition: 0.5ms;
 }
